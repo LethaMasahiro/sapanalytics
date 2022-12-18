@@ -1,5 +1,3 @@
-# example
-
 
 namespace sapanalytics.db;
 using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
