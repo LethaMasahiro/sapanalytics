@@ -1,0 +1,31 @@
+@url = http://localhost:4004
+
+###
+GET {{url}}/projects/Projects
+
+###
+GET {{url}}/projects/Customers
+
+###
+POST {{url}}/projects/Customers
+Content-Type: application/json
+
+{
+    "name": "TU München",
+    "country": "DE"
+}
+
+###
+GET {{url}}/projects/Customers(ee78d64e-a34d-4b72-93c6-5bccdf6f1769)
+
+###
+PUT {{url}}/projects/Customers(ee78d64e-a34d-4b72-93c6-5bccdf6f1769)
+Content-Type: application/json
+
+{
+    "name": "TU MÜNCHEN",
+    "country": "DE"
+}
+
+###
+DELETE {{url}}/projects/Customers(ee78d64e-a34d-4b72-93c6-5bccdf6f1769)
