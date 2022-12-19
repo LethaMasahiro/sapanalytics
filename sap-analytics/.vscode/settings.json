@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "sapanalytics",
+            "database": "${workspaceFolder:sap-analytics}/db.sqlite"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
