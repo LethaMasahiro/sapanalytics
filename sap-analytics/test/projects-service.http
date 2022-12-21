@@ -37,4 +37,11 @@ GET {{url}}/projects/Customers?$filter=country eq 'germany'
 GET {{url}}/projects/Customers?$top=2
 
 ###
-GET {{url}}/projects/hasProjectEnded()
+GET {{url}}/projects/hasProjectEnded(projectID=ee78d64e-a34d-4b72-93c6-5bccdf6f1769)
+
+###
+POST {{url}}/projects/Projects(ee78d64e-a34d-4b72-93c6-5bccdf6f1769)/end
+Content-Type: application/json
+
+{
+}
