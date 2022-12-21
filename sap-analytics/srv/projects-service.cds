@@ -12,5 +12,5 @@ service ProjectsService {
         function hasEnded() returns Boolean;
     };
 
-    entity Customers as projection on db.Customers {name, ID, country};
+    @readonly entity Customers as projection on db.Customers {name, ID, country};
 }

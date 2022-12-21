@@ -40,6 +40,18 @@ GET {{url}}/projects/Customers?$top=2
 GET {{url}}/projects/hasProjectEnded(projectID=ee78d64e-a34d-4b72-93c6-5bccdf6f1769)
 
 ###
+GET {{url}}/learner/Learners
+
+###
+POST {{url}}/learner/Learners
+Content-Type: application/json
+
+{
+    "name": "Ceddy",
+    "country": "DE"
+}
+
+###
 POST {{url}}/projects/Projects(ee78d64e-a34d-4b72-93c6-5bccdf6f1769)/end
 Content-Type: application/json
 
