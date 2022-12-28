@@ -7,34 +7,85 @@ GET {{url}}/projects/Projects
 GET {{url}}/projects/Customers
 
 ###
+//create customer
 POST {{url}}/projects/Customers
 Content-Type: application/json
 
 {
-    "name": "TU München",
-    "country": "DE"
+    "name": "Sha",
+    "industry": "Kaibo",
+    "country": "CH"
 }
+
+###
+//create Projects
+POST {{url}}/projects/Projects
+Content-Type: application/json
+
+{
+    "name": "Sha",
+    "startDate": "2022-02-17",
+    "endDate": "2022-09-23",
+    "description": "Intelligent",
+    "customer_ID": "a8e1a5c1-c7a4-4fca-b6dd-1bd7ac851f81",
+    "type_code": "rnd"
+}
+
+###
+//create type
+POST {{url}}/projects/ProjectTypes
+Content-Type: application/json
+
+{
+    "code": "rnd",
+    "name": "Research & Development",
+    "descr": "Research and Development Projects"
+
+}
+
 
 ###
 GET {{url}}/projects/Customers(ee78d64e-a34d-4b72-93c6-5bccdf6f1769)
 
 ###
-PUT {{url}}/projects/Customers(ee78d64e-a34d-4b72-93c6-5bccdf6f1769)
+PUT {{url}}/projects/Projects(069b57e1-d9e0-42a6-a3dd-3e9b773331bc)
 Content-Type: application/json
 
 {
-    "name": "TU MÜNCHEN",
-    "country": "DE"
+   "endDate": "2022-09-23",
+    "description": "Intelligent",
+    "customer_ID": "2d83eaa4-baf6-45a6-9fa8-432c99145920",
+    "type_code": "rnd"
 }
+//delete customers 2d83eaa4-baf6-45a6-9fa8-432c99145920
+###
+DELETE {{url}}/projects/Customers(678f4db1-8159-49f2-8ea3-38c74978ce4a)
+//a8e1a5c1-c7a4-4fca-b6dd-1bd7ac851f81
 
 ###
-DELETE {{url}}/projects/Customers(ee78d64e-a34d-4b72-93c6-5bccdf6f1769)
+//delete projects
+DELETE {{url}}/projects/Projects(e851fe72-524c-4f7d-9333-d1f88c6f6c26)
+
 
 ###
-GET {{url}}/projects/Customers?$filter=country eq 'germany'
+GET {{url}}/projects/Customers?$filter=country eq 'DE'
 
 ###
 GET {{url}}/projects/Customers?$top=2
 
 ###
-GET {{url}}/projects/hasProjectEnded()
+GET {{url}}/projects/Projects(069b57e1-d9e0-42a6-a3dd-3e9b773331bc)/customer
+//navigation
+###
+GET {{url}}/projects/Projects?$top=1&$expand=type
+###
+# GET {{url}}/projects/hasProjectEnded(projectId=ab8e85dc-eaf3-4f54-ae98-8ea6b2634d51)
+GET {{url}}/projects/hasProjectEnded(projectId=d69b57e1-d9e0-42a6-a3dd-3e9b773331bc)
+
+###
+POST {{url}}/projects/Projects(069b57e1-d9e0-42a6-a3dd-3e9b773331bc)/end
+Content-Type: application/json
+
+{}
+###
+GET {{url}}/v2/projects/Projects

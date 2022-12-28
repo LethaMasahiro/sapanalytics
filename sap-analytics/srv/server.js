@@ -3,5 +3,6 @@ const cds = require('@sap/cds')
 
 cds.on('bootstrap', app => {
     app.use(proxy())
-} )
+})
+
 module.exports = cds.server

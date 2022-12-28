@@ -1,0 +1,11 @@
+{
+    "cds.checkDevKitInstalled": false,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": " sapanalytics",
+            "database": "./sqlite.db"
+        }
+    ]
+}
