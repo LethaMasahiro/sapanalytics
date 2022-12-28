@@ -22,3 +22,9 @@ entity Customers: cuid, managed{
 entity ProjectTypes: CodeList {
     key code: String(10);
 }
+
+entity Learners: cuid, managed{
+    name: String not null;
+    industry: String;
+    country: String;
+}
