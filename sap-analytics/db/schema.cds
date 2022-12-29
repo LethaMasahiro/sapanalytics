@@ -46,3 +46,16 @@ entity Learners: cuid, managed{
     industry: String;
     country: String;
 }
+
+entity Learnersinfo : managed {
+    key ID      : UUID  @(Core.Computed : true);
+    role        : String;
+    name        : String;
+    email       : String;
+    isDeactivated: Boolean;
+    password    : String;
+    occupation  : String;
+    coursenumber: Integer;
+    visiteddays : Integer;
+    lastvisit   : Date;
+  }
