@@ -1,5 +1,6 @@
 
 namespace sapanalytics.db;
+
 using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
 
 entity Projects: cuid, managed {
@@ -7,7 +8,7 @@ entity Projects: cuid, managed {
     startDate: Date not null;
     endDate: Date;
     description: String;
-    customer: Association to Customers;
+    customer: Association to Customers; //association can be to one/many
     type: Association to ProjectTypes;
 }
 
@@ -20,4 +21,10 @@ entity Customers: cuid, managed{
 
 entity ProjectTypes: CodeList {
     key code: String(10);
+}
+
+entity Learners: cuid, managed{
+    name: String not null;
+    industry: String;
+    country: String;
 }
