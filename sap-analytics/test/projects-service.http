@@ -7,13 +7,42 @@ GET {{url}}/projects/Projects
 GET {{url}}/projects/Customers
 
 ###
+//create customer
 POST {{url}}/projects/Customers
 Content-Type: application/json
 
 {
-    "name": "TU München",
-    "country": "DE"
+    "name": "SHA",
+    "industry": "KAIBO",
+    "country": "CH"
 }
+
+###
+//create Projects
+POST {{url}}/projects/Projects
+Content-Type: application/json
+
+{
+    "name": "Sha",
+    "startDate": "2022-02-17",
+    "endDate": "2022-09-23",
+    "description": "Intelligent",
+    "customer_ID": "a8e1a5c1-c7a4-4fca-b6dd-1bd7ac851f81",
+    "type_code": "rnd"
+}
+
+###
+//create type
+POST {{url}}/projects/ProjectTypes
+Content-Type: application/json
+
+{
+    "code": "rnd",
+    "name": "Research & Development",
+    "descr": "Research and Development Projects"
+
+}
+
 
 ###
 GET {{url}}/projects/Customers(ee78d64e-a34d-4b72-93c6-5bccdf6f1769)
@@ -24,17 +53,36 @@ Content-Type: application/json
 
 {
     "name": "TU MÜNCHEN",
+    "industry": "Education",
     "country": "DE"
 }
+//modify data
+###
+DELETE {{url}}/projects/Customers()
 
 ###
-DELETE {{url}}/projects/Customers(ee78d64e-a34d-4b72-93c6-5bccdf6f1769)
+//delete projects
+DELETE {{url}}/projects/Projects(e108b535-b523-435e-965a-92feaf8be650)
+
 
 ###
-GET {{url}}/projects/Customers?$filter=country eq 'germany'
+GET {{url}}/projects/Customers?$filter=country eq 'DE'
 
 ###
 GET {{url}}/projects/Customers?$top=2
 
 ###
-GET {{url}}/projects/hasProjectEnded()
+GET {{url}}/projects/Customers(a83cf9e5-0877-4653-8ae6-08ad98d242bb)
+//navigation
+###
+GET {{url}}/projects/Projects?$top=1&$expand=type
+###
+GET {{url}}/projects/hasProjectEnded(projectId=a83cf9e5-0877-4653-8ae6-08ad98d242bb)
+
+###
+POST {{url}}/projects/Projects(a83cf9e5-0877-4653-8ae6-08ad98d242bb)/end
+Content-Type: application/json
+
+{}
+###
+GET {{url}}/v2/projects/Customers

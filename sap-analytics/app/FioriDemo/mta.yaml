@@ -1,0 +1,69 @@
+_schema-version: "3.2"
+ID: FioriDemo
+description: Fiori elements app
+version: 0.0.1
+modules:
+- name: FioriDemo-dest-content
+  type: com.sap.application.content
+  requires:
+  - name: FioriDemo-destination-service
+    parameters:
+      content-target: true
+  - name: FioriDemo-repo-host
+    parameters:
+      service-key:
+        name: FioriDemo-repo-host-key
+  - name: FioriDemo-uaa
+    parameters:
+      service-key:
+        name: FioriDemo-uaa-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: FioriDemo_repo_host
+          ServiceInstanceName: FioriDemo-html5-srv
+          ServiceKeyName: FioriDemo-repo-host-key
+          sap.cloud.service: FioriDemo
+        - Authentication: OAuth2UserTokenExchange
+          Name: FioriDemo_uaa
+          ServiceInstanceName: FioriDemo-xsuaa-srv
+          ServiceKeyName: FioriDemo-uaa-key
+          sap.cloud.service: FioriDemo
+        existing_destinations_policy: update
+  build-parameters:
+    no-source: true
+resources:
+- name: FioriDemo-uaa
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json  
+    service: xsuaa
+    service-name: FioriDemo-xsuaa-srv
+    service-plan: application
+- name: FioriDemo-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      version: 1.0.0
+      init_data:
+        instance:
+          existing_destinations_policy: update
+          destinations:
+          - Name: ui5
+            Type: HTTP
+            URL: https://ui5.sap.com
+            ProxyType: Internet
+            Authentication: NoAuthentication
+    service: destination
+    service-name: FioriDemo-destination-service
+    service-plan: lite
+- name: FioriDemo-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: FioriDemo-html5-srv
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo

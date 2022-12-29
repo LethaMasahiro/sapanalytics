@@ -1,0 +1,19 @@
+@url = http://localhost:4004
+
+###
+GET {{url}}/customers/Projects
+
+###
+GET {{url}}/customers/Customers
+
+###
+//create customer
+POST {{url}}/customers/Customers
+Content-Type: application/json
+
+{
+    "name": "LI",
+    "industry": "Bai",
+    "country": "CH"
+}
+
