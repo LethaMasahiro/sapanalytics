@@ -11,6 +11,5 @@ service ProjectsService {
         action end();
         function hasEnded() returns Boolean;
     };
-
     entity Customers as projection on db.Customers {name, ID, country};
 }
