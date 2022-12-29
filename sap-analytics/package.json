@@ -31,12 +31,8 @@
         }
       }
     }
-<<<<<<< HEAD
   },
   "sapux": [
     "app/manager-analysis"
   ]
 }
-=======
-  }
->>>>>>> b77460a0700def2178072ec1464edd6066d8fb5e

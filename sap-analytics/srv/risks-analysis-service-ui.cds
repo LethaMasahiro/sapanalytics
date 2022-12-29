@@ -184,7 +184,7 @@ annotate service.RisksAnalysis with @(
     },
     UI.Chart #chartPrio : {
         $Type : 'UI.ChartDefinitionType',
-        ChartType : #Bar,
+        ChartType : #Donut,
         Dimensions : [
             prio
         ],
