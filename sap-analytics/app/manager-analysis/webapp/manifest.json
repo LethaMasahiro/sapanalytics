@@ -1,0 +1,193 @@
+{
+  "_version": "1.48.0",
+  "sap.app": {
+    "id": "ns.manageranalysis",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.8.4",
+      "toolsId": "5510a28b-b840-4dd7-a78f-ec8942514df4"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/service/risk/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.109.3",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ns.manageranalysis.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "RisksAnalysisList",
+          "target": "RisksAnalysisList"
+        },
+        {
+          "pattern": "RisksAnalysis({key}):?query:",
+          "name": "RisksAnalysisObjectPage",
+          "target": "RisksAnalysisObjectPage"
+        }
+      ],
+      "targets": {
+        "RisksAnalysisList": {
+          "type": "Component",
+          "id": "RisksAnalysisList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "RisksAnalysis",
+              "variantManagement": "Page",
+              "navigation": {
+                "RisksAnalysis": {
+                  "detail": {
+                    "route": "RisksAnalysisObjectPage"
+                  }
+                }
+              },
+              "initialLoad": true,
+              "views": {
+                  "paths": [
+                      {
+                          "primary": [
+                              {
+                                  "annotationPath": "@com.sap.vocabularies.UI.v1.Chart"
+                              }
+                          ],
+                          "secondary": [
+                              {
+                                  "annotationPath": "@com.sap.vocabularies.UI.v1.LineItem"
+                              }
+                          ],
+                          "defaultPath": "both"
+                      }
+                  ]
+              },
+              "controlConfiguration": {
+                  "@com.sap.vocabularies.UI.v1.LineItem": {
+                      "tableSettings": {
+                          "type": "AnalyticalTable",
+                          "enableExport": true
+                      }
+                  },
+                  "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                      "layout": "CompactVisual",
+                      "initialLayout": "Visual",
+                      "filterFields": {
+                          "prio": {
+                              "label": "Priority",
+                              "availability": "Default",
+                              "visualFilter": {
+                                  "valueList": "com.sap.vocabularies.Common.v1.ValueList#vlPrio"
+                              }
+                          },
+                          "createdAt": {
+                              "label": "creation Date",
+                              "availability": "Default",
+                              "visualFilter": {
+                                  "valueList": "com.sap.vocabularies.Common.v1.ValueList#vlcreatedAt"
+                                      }
+                                  }
+                              }
+                          }
+                      
+              }
+            }
+          }
+        },
+        "RisksAnalysisObjectPage": {
+          "type": "Component",
+          "id": "RisksAnalysisObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "RisksAnalysis"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

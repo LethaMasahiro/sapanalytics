@@ -1,33 +1,38 @@
 {
-    "name": "sap-analytics",
-    "version": "1.0.0",
-    "description": "A simple CAP project.",
-    "repository": "<Add your repository here>",
-    "license": "UNLICENSED",
-    "private": true,
-    "dependencies": {
-        "@sap/cds": "^6",
-        "@sap/cds-odata-v2-adapter-proxy": "^1.9.15",
-        "express": "^4"
-    },
-    "devDependencies": {
-        "sqlite3": "^5.0.4",
-        "rimraf": "^3.0.2"
-    },
-    "scripts": {
-        "start": "cds run",
-        "undeploy": "cf undeploy undefined --delete-services --delete-service-keys --delete-service-brokers",
-        "build": "rimraf resources mta_archives && mbt build --mtar archive",
-        "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
-    },
-    "cds": {
-        "requires": {
-            "db": {
-                "kind": "sqlite",
-                "credentials": {
-                    "database": "db.sqlite"
-                }
-            }
+  "name": "sap-analytics",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^6",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.15",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@sap/ux-specification": "^1.102.14",
+    "rimraf": "^3.0.2",
+    "sqlite3": "^5.0.4"
+  },
+  "scripts": {
+    "start": "cds run",
+    "undeploy": "cf undeploy undefined --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "watch-manager-analysis": "cds watch --open manager-analysis/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "db.sqlite"
         }
+      }
     }
+  },
+  "sapux": [
+    "app/manager-analysis"
+  ]
 }
