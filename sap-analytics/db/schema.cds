@@ -47,7 +47,7 @@ entity Learners: cuid, managed{
     country: String;
 }
 
-entity Learnersinfo : managed {
+entity LearnersInfo : managed {
     key ID      : UUID  @(Core.Computed : true);
     role        : String;
     name        : String;
@@ -55,7 +55,13 @@ entity Learnersinfo : managed {
     isDeactivated: Boolean;
     password    : String;
     occupation  : String;
-    coursenumber: Integer;
+    courses: Association to many Courses on courses.learner = $self ;
     visiteddays : Integer;
     lastvisit   : Date;
+  }
+
+  entity Courses : managed {
+    key ID      : UUID  @(Core.Computed : true);
+    name        : String;
+    learner    : Association to LearnersInfo;
   }

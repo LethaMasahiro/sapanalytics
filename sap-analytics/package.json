@@ -20,7 +20,8 @@
     "undeploy": "cf undeploy undefined --delete-services --delete-service-keys --delete-service-brokers",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
-    "watch-manager-analysis": "cds watch --open manager-analysis/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-manager-analysis": "cds watch --open manager-analysis/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-manager-analytics": "cds watch --open manager-analytics/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
@@ -33,6 +34,7 @@
     }
   },
   "sapux": [
-    "app/manager-analysis"
+    "app/manager-analysis",
+    "app/manager-analytics"
   ]
 }
