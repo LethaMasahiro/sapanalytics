@@ -1,23 +1,23 @@
 sap.ui.require(
     [
         'sap/fe/test/JourneyRunner',
-        'mv/manageranalytics/test/integration/FirstJourney',
-		'mv/manageranalytics/test/integration/pages/LearnersInfoList',
-		'mv/manageranalytics/test/integration/pages/LearnersInfoObjectPage'
+        'ma/manageranalytics/test/integration/FirstJourney',
+		'ma/manageranalytics/test/integration/pages/ManagerAnalysisList',
+		'ma/manageranalytics/test/integration/pages/ManagerAnalysisObjectPage'
     ],
-    function(JourneyRunner, opaJourney, LearnersInfoList, LearnersInfoObjectPage) {
+    function(JourneyRunner, opaJourney, ManagerAnalysisList, ManagerAnalysisObjectPage) {
         'use strict';
         var JourneyRunner = new JourneyRunner({
             // start index.html in web folder
-            launchUrl: sap.ui.require.toUrl('mv/manageranalytics') + '/index.html'
+            launchUrl: sap.ui.require.toUrl('ma/manageranalytics') + '/index.html'
         });
 
        
         JourneyRunner.run(
             {
                 pages: { 
-					onTheLearnersInfoList: LearnersInfoList,
-					onTheLearnersInfoObjectPage: LearnersInfoObjectPage
+					onTheManagerAnalysisList: ManagerAnalysisList,
+					onTheManagerAnalysisObjectPage: ManagerAnalysisObjectPage
                 }
             },
             opaJourney.run

@@ -1,7 +1,7 @@
 {
     "name": "manager-analytics",
     "version": "0.0.1",
-    "description": "The manager can view the learner&#39;s details.",
+    "description": "Shows learner&#39;s info test",
     "keywords": [
         "ui5",
         "openui5",

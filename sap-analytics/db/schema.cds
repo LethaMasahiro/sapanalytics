@@ -55,7 +55,7 @@ entity LearnersInfo : managed {
     isDeactivated: Boolean;
     password    : String;
     occupation  : String;
-    courses: Association to many Courses on courses.learner = $self ;
+    courses: Association to many Courses on courses.learner_ID = $self.ID;
     visiteddays : Integer;
     lastvisit   : Date;
   }
@@ -63,5 +63,5 @@ entity LearnersInfo : managed {
   entity Courses : managed {
     key ID      : UUID  @(Core.Computed : true);
     name        : String;
-    learner    : Association to LearnersInfo;
+    learner_ID    : String;
   }

@@ -1,26 +1,27 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Sat Dec 31 2022 14:19:40 GMT+0100 (Mitteleuropäische Normalzeit)|
+|**Generation Date and Time**<br>Sun Jan 01 2023 19:46:51 GMT+0100 (Mitteleuropäische Normalzeit)|
 |**App Generator**<br>@sap/generator-fiori-elements|
 |**App Generator Version**<br>1.8.4|
 |**Generation Platform**<br>Visual Studio Code|
-|**Template Used**<br>List Report Page V4|
+|**Template Used**<br>Analytical List Page V4|
 |**Service Type**<br>Local Cap|
 |**Service URL**<br>http://localhost:4004/manager/
 |**Module Name**<br>manager-analytics|
-|**Application Title**<br>Manager View|
-|**Namespace**<br>mv|
+|**Application Title**<br>Manager Analytics|
+|**Namespace**<br>ma|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.109.3|
 |**Enable Code Assist Libraries**<br>False|
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
-|**Main Entity**<br>LearnersInfo|
+|**Main Entity**<br>ManagerAnalysis|
+|**Navigation Entity**<br>None|
 
 ## manager-analytics
 
-The manager can view the learner&#39;s details.
+Shows learner&#39;s info test
 
 ### Starting the generated app
 

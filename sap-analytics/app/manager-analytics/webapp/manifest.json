@@ -1,7 +1,7 @@
 {
   "_version": "1.48.0",
   "sap.app": {
-    "id": "mv.manageranalytics",
+    "id": "ma.manageranalytics",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -11,9 +11,9 @@
     "description": "{{appDescription}}",
     "resources": "resources.json",
     "sourceTemplate": {
-      "id": "@sap/generator-fiori:lrop",
+      "id": "@sap/generator-fiori:alp",
       "version": "1.8.4",
-      "toolsId": "2204373a-e7b6-44ac-aa51-ab0ba7ad1167"
+      "toolsId": "29fb05cd-3861-4a43-be30-f9bb11e612ae"
     },
     "dataSources": {
       "mainService": {
@@ -71,7 +71,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "mv.manageranalytics.i18n.i18n"
+          "bundleName": "ma.manageranalytics.i18n.i18n"
         }
       },
       "": {
@@ -97,43 +97,67 @@
       "routes": [
         {
           "pattern": ":?query:",
-          "name": "LearnersInfoList",
-          "target": "LearnersInfoList"
+          "name": "ManagerAnalysisList",
+          "target": "ManagerAnalysisList"
         },
         {
-          "pattern": "LearnersInfo({key}):?query:",
-          "name": "LearnersInfoObjectPage",
-          "target": "LearnersInfoObjectPage"
+          "pattern": "ManagerAnalysis({key}):?query:",
+          "name": "ManagerAnalysisObjectPage",
+          "target": "ManagerAnalysisObjectPage"
         }
       ],
       "targets": {
-        "LearnersInfoList": {
+        "ManagerAnalysisList": {
           "type": "Component",
-          "id": "LearnersInfoList",
+          "id": "ManagerAnalysisList",
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "entitySet": "LearnersInfo",
+              "entitySet": "ManagerAnalysis",
               "variantManagement": "Page",
               "navigation": {
-                "LearnersInfo": {
+                "ManagerAnalysis": {
                   "detail": {
-                    "route": "LearnersInfoObjectPage"
+                    "route": "ManagerAnalysisObjectPage"
                   }
                 }
-                
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "AnalyticalTable",
+                    "selectionMode": "None"
+                  }
+                }
+              },
+              "views": {
+                "paths": [
+                  {
+                    "primary": [
+                      {
+                        "annotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant"
+                      }
+                    ],
+                    "secondary": [
+                      {
+                        "annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
+                      }
+                    ],
+                    "defaultPath": "both"
+                  }
+                ]
               }
             }
           }
         },
-        "LearnersInfoObjectPage": {
+        "ManagerAnalysisObjectPage": {
           "type": "Component",
-          "id": "LearnersInfoObjectPage",
+          "id": "ManagerAnalysisObjectPage",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "entitySet": "LearnersInfo"
+              "entitySet": "ManagerAnalysis"
             }
           }
         }
@@ -142,6 +166,6 @@
   },
   "sap.fiori": {
     "registrationIds": [],
-    "archeType": "transactional"
+    "archeType": "analytical"
   }
 }

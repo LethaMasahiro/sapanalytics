@@ -3,11 +3,10 @@ using { ManagerService } from './manager-service';
 
 extend service ManagerService {
   @readonly
-  entity ManagerAnalysis as projection on db.LearnersInfo {
+  entity ManagerAnalysis as select from db.LearnersInfo {
     *,
-    
-    count(distinct courses.ID) as numberofcourses:Integer,
-  };
+    count(courses.ID) as numberofcourses:Integer,
+  } where courses.learner_ID = ID group by ID;
 }
 
 // Fix ambiguity in Mitigations.risk association ensuring it points to Risks

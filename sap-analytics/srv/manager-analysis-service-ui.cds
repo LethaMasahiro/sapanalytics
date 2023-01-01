@@ -63,7 +63,7 @@ annotate service.ManagerAnalysis with @(
         ],
         AggregatableProperties : [
             {
-                Property : courses,
+                Property : numberofcourses,
             },
             {
                 Property : visiteddays,

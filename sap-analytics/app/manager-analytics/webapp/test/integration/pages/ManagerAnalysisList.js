@@ -8,9 +8,9 @@ sap.ui.define(['sap/fe/test/ListReport'], function(ListReport) {
 
     return new ListReport(
         {
-            appId: 'mv.manageranalytics',
-            componentId: 'LearnersInfoList',
-            entitySet: 'LearnersInfo'
+            appId: 'ma.manageranalytics',
+            componentId: 'ManagerAnalysisList',
+            entitySet: 'ManagerAnalysis'
         },
         CustomPageDefinitions
     );
