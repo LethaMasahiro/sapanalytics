@@ -2,12 +2,14 @@ using ManagerService as service from './manager-analysis-service';
 
 annotate service.ManagerAnalysis with {
     ID          @ID: 'ID';
-	title       @title: 'Title';
+	name       @title: 'Name';
 	descr       @title: 'Description';
     createdAt   @title: 'Creation Date';
     courses @title: 'Courses';
     occupation @title: 'Occupation';
     visiteddays @title: 'Visited Days';
+    numberofcourses @title: 'Number of Courses';
+    role @title: 'Role';
 };
 
 annotate service.ManagerAnalysis with @(
@@ -26,12 +28,22 @@ annotate service.ManagerAnalysis with @(
             },
             {
                 $Type               : 'UI.DataField',
+                Value               : visiteddays,
+                ![@UI.Importance]   : #High,
+            },
+            {
+                $Type               : 'UI.DataField',
+                Value               : numberofcourses,
+                ![@UI.Importance]   : #High,
+            },
+            {
+                $Type               : 'UI.DataField',
                 Value               : createdAt,
                 ![@UI.Importance]   : #High,
             },
             {
                 $Type               : 'UI.DataField',
-                Value               : visiteddays,
+                Value               : role,
                 ![@UI.Importance]   : #High,
             },
         ],
@@ -57,9 +69,12 @@ annotate service.ManagerAnalysis with @(
         Rollup                   : #None,
         PropertyRestrictions     : true,
         GroupableProperties : [
-            name,
-            createdAt,
             occupation,
+            role,
+            name,
+            visiteddays,
+            numberofcourses,
+            createdAt
         ],
         AggregatableProperties : [
             {
@@ -68,89 +83,162 @@ annotate service.ManagerAnalysis with @(
             {
                 Property : visiteddays,
             },
-            {
-                Property : createdAt,
-            },
-            {
-                Property : ID,
-            }
         ],
     }
 );
 
-annotate service.RisksAnalysis with @(
+annotate service.ManagerAnalysis with @(
     Analytics.AggregatedProperties : [
+        {
+            Name                 : 'countCourses',
+            AggregationMethod    : 'countdistinct',
+            AggregatableProperty : 'numberofcourses',
+            ![@Common.Label]     : 'Total Number of Courses'
+        },
+        {
+            Name                 : 'countVisits',
+            AggregationMethod    : 'countdistinct',
+            AggregatableProperty : 'visiteddays',
+            ![@Common.Label]     : 'Number of Visited Days'
+        },
+        {
+            Name                 : 'countOccupation',
+            AggregationMethod    : 'countdistinct',
+            AggregatableProperty : 'occupation',
+            ![@Common.Label]     : 'Number of different occupations'
+        },
+        {
+            Name                 : 'countRoles',
+            AggregationMethod    : 'countdistinct',
+            AggregatableProperty : 'role',
+            ![@Common.Label]     : 'Number of different roles'
+        },
         {
             Name                 : 'minAmount',
             AggregationMethod    : 'min',
-            AggregatableProperty : 'impact',
-            ![@Common.Label]     : 'Minimal Impact'
+            AggregatableProperty : 'numberofcourses',
+            ![@Common.Label]     : 'Minimal Courses'
         },
         {
             Name                 : 'maxAmount',
             AggregationMethod    : 'max',
-            AggregatableProperty : 'impact',
-            ![@Common.Label]     : 'Maximal Impact'
+            AggregatableProperty : 'numberofcourses',
+            ![@Common.Label]     : 'Maximal Courses'
         },
         {
             Name                 : 'avgAmount',
             AggregationMethod    : 'average',
-            AggregatableProperty : 'impact',
-            ![@Common.Label]     : 'Average Impact'
-        },
-        {
-            Name                 : 'sumImpact',
-            AggregationMethod    : 'sum',
-            AggregatableProperty : 'impact',
-            ![@Common.Label]     : 'Total Cost Impact'
-        },
-        {
-            Name                 : 'countRisk',
-            AggregationMethod    : 'countdistinct',
-            AggregatableProperty : 'ID',
-            ![@Common.Label]     : 'Number of Risks'
-        },
-        {
-            Name                 : 'countRiskYear',
-            AggregationMethod    : 'countdistinct',
-            AggregatableProperty : 'riskyear',
-            ![@Common.Label]     : 'Number of Risks Per Year'
+            AggregatableProperty : 'numberofcourses',
+            ![@Common.Label]     : 'Average Courses'
         },
     ],
 );
 
-annotate service.RisksAnalysis with @(
+annotate service.ManagerAnalysis with @(
     UI.Chart : {
-        Title : 'Risk Impacts',
+        Title : 'Courses per Occupation',
         ChartType : #Column,
-        Measures :  [sumImpact],
-        Dimensions : [riskyear],
+        Measures :  [countCourses],
+        Dimensions : [occupation],
         MeasureAttributes   : [{
                 $Type   : 'UI.ChartMeasureAttributeType',
-                Measure : sumImpact,
+                Measure : countCourses,
                 Role    : #Axis1
         }],
         DimensionAttributes : [
             {
                 $Type     : 'UI.ChartDimensionAttributeType',
-                Dimension : riskyear,
-                Role      : #Category
-            },
-            {
-                $Type     : 'UI.ChartDimensionAttributeType',
-                Dimension : prio,
+                Dimension : occupation,
                 Role      : #Category
             },
         ],
     },
 );
 
-annotate service.RisksAnalysis with @(
+annotate service.ManagerAnalysis with @(
+    UI.PresentationVariant #pvvisiteddays : {
+        SortOrder : [
+            {
+                $Type : 'Common.SortOrderType',
+                Property : visiteddays,
+                Descending : true
+            }
+        ],
+        Visualizations : [
+            '@UI.Chart#chartDays'
+        ]
+    },
+    UI.SelectionVariant #svvisiteddays : {
+        SelectOptions : [
+            {
+                $Type : 'UI.SelectOptionType',
+                PropertyName : visiteddays,
+                Ranges : [
+                    {
+                        $Type : 'UI.SelectionRangeType',
+                        Sign : #I,
+                        Option : #GE,
+                        Low : 0,
+                    },
+                ],
+            },
+        ],
+    },
+    UI.Chart #chartDays : {
+        $Type : 'UI.ChartDefinitionType',
+        ChartType : #Bar,
+        Dimensions : [
+            visiteddays
+        ],
+        DimensionAttributes : [
+            {
+                $Type : 'UI.ChartDimensionAttributeType',
+                Dimension : visiteddays,
+                Role : #Category
+            }
+        ],
+        Measures : [
+            countVisits
+        ],
+        MeasureAttributes : [
+            {
+                $Type : 'UI.ChartMeasureAttributeType',
+                Measure : countVisits,
+                Role : #Axis1,
+                DataPoint : '@UI.DataPoint#dpDays',
+            }
+        ]
+    },
+    UI.DataPoint #dpDays              : {
+        Value       : visiteddays,
+        Title       : 'Visited Days'
+    },
+){
+    visiteddays @(
+        Common.ValueList #vlVisitedDays: {
+            Label : 'Priority',
+            CollectionPath : 'ManagerAnalysis',
+            SearchSupported : true,
+            PresentationVariantQualifier : 'pvvisiteddays',
+            SelectionVariantQualifier : 'svvisiteddays',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : visiteddays,
+                    ValueListProperty : 'visiteddays'
+                },
+            ]
+        }
+    );
+};
+
+
+/*annotate service.ManagerAnalysis with @(
     UI.PresentationVariant #pvPrio : {
         SortOrder : [
             {
                 $Type : 'Common.SortOrderType',
-                Property : impact,
+                Property : numberofcourses,
                 Descending : true
             },
         ],
@@ -162,7 +250,7 @@ annotate service.RisksAnalysis with @(
         SelectOptions : [
             {
                 $Type : 'UI.SelectOptionType',
-                PropertyName : impact,
+                PropertyName : numberofcourses,
                 Ranges : [
                     {
                         $Type : 'UI.SelectionRangeType',
@@ -176,35 +264,35 @@ annotate service.RisksAnalysis with @(
     },
     UI.Chart #chartPrio : {
         $Type : 'UI.ChartDefinitionType',
-        ChartType : #Donut,
+        ChartType : #Bar,
         Dimensions : [
-            prio
+            visiteddays
         ],
         DimensionAttributes : [
             {
                 $Type : 'UI.ChartDimensionAttributeType',
-                Dimension : prio,
+                Dimension : visiteddays,
                 Role : #Category
             }
         ],
         Measures : [
-            sumImpact
+            countVisits
         ],
         MeasureAttributes : [
             {
                 $Type : 'UI.ChartMeasureAttributeType',
-                Measure : sumImpact,
+                Measure : countVisits,
                 Role : #Axis1,
                 DataPoint : '@UI.DataPoint#dpPrio',
             }
         ]
     },
     UI.DataPoint #dpPrio              : {
-        Value       : impact,
-        Title       : 'Impact'
+        Value       : visiteddays,
+        Title       : 'Visited Days'
     },
 ) {
-    prio @(
+    /*prio @(
         Common.ValueList #vlPrio: {
             Label : 'Priority',
             CollectionPath : 'RisksAnalysis',
@@ -222,9 +310,9 @@ annotate service.RisksAnalysis with @(
     );
 };
 
-annotate service.RisksAnalysis with @(
+annotate service.ManagerAnalysis with @(
     UI.PresentationVariant #pvPeriod : {
-        Text : 'FilterRisksOverPeriodPV',
+        Text : 'FilterCoursenumberOverPeriodPV',
         SortOrder : [
             {
                 $Type : 'Common.SortOrderType',
@@ -238,7 +326,7 @@ annotate service.RisksAnalysis with @(
     },
     UI.Chart #chartPeriod : {
         $Type : 'UI.ChartDefinitionType',
-        Title : 'Risks Over Period',
+        Title : 'Course Number Over Period',
         ChartType : #Line,
         Dimensions : [
             createdAt
@@ -251,12 +339,12 @@ annotate service.RisksAnalysis with @(
             }
         ],
         Measures : [
-            countRisk
+            countCourses
         ],
         MeasureAttributes : [
             {
                 $Type : 'UI.ChartMeasureAttributeType',
-                Measure : countRisk,
+                Measure : countCourses,
                 Role : #Axis1,
                 DataPoint : '@UI.DataPoint#dpPeriod',
             }
@@ -270,7 +358,7 @@ annotate service.RisksAnalysis with @(
     createdAt @(
         Common.ValueList #vlcreatedAt: {
             Label : 'Creation Date',
-            CollectionPath : 'RisksAnalysis',
+            CollectionPath : 'ManagerAnalysis',
             SearchSupported : true,
             PresentationVariantQualifier : 'pvPeriod',
             Parameters : [
@@ -282,4 +370,4 @@ annotate service.RisksAnalysis with @(
             ]
         }
     );
-};
+};*/

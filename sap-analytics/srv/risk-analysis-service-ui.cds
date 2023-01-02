@@ -153,7 +153,7 @@ annotate service.RisksAnalysis with @(
     },
 );
 
-annotate service.RisksAnalysis with @(
+/*annotate service.RisksAnalysis with @(
     UI.PresentationVariant #pvPrio : {
         SortOrder : [
             {
@@ -184,7 +184,7 @@ annotate service.RisksAnalysis with @(
     },
     UI.Chart #chartPrio : {
         $Type : 'UI.ChartDefinitionType',
-        ChartType : #Donut,
+        ChartType : #Bar,
         Dimensions : [
             prio
         ],
@@ -290,4 +290,4 @@ annotate service.RisksAnalysis with @(
             ]
         }
     );
-};
+};*/

@@ -127,7 +127,27 @@
                   "tableSettings": {
                     "type": "AnalyticalTable",
                     "selectionMode": "None"
-                  }
+                  },
+                  "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                    "layout": "CompactVisual",
+                    "initialLayout": "Visual",
+                    "filterFields": {
+                        "prio": {
+                            "label": "Role",
+                            "availability": "Default",
+                            "visualFilter": {
+                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#vlVisitedDays"
+                            }
+                        },
+                        "createdAt": {
+                            "label": "creation Date",
+                            "availability": "Default",
+                            "visualFilter": {
+                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#vlcreatedAt"
+                                    }
+                                }
+                            }
+                        }
                 }
               },
               "views": {
@@ -135,7 +155,7 @@
                   {
                     "primary": [
                       {
-                        "annotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant"
+                        "annotationPath": "com.sap.vocabularies.UI.v1.Chart"
                       }
                     ],
                     "secondary": [

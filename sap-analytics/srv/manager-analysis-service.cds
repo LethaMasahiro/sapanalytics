@@ -6,6 +6,7 @@ extend service ManagerService {
   entity ManagerAnalysis as select from db.LearnersInfo {
     *,
     count(courses.ID) as numberofcourses:Integer,
+    cast (substring(createdAt,1,10) as Date) as createdAt
   } where courses.learner_ID = ID group by ID;
 }
 
