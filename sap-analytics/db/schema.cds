@@ -42,7 +42,7 @@ entity Risks : managed {
   }
 
 entity Learners: cuid, managed{
-    name: String not null;
+    key name: String not null;
     industry: String;
     country: String;
 }
@@ -50,8 +50,8 @@ entity Learners: cuid, managed{
 entity LearnersInfo : managed {
     key ID      : UUID  @(Core.Computed : true);
     role        : String;
-    name        : String;
-    email       : String;
+    key name        : String;
+    key email       : String;
     isDeactivated: Boolean;
     password    : String;
     occupation  : String;
@@ -62,6 +62,6 @@ entity LearnersInfo : managed {
 
   entity Courses : managed {
     key ID      : UUID  @(Core.Computed : true);
-    name        : String;
+    key name        : String;
     learner_ID    : String;
   }
