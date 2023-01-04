@@ -1,10 +1,12 @@
 @url = http://localhost:4004
 
 ###
-GET {{url}}/customers/Projects
-
+GET {{url}}/learner/Courses
+Authorization: Basic alice:alice
 ###
-GET {{url}}/customers/Customers
+GET {{url}}/service/risk/Mitigations
+Authorization: Basic risk.manager@tester.sap.com:initial
+//Authorization: Basic alice:alice
 
 ###
 //create customer

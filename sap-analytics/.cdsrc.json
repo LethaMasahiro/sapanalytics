@@ -17,6 +17,13 @@
                         "roles": [
                             "RiskManager"
                         ]
+                    },
+                    "Alice": {
+                        "password": "alice",
+                        "ID": "alice",
+                        "roles": [
+                            "User"
+                        ]
                     }
                 }
             }

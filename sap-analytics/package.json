@@ -8,7 +8,9 @@
   "dependencies": {
     "@sap/cds": "^6",
     "@sap/cds-odata-v2-adapter-proxy": "^1.9.15",
-    "express": "^4"
+    "@sap/xssec": "^3",
+    "express": "^4",
+    "passport": "^0"
   },
   "devDependencies": {
     "@sap/ux-specification": "^1.102.14",
@@ -22,7 +24,8 @@
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
     "watch-manager-analysis": "cds watch --open manager-analysis/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-manager-analytics": "cds watch --open manager-analytics/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-course_list": "cds watch --open course_list/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
@@ -31,6 +34,16 @@
         "credentials": {
           "database": "db.sqlite"
         }
+      },
+      "[production]": {
+        "auth": {
+          "kind": "xsuaa"
+        }
+      }
+    },
+    "[hybrid]": {
+      "auth": {
+        "kind": "xsuaa"
       }
     }
   },
@@ -38,6 +51,10 @@
     "app/manager-analysis",
     "app/manager-analytics",
     "app/project1",
-    "app/manager-analytics"
+    "app/manager-analytics",
+    "app/course_list",
+    "app/course_list",
+    "app/course_list",
+    "app/course_list"
   ]
 }

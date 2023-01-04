@@ -1,0 +1,43 @@
+{
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.User",
+      "description": "User"
+    },
+    {
+      "name": "$XSAPPNAME.RiskManager",
+      "description": "RiskManager"
+    },
+    {
+      "name": "$XSAPPNAME.RiskViewer",
+      "description": "RiskViewer"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "User",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.User"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "RiskManager",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.RiskManager"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "RiskViewer",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.RiskViewer"
+      ],
+      "attribute-references": []
+    }
+  ]
+}

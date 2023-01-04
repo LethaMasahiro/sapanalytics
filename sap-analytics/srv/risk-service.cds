@@ -11,7 +11,8 @@ service RiskService {
                 grant : [ '*' ],
                 to : [ 'RiskManager' ]
             }
-        ]) as projection on db.Risks;
+        ]) 
+        as projection on db.Risks;
     annotate Risks with @odata.draft.enabled;
   entity Mitigations @(restrict : [
             {
@@ -22,6 +23,7 @@ service RiskService {
                 grant : [ '*' ],
                 to : [ 'RiskManager' ]
             }
-        ]) as projection on db.Mitigations;
+        ]) 
+        as projection on db.Mitigations;
     annotate Mitigations with @odata.draft.enabled;
 }
