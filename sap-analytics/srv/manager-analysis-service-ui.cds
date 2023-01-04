@@ -96,8 +96,8 @@ annotate service.ManagerAnalysis with @(
             ![@Common.Label]     : 'Total Number of Courses'
         },
         {
-            Name                 : 'countVisits',
-            AggregationMethod    : 'countdistinct',
+            Name                 : 'sumVisits',
+            AggregationMethod    : 'sum',
             AggregatableProperty : 'visiteddays',
             ![@Common.Label]     : 'Number of Visited Days'
         },
@@ -152,8 +152,30 @@ annotate service.ManagerAnalysis with @(
                 Role      : #Category
             },
         ],
-    },
+    }, 
 );
+
+/*annotate service.ManagerAnalysis with @(
+    UI.Chart #visitedchart: {
+        Title : 'Visited days per Role',
+        ChartType : #Column,
+        Measures :  [visiteddays],
+        Dimensions : [role],
+        MeasureAttributes   : [{
+                $Type   : 'UI.ChartMeasureAttributeType',
+                Measure : visiteddays,
+                Role    : #Axis1
+        }],
+        DimensionAttributes : [
+            {
+                $Type     : 'UI.ChartDimensionAttributeType',
+                Dimension : role,
+                Role      : #Category
+            },
+        ],
+    },
+);*/
+
 
 annotate service.ManagerAnalysis with @(
     UI.PresentationVariant #pvvisiteddays : {
@@ -188,22 +210,22 @@ annotate service.ManagerAnalysis with @(
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
         Dimensions : [
-            visiteddays
+            role
         ],
         DimensionAttributes : [
             {
                 $Type : 'UI.ChartDimensionAttributeType',
-                Dimension : visiteddays,
+                Dimension : role,
                 Role : #Category
             }
         ],
         Measures : [
-            countVisits
+            sumVisits
         ],
         MeasureAttributes : [
             {
                 $Type : 'UI.ChartMeasureAttributeType',
-                Measure : countVisits,
+                Measure : sumVisits,
                 Role : #Axis1,
                 DataPoint : '@UI.DataPoint#dpDays',
             }
@@ -215,7 +237,7 @@ annotate service.ManagerAnalysis with @(
     },
 ){
     visiteddays @(
-        Common.ValueList #vlVisitedDays: {
+        Common.ValueList #vlvisiteddays: {
             Label : 'Visited Days',
             CollectionPath : 'ManagerAnalysis',
             SearchSupported : true,
