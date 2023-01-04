@@ -216,7 +216,7 @@ annotate service.ManagerAnalysis with @(
 ){
     visiteddays @(
         Common.ValueList #vlVisitedDays: {
-            Label : 'Priority',
+            Label : 'Visited Days',
             CollectionPath : 'ManagerAnalysis',
             SearchSupported : true,
             PresentationVariantQualifier : 'pvvisiteddays',

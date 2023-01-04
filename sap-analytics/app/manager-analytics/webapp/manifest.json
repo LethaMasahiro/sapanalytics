@@ -132,8 +132,8 @@
                     "layout": "CompactVisual",
                     "initialLayout": "Visual",
                     "filterFields": {
-                        "prio": {
-                            "label": "Role",
+                        "visiteddays": {
+                            "label": "Visited Days",
                             "availability": "Default",
                             "visualFilter": {
                                 "valueList": "com.sap.vocabularies.Common.v1.ValueList#vlVisitedDays"
@@ -161,6 +161,9 @@
                     "secondary": [
                       {
                         "annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
+                      },
+                      {
+                        "annotationPath": "@com.sap.vocabularies.UI.v1.PresentationView"
                       }
                     ],
                     "defaultPath": "both"
