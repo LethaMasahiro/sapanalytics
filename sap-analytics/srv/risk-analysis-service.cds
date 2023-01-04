@@ -3,13 +3,14 @@ using { RiskService } from './risk-service';
 
 extend service RiskService {
   @readonly
-  entity RisksAnalysis @(restrict : [
-            {
-                grant : [ 'READ' ],
-                to : [ 'RiskManager' ]
-            }
-        ]) as projection on db.Risks {
-    *,
+  entity RisksAnalysis as projection on db.Risks {
+  // @(restrict : [
+  //           {
+  //               grant : [ 'READ' ],
+  //               to : [ 'RiskManager' ]
+  //           }
+  //       ]) as projection on db.Risks {
+  //   *,
     substring(createdAt,1,4) as riskyear:String,
     cast (substring(createdAt,1,10) as Date) as createdAt
   };
