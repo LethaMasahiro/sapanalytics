@@ -18,7 +18,8 @@ annotate service.Courses with @(
             Value : ID,
             ![@HTML5.CssDefaults] : {width : '100%'}
         },
-    ]
+    ],
+    UI.SelectionFields: ['ID'],
 );
 annotate service.Courses with @(
     UI.FieldGroup #GeneratedGroup1 : {
