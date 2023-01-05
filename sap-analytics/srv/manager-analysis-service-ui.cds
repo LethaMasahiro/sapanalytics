@@ -72,8 +72,6 @@ annotate service.ManagerAnalysis with @(
             occupation,
             role,
             name,
-            visiteddays,
-            numberofcourses,
             createdAt
         ],
         AggregatableProperties : [
@@ -138,11 +136,11 @@ annotate service.ManagerAnalysis with @(
     UI.Chart : {
         Title : 'Courses per Occupation',
         ChartType : #Column,
-        Measures :  [countCourses],
+        Measures :  [avgAmount],
         Dimensions : [occupation],
         MeasureAttributes   : [{
                 $Type   : 'UI.ChartMeasureAttributeType',
-                Measure : countCourses,
+                Measure : avgAmount,
                 Role    : #Axis1
         }],
         DimensionAttributes : [
