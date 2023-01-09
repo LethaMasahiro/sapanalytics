@@ -51,6 +51,15 @@ annotate service.ManagerAnalysis with @(
 );
 
 annotate service.ManagerAnalysis with @(
+    UI : {
+        SelectionFields  : [
+            occupation,
+            role
+        ],
+    }
+);
+
+annotate service.ManagerAnalysis with @(
     Aggregation.ApplySupported : {
         Transformations          : [
             'aggregate',
@@ -72,7 +81,8 @@ annotate service.ManagerAnalysis with @(
             occupation,
             role,
             name,
-            createdAt
+            createdAt,
+            numberofcourses
         ],
         AggregatableProperties : [
             {
@@ -235,7 +245,9 @@ annotate service.ManagerAnalysis with @(
     },
 ){
     visiteddays @(
+        Common.ValueListWithFixedValues: true,
         Common.ValueList #vlvisiteddays: {
+            $Type : 'Common.ValueListType',
             Label : 'Visited Days',
             CollectionPath : 'ManagerAnalysis',
             SearchSupported : true,
@@ -243,10 +255,15 @@ annotate service.ManagerAnalysis with @(
             SelectionVariantQualifier : 'svvisiteddays',
             Parameters : [
                 {
-                    $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : visiteddays,
-                    ValueListProperty : 'visiteddays'
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : visiteddays,
+                ValueListProperty : 'visiteddays'
                 },
+                /*{
+                    $Type : 'Common.ValueListParameterDisplayOnly',
+                    //LocalDataProperty : visiteddays,
+                    ValueListProperty : 'visiteddays'
+                },*/
             ]
         }
     );
