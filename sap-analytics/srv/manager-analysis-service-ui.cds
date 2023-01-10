@@ -161,31 +161,69 @@ annotate service.ManagerAnalysis with @(
             },
         ],
     }, 
+    
 );
-
-/*annotate service.ManagerAnalysis with @(
-    UI.Chart #visitedchart: {
-        Title : 'Visited days per Role',
-        ChartType : #Column,
-        Measures :  [visiteddays],
-        Dimensions : [role],
-        MeasureAttributes   : [{
-                $Type   : 'UI.ChartMeasureAttributeType',
-                Measure : visiteddays,
-                Role    : #Axis1
-        }],
-        DimensionAttributes : [
-            {
-                $Type     : 'UI.ChartDimensionAttributeType',
-                Dimension : role,
-                Role      : #Category
-            },
-        ],
-    },
-);*/
 
 
 annotate service.ManagerAnalysis with @(
+    UI.HeaderInfo: {
+        TypeName: 'Learner Info',
+        TypeNamePlural: 'Learners Info',
+        Title: {
+            Value: name,
+        },
+        Description: {
+            Value: role,
+        }
+    },
+    UI.HeaderFacets: [
+        {
+            $Type: 'UI.ReferenceFacet',
+            Label: 'Visited Days',
+            ID: 'visiteddays',
+            Target: '@UI.DataPoint#dpDays'
+        },
+        {
+            $Type: 'UI.ReferenceFacet',
+            Label: 'Number of courses',
+            ID: 'numberofcourses',
+            Target: '@UI.DataPoint#dpcourses'
+        },
+        {
+            $Type: 'UI.ReferenceFacet',
+            Label: 'Occupation',
+            ID: 'occupation',
+            Target: '@UI.DataPoint#dpocc'
+        },
+        {
+            $Type: 'UI.ReferenceFacet',
+            Label: 'Role',
+            ID: 'role',
+            Target: '@UI.DataPoint#dprole'
+        }
+    ],
+    UI.Facets: [
+        {
+            $Type: 'UI.ReferenceFacet',
+            Target: '@UI.LineItem',
+        }
+    ]
+);
+
+annotate service.LearnerCourses with @(
+    UI.Facets: [
+        {
+            $Type: 'UI.ReferenceFacet',
+            Target: '@UI.LineItem'
+        }
+    ]
+);
+
+
+
+annotate service.ManagerAnalysis with @(
+    
+
     UI.PresentationVariant #pvvisiteddays : {
         SortOrder : [
             {
@@ -243,6 +281,18 @@ annotate service.ManagerAnalysis with @(
         Value       : visiteddays,
         Title       : 'Visited Days'
     },
+    UI.DataPoint #dpcourses              : {
+        Value       : numberofcourses,
+        Title       : 'Number of Courses'
+    },
+    UI.DataPoint #dpocc              : {
+        Value       : occupation,
+        Title       : 'Occupation'
+    },
+    UI.DataPoint #dprole              : {
+        Value       : role,
+        Title       : 'Role'
+    },
 ){
     visiteddays @(
         Common.ValueListWithFixedValues: true,
@@ -268,143 +318,3 @@ annotate service.ManagerAnalysis with @(
         }
     );
 };
-
-
-/*annotate service.ManagerAnalysis with @(
-    UI.PresentationVariant #pvPrio : {
-        SortOrder : [
-            {
-                $Type : 'Common.SortOrderType',
-                Property : numberofcourses,
-                Descending : true
-            },
-        ],
-        Visualizations : [
-            '@UI.Chart#chartPrio'
-        ]
-    },
-    UI.SelectionVariant #svPrio : {
-        SelectOptions : [
-            {
-                $Type : 'UI.SelectOptionType',
-                PropertyName : numberofcourses,
-                Ranges : [
-                    {
-                        $Type : 'UI.SelectionRangeType',
-                        Sign : #I,
-                        Option : #GE,
-                        Low : 0,
-                    },
-                ],
-            },
-        ],
-    },
-    UI.Chart #chartPrio : {
-        $Type : 'UI.ChartDefinitionType',
-        ChartType : #Bar,
-        Dimensions : [
-            visiteddays
-        ],
-        DimensionAttributes : [
-            {
-                $Type : 'UI.ChartDimensionAttributeType',
-                Dimension : visiteddays,
-                Role : #Category
-            }
-        ],
-        Measures : [
-            countVisits
-        ],
-        MeasureAttributes : [
-            {
-                $Type : 'UI.ChartMeasureAttributeType',
-                Measure : countVisits,
-                Role : #Axis1,
-                DataPoint : '@UI.DataPoint#dpPrio',
-            }
-        ]
-    },
-    UI.DataPoint #dpPrio              : {
-        Value       : visiteddays,
-        Title       : 'Visited Days'
-    },
-) {
-    /*prio @(
-        Common.ValueList #vlPrio: {
-            Label : 'Priority',
-            CollectionPath : 'RisksAnalysis',
-            SearchSupported : true,
-            PresentationVariantQualifier : 'pvPrio',
-            SelectionVariantQualifier : 'svPrio',
-            Parameters : [
-                {
-                    $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : prio,
-                    ValueListProperty : 'prio'
-                },
-            ]
-        }
-    );
-};
-
-annotate service.ManagerAnalysis with @(
-    UI.PresentationVariant #pvPeriod : {
-        Text : 'FilterCoursenumberOverPeriodPV',
-        SortOrder : [
-            {
-                $Type : 'Common.SortOrderType',
-                Property : createdAt,
-                Descending : true
-            },
-        ],
-        Visualizations : [
-            '@UI.Chart#chartPeriod'
-        ]
-    },
-    UI.Chart #chartPeriod : {
-        $Type : 'UI.ChartDefinitionType',
-        Title : 'Course Number Over Period',
-        ChartType : #Line,
-        Dimensions : [
-            createdAt
-        ],
-        DimensionAttributes : [
-            {
-                $Type : 'UI.ChartDimensionAttributeType',
-                Dimension : createdAt,
-                Role : #Category
-            }
-        ],
-        Measures : [
-            countCourses
-        ],
-        MeasureAttributes : [
-            {
-                $Type : 'UI.ChartMeasureAttributeType',
-                Measure : countCourses,
-                Role : #Axis1,
-                DataPoint : '@UI.DataPoint#dpPeriod',
-            }
-        ]
-    },
-    UI.DataPoint #dpPeriod : {
-        Value       : createdAt,
-        Title       : 'Creation Date'
-    },
-) {
-    createdAt @(
-        Common.ValueList #vlcreatedAt: {
-            Label : 'Creation Date',
-            CollectionPath : 'ManagerAnalysis',
-            SearchSupported : true,
-            PresentationVariantQualifier : 'pvPeriod',
-            Parameters : [
-                {
-                    $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : createdAt,
-                    ValueListProperty : 'createdAt'
-                },
-            ]
-        }
-    );
-};*/

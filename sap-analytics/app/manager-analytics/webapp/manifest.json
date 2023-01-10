@@ -176,8 +176,15 @@
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
-                            "editableHeaderContent": false,
-                            "entitySet": "ManagerAnalysis"
+                            "editableHeaderContent": true,
+                            "entitySet": "ManagerAnalysis",
+                            "simpleHeaderFacets": true,
+                            "showRelatedApps": true,
+                            "gridTable": true,
+                            "tableSettings": {
+                                "type": "ResponsiveTable",
+                                "condensedTableLayout": true
+                            }
                         }
                     }
                 }

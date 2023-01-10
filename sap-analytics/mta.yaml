@@ -30,9 +30,23 @@ modules:
       - loplearnersoverview.zip
       name: loplearnersoverview
       target-path: resources/
+    - artifacts:
+      - loplearnerobject.zip
+      name: loplearnerobject
+      target-path: resources/
 - name: loplearnersoverview
   type: html5
   path: app/learners-overview
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: loplearnerobject
+  type: html5
+  path: app/learner-object
   build-parameters:
     build-result: dist
     builder: custom
