@@ -210,15 +210,6 @@ annotate service.ManagerAnalysis with @(
     ]
 );
 
-annotate service.LearnerCourses with @(
-    UI.Facets: [
-        {
-            $Type: 'UI.ReferenceFacet',
-            Target: '@UI.LineItem'
-        }
-    ]
-);
-
 
 
 annotate service.ManagerAnalysis with @(
