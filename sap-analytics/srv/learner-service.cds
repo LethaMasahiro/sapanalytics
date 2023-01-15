@@ -2,7 +2,7 @@ using { sapanalytics.db as db } from '../db/schema';
 @OData.publish: true
 
 @path: 'learner'
-@(requires : ['User'])
+// @(requires : ['User'])
 service LeanerService {
   
     entity LearnersInfo as projection on db.LearnersInfo;
