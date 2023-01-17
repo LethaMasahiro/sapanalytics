@@ -1,6 +1,6 @@
 specVersion: "2.4"
 metadata:
-  name: courselist
+  name: ma.manageranalytics
 type: application
 server:
   customMiddleware:
@@ -8,11 +8,24 @@ server:
       afterMiddleware: compression
       configuration:
         ignoreCertError: false
+        backend:
+          - path: /sap
+            url: null
         ui5:
           path:
             - /resources
             - /test-resources
           url: https://ui5.sap.com
+    - name: sap-fe-mockserver
+      beforeMiddleware: fiori-tools-proxy
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /manager
+            metadataPath: ./webapp/localService/metadata.xml
+            mockdataPath: ./webapp/localService/mockdata
+            generateMockData: true
+            annotations: []
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -22,5 +35,5 @@ server:
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:
-        component: courselist
+        component: ma.manageranalytics
         ui5Theme: sap_fiori_3
