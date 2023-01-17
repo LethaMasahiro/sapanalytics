@@ -10,12 +10,8 @@
     "@sap/cds-odata-v2-adapter-proxy": "^1.9.15",
     "@sap/xssec": "^3",
     "express": "^4",
-<<<<<<< HEAD
-    "passport": "^0"
-=======
     "passport": "^0",
     "hdb": "^0.19.0"
->>>>>>> 727f8e9cf63039e777bc29474f6934cf5312b952
   },
   "devDependencies": {
     "@sap/ux-specification": "^1.102.14",
@@ -35,25 +31,6 @@
     "watch-learner-object": "cds watch --open learner-object/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
-<<<<<<< HEAD
-    "requires": {
-      "db": {
-        "kind": "sqlite",
-        "credentials": {
-          "database": "db.sqlite"
-        }
-      },
-      "[production]": {
-        "auth": {
-          "kind": "xsuaa"
-        }
-      }
-    },
-    "[hybrid]": {
-      "auth": {
-        "kind": "xsuaa"
-      }
-=======
       "build": {
         "tasks": [
             {
@@ -69,7 +46,6 @@
         "db": {
             "kind": "hana-cloud"
         }
->>>>>>> 727f8e9cf63039e777bc29474f6934cf5312b952
     }
   },
   "sapux": [
