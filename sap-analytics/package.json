@@ -31,21 +31,21 @@
     "watch-learner-object": "cds watch --open learner-object/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
-      "build": {
-        "tasks": [
-            {
-                "for": "hana",
-                "dest": "../db"
-            },
-            {
-                "for": "node-cf"
-            }
-        ]
+    "build": {
+      "tasks": [
+        {
+          "for": "hana",
+          "dest": "../db"
+        },
+        {
+          "for": "node-cf"
+        }
+      ]
     },
     "requires": {
-        "db": {
-            "kind": "hana-cloud"
-        }
+      "db": {
+        "kind": "hana-cloud"
+      }
     }
   },
   "sapux": [
