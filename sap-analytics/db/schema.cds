@@ -47,9 +47,9 @@ entity LearnersInfo : managed {
     //password: String;
     role: String;
     occupation: String;
-    enrolledCourses: Association to many EnrolledIn on enrolledCourses.learnerID = $self.ID;
-    startedCourses: Association to many EnrolledIn on startedCourses.learnerID = $self.ID and startedCourses.startedDate != null;
-    completedCourses: Association to many EnrolledIn on completedCourses.learnerID = $self.ID and completedCourses.learnerID != null;
+    //enrolledCourses: Association to many EnrolledIn on enrolledCourses.learnerID = $self.ID;
+    //startedCourses: Association to many EnrolledIn on startedCourses.learnerID = $self.ID and startedCourses.startedDate != null;
+    //completedCourses: Association to many EnrolledIn on completedCourses.learnerID = $self.ID and completedCourses.learnerID != null;
     visitedDate: Integer;
     lastVisit: Date;
   }
@@ -63,6 +63,10 @@ entity LearnersInfo : managed {
     completionDate: Date;
     lastAccessedDate: Date;
     completedCourseItem: Integer;
-
-
   }
+
+@Odata.publish:true
+  define view Number_Of_Courses as select from EnrolledIn {
+    learnerID,
+    count(*) as numberofcourses:Integer
+  } group by learnerID;
