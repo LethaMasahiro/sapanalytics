@@ -40,11 +40,11 @@ entity LearnersInfo : managed {
   }
 
     entity Learner  {
-    key ID      : UUID  @(Core.Computed : true);
-    key name        : String;
-    key email       : String;
-    isDeactivated: Boolean;
-    password    : String;
+    ID      : UUID  @(Core.Computed : true);
+    name        : String;
+    email       : String;
+    isDeactivated: String;
+    //password: String;
     role: String;
     occupation: String;
     enrolledCourses: Association to many EnrolledIn on enrolledCourses.learnerID = $self.ID;
@@ -55,8 +55,8 @@ entity LearnersInfo : managed {
   }
 
   entity EnrolledIn {
-    key courseID: String;
-    key learnerID: String;
+    courseID: String;
+    learnerID: String;
     completionRate: Double;
     enrolledDate: Date;
     startedDate: Date;
