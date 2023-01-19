@@ -39,20 +39,20 @@ entity LearnersInfo : managed {
     role: String;
   }
 
-    entity Learner  {
-      ID      : UUID  @(Core.Computed : true);
-      name        : String;
-      email       : String;
-      isDeactivated: String;
-      //password: String;
-      role: String;
-      occupation: String;
-      enrolledCourses: Association [*]  to EnrolledIn on enrolledCourses.learnerID = $self.ID;
-      startedCourses: Association [*] to EnrolledIn on startedCourses.learnerID = $self.ID and startedCourses.startedDate != null ;
-      completedCourses: Association [*] to EnrolledIn on completedCourses.learnerID = $self.ID and completedCourses.startedDate != null;
-      visitedDate: Integer;
-      lastVisit: Date;
-      businessUnit: Association to BusinessUnit {name};
+  entity Learner  {
+    ID      : UUID  @(Core.Computed : true);
+    name        : String;
+    email       : String;
+    isDeactivated: String;
+    //password: String;
+    role: String;
+    occupation: String;
+    enrolledCourses: Association [*]  to EnrolledIn on enrolledCourses.learnerID = $self.ID;
+    startedCourses: Association [*] to EnrolledIn on startedCourses.learnerID = $self.ID and startedCourses.startedDate != null ;
+    completedCourses: Association [*] to EnrolledIn on completedCourses.learnerID = $self.ID and completedCourses.startedDate != null;
+    visitedDate: Integer;
+    lastVisit: Date;
+    businessUnit: Association to BusinessUnit {name};
   }
 
   entity EnrolledIn {
@@ -65,12 +65,6 @@ entity LearnersInfo : managed {
     lastAccessedDate: Date;
     completedCourseItem: Integer;
   }
-
-@Odata.publish:true
-  define view Number_Of_Courses as select from EnrolledIn {
-    learnerID,
-    count(*) as numberofcourses:Integer
-  } group by learnerID;
 
   entity BusinessUnit {
     description: String;

@@ -12,12 +12,15 @@ extend service UserService {
         ID,
         name,
         role,
+        occupation,
         businessUnit,
+        visitedDate,
+        lastVisit,
         count(enrolledCourses.courseID) as numberofcourses:Integer,
         count(enrolledCourses.startedDate) as numberofstartedcourses:Integer,
         count(enrolledCourses.completionDate) as numberofcompletedcourses:Integer,
         avg(enrolledCourses.completionRate) as averagecompletionrate:Double,
-    } where enrolledCourses.learnerID = ID group by ID, name, role, businessUnit;
+    } where enrolledCourses.learnerID = ID group by ID, name, role, occupation, businessUnit, visitedDate, lastVisit;
     
 }
 
