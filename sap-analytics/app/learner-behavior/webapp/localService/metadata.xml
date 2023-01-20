@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="UserService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Test" EntityType="UserService.Test"/>
+                <EntitySet Name="Test2" EntityType="UserService.Test2"/>
+                <EntitySet Name="Bookings" EntityType="UserService.Bookings"/>
+                <EntitySet Name="Manager" EntityType="UserService.Manager">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Manager"/>
+                </EntitySet>
+                <EntitySet Name="Learner" EntityType="UserService.Learner">
+                    <NavigationPropertyBinding Path="enrolledCourses" Target="EnrolledIn"/>
+                    <NavigationPropertyBinding Path="startedCourses" Target="EnrolledIn"/>
+                    <NavigationPropertyBinding Path="completedCourses" Target="EnrolledIn"/>
+                </EntitySet>
+                <EntitySet Name="EnrolledIn" EntityType="UserService.EnrolledIn"/>
+            </EntityContainer>
+            <EntityType Name="Test">
+                <Property Name="ID" Type="Edm.Guid"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="role" Type="Edm.String"/>
+                <Property Name="occupation" Type="Edm.String"/>
+                <Property Name="businessUnit_name" Type="Edm.String"/>
+                <Property Name="visitedDate" Type="Edm.Int32"/>
+                <Property Name="lastVisit" Type="Edm.Date"/>
+                <Property Name="numberofcourses" Type="Edm.Int32"/>
+                <Property Name="numberofstartedcourses" Type="Edm.Int32"/>
+                <Property Name="numberofcompletedcourses" Type="Edm.Int32"/>
+                <Property Name="averagecompletionrate" Type="Edm.Double"/>
+            </EntityType>
+            <EntityType Name="Test2">
+                <Property Name="ID" Type="Edm.Guid"/>
+                <Property Name="courseID" Type="Edm.String"/>
+                <Property Name="businessUnitID" Type="Edm.String"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="visitedDays" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Bookings">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="BookingID" Type="Edm.Int32"/>
+                <Property Name="ConnectionID" Type="Edm.String" MaxLength="4"/>
+                <Property Name="FlightDate" Type="Edm.Date"/>
+                <Property Name="price" Type="Edm.Decimal" Scale="3" Precision="16"/>
+                <Property Name="BookingDate" Type="Edm.Date"/>
+                <Property Name="status" Type="Edm.String"/>
+                <Property Name="statusName" Type="Edm.String" MaxLength="255"/>
+            </EntityType>
+            <EntityType Name="Manager">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="name"/>
+                    <PropertyRef Name="email"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" Nullable="false"/>
+                <Property Name="email" Type="Edm.String" Nullable="false"/>
+                <Property Name="isDeactivated" Type="Edm.Boolean"/>
+                <Property Name="password" Type="Edm.String"/>
+                <Property Name="role" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="UserService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="UserService.Manager"/>
+            </EntityType>
+            <EntityType Name="Learner">
+                <Property Name="ID" Type="Edm.Guid"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="email" Type="Edm.String"/>
+                <Property Name="isDeactivated" Type="Edm.String"/>
+                <Property Name="role" Type="Edm.String"/>
+                <Property Name="occupation" Type="Edm.String"/>
+                <NavigationProperty Name="enrolledCourses" Type="Collection(UserService.EnrolledIn)"/>
+                <NavigationProperty Name="startedCourses" Type="Collection(UserService.EnrolledIn)"/>
+                <NavigationProperty Name="completedCourses" Type="Collection(UserService.EnrolledIn)"/>
+                <Property Name="visitedDate" Type="Edm.Int32"/>
+                <Property Name="lastVisit" Type="Edm.Date"/>
+                <Property Name="businessUnit_name" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="EnrolledIn">
+                <Property Name="courseID" Type="Edm.String"/>
+                <Property Name="learnerID" Type="Edm.String"/>
+                <Property Name="completionRate" Type="Edm.Double"/>
+                <Property Name="enrolledDate" Type="Edm.Date"/>
+                <Property Name="startedDate" Type="Edm.Date"/>
+                <Property Name="completionDate" Type="Edm.Date"/>
+                <Property Name="lastAccessedDate" Type="Edm.Date"/>
+                <Property Name="completedCourseItem" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="UserService.Manager"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="UserService.Manager"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="UserService.Manager"/>
+                <ReturnType Type="UserService.Manager"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="UserService.Manager"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="UserService.Manager"/>
+            </Action>
+            <Annotations Target="UserService.Test/ID">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="UserService.Test/numberofcourses">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="UserService.Test/numberofstartedcourses">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="UserService.Test/numberofcompletedcourses">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="UserService.Test/averagecompletionrate">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="UserService.EntityContainer/Test2">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.Test2/ID">
+                <Annotation Term="UI.Hidden" Bool="false"/>
+            </Annotations>
+            <Annotations Target="UserService.EntityContainer/Bookings">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.Bookings/ID">
+                <Annotation Term="UI.Hidden" Bool="false"/>
+            </Annotations>
+            <Annotations Target="UserService.Bookings/BookingID">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="UserService.Bookings/status">
+                <Annotation Term="Common.Text" Path="statusName">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="{i18n>BookingStatus}"/>
+                    <Annotation Term="Validation.AllowedValues">
+                        <Collection>
+                            <Record Type="Validation.AllowedValue">
+                                <Annotation Term="Core.SymbolicName" String="New"/>
+                                <PropertyValue Property="Value" String="N"/>
+                            </Record>
+                            <Record Type="Validation.AllowedValue">
+                                <Annotation Term="Core.SymbolicName" String="Booked"/>
+                                <PropertyValue Property="Value" String="B"/>
+                            </Record>
+                            <Record Type="Validation.AllowedValue">
+                                <Annotation Term="Core.SymbolicName" String="Canceled"/>
+                                <PropertyValue Property="Value" String="X"/>
+                            </Record>
+                        </Collection>
+                    </Annotation>
+                </Annotations>
+                <Annotations Target="UserService.Bookings/statusName">
+                    <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                    </Annotations>
+                    <Annotations Target="UserService.EntityContainer/Manager">
+                        <Annotation Term="Common.DraftRoot">
+                            <Record Type="Common.DraftRootType">
+                                <PropertyValue Property="ActivationAction" String="UserService.draftActivate"/>
+                                <PropertyValue Property="EditAction" String="UserService.draftEdit"/>
+                                <PropertyValue Property="PreparationAction" String="UserService.draftPrepare"/>
+                            </Record>
+                        </Annotation>
+                    </Annotations>
+                    <Annotations Target="UserService.Manager/ID">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.Manager/IsActiveEntity">
+                        <Annotation Term="UI.Hidden" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.Manager/HasActiveEntity">
+                        <Annotation Term="UI.Hidden" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.Manager/HasDraftEntity">
+                        <Annotation Term="UI.Hidden" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.Manager/DraftAdministrativeData">
+                        <Annotation Term="UI.Hidden" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.Learner/ID">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.DraftAdministrativeData">
+                        <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>
+                        </Annotations>
+                        <Annotations Target="UserService.DraftAdministrativeData/DraftUUID">
+                            <Annotation Term="UI.Hidden" Bool="true"/>
+                            <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}"/>
+                            </Annotations>
+                            <Annotations Target="UserService.DraftAdministrativeData/CreationDateTime">
+                                <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}"/>
+                                </Annotations>
+                                <Annotations Target="UserService.DraftAdministrativeData/CreatedByUser">
+                                    <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}"/>
+                                    </Annotations>
+                                    <Annotations Target="UserService.DraftAdministrativeData/DraftIsCreatedByMe">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}"/>
+                                        </Annotations>
+                                        <Annotations Target="UserService.DraftAdministrativeData/LastChangeDateTime">
+                                            <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}"/>
+                                            </Annotations>
+                                            <Annotations Target="UserService.DraftAdministrativeData/LastChangedByUser">
+                                                <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}"/>
+                                                </Annotations>
+                                                <Annotations Target="UserService.DraftAdministrativeData/InProcessByUser">
+                                                    <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="UserService.DraftAdministrativeData/DraftIsProcessedByMe">
+                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}"/>
+                                                        </Annotations>
+                                                    </Schema>
+                                                </edmx:DataServices>
+                                            </edmx:Edmx>

@@ -69,5 +69,49 @@ entity LearnersInfo : managed {
   entity BusinessUnit {
     description: String;
     name: String;
-    id: String;
+    key id: String;
+
   }
+
+  entity TestLearner {
+    key learnerUUID: UUID;
+    name: String;
+    email: String;
+    role: String;
+    visitedDays: Integer;
+    lastVisit: Date;
+    businessUnit: Association to BusinessUnit;
+    enrolledCourses: Association [*] to  TestEnrolled on enrolledCourses.learnerID = $self.learnerUUID;
+  }
+
+  entity TestEnrolled {
+    key courseID: String;
+    learnerID : String;
+    learner: Association to one TestLearner;
+    name: String;
+  }
+
+  entity T_Travel {
+    key BookingUUID   : UUID;
+    BookingID         : Integer @Core.Computed;
+    BookingDate       : Date;
+    ConnectionID      : String(4);
+    FlightDate        : Date;
+    FlightPrice       : Decimal(16, 3);
+    to_Customer       : Association to T_Passenger;
+    BookingStatus     : Association to T_BookingStatus;
+  }
+
+  entity T_Passenger {
+    CustomerID: UUID;
+    FirstName: String;
+    LastName: String;
+  }
+
+  entity T_BookingStatus : CodeList {
+  key code : String enum {
+    New      = 'N';
+    Booked   = 'B';
+    Canceled = 'X';
+  };
+};
