@@ -5,6 +5,7 @@ using { UserService } from './user-service';
 @AbapCatalog.compiler.compareFilter: true
 @AccessControl.authorizationCheck: #CHECK
 @EndUserText.label: 'Airline'
+@OData.publish: true
 
 extend service UserService {
     entity Test as select from db.Learner

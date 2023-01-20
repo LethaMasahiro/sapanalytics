@@ -56,6 +56,7 @@
         "app/course_list",
         "app/learners-overview",
         "app/learner-object",
-        "app/learner-behavior"
+        "app/learner-behavior",
+        "app/project1"
     ]
 }
