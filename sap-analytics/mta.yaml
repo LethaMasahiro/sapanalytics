@@ -42,6 +42,26 @@ modules:
       - project1.zip
       name: project1
       target-path: resources/
+    - artifacts:
+      - learnersinfo.zip
+      name: learnersinfo
+      target-path: resources/
+    - artifacts:
+      - hello.zip
+      name: hello
+      target-path: resources/
+    - artifacts:
+      - aaaaah.zip
+      name: aaaaah
+      target-path: resources/
+    - artifacts:
+      - aaah.zip
+      name: aaah
+      target-path: resources/
+    - artifacts:
+      - learnerbehavior.zip
+      name: learnerbehavior
+      target-path: resources/
 - name: lblearnerbehavior
   type: html5
   path: app/learner-behavior
@@ -55,6 +75,56 @@ modules:
 - name: project1
   type: html5
   path: app/project1
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: learnersinfo
+  type: html5
+  path: app/learnersinfo
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: hello
+  type: html5
+  path: app/hello
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: aaaaah
+  type: html5
+  path: app/aaaaah
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: aaah
+  type: html5
+  path: app/aaah
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: learnerbehavior
+  type: html5
+  path: app/learner-behavior
   build-parameters:
     build-result: dist
     builder: custom

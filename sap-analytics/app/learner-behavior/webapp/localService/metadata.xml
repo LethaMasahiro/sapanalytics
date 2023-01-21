@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Aggregation.V1.xml">
+        <edmx:Include Alias="Aggregation" Namespace="Org.OData.Aggregation.V1"/>
+    </edmx:Reference>
     <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
         <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
     </edmx:Reference>
@@ -18,39 +21,32 @@
     <edmx:DataServices>
         <Schema Namespace="UserService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
             <EntityContainer Name="EntityContainer">
-                <EntitySet Name="Test" EntityType="UserService.Test"/>
-                <EntitySet Name="Test2" EntityType="UserService.Test2"/>
                 <EntitySet Name="Bookings" EntityType="UserService.Bookings"/>
                 <EntitySet Name="Manager" EntityType="UserService.Manager">
+                    <NavigationPropertyBinding Path="enrolledCourses" Target="EnrolledIn"/>
                     <NavigationPropertyBinding Path="SiblingEntity" Target="Manager"/>
                 </EntitySet>
                 <EntitySet Name="Learner" EntityType="UserService.Learner">
                     <NavigationPropertyBinding Path="enrolledCourses" Target="EnrolledIn"/>
                     <NavigationPropertyBinding Path="startedCourses" Target="EnrolledIn"/>
                     <NavigationPropertyBinding Path="completedCourses" Target="EnrolledIn"/>
+                    <NavigationPropertyBinding Path="businessUnit" Target="businessUnit"/>
                 </EntitySet>
                 <EntitySet Name="EnrolledIn" EntityType="UserService.EnrolledIn"/>
+                <EntitySet Name="businessUnit" EntityType="UserService.businessUnit"/>
+                <EntitySet Name="UserAnalysis" EntityType="UserService.UserAnalysis">
+                    <NavigationPropertyBinding Path="enrolledCourses" Target="EnrolledIn"/>
+                    <NavigationPropertyBinding Path="startedCourses" Target="EnrolledIn"/>
+                    <NavigationPropertyBinding Path="completedCourses" Target="EnrolledIn"/>
+                    <NavigationPropertyBinding Path="businessUnit" Target="businessUnit"/>
+                </EntitySet>
+                <EntitySet Name="UserAnalysisProjection" EntityType="UserService.UserAnalysisProjection">
+                    <NavigationPropertyBinding Path="enrolledCourses" Target="EnrolledIn"/>
+                    <NavigationPropertyBinding Path="startedCourses" Target="EnrolledIn"/>
+                    <NavigationPropertyBinding Path="completedCourses" Target="EnrolledIn"/>
+                    <NavigationPropertyBinding Path="businessUnit" Target="businessUnit"/>
+                </EntitySet>
             </EntityContainer>
-            <EntityType Name="Test">
-                <Property Name="ID" Type="Edm.Guid"/>
-                <Property Name="name" Type="Edm.String"/>
-                <Property Name="role" Type="Edm.String"/>
-                <Property Name="occupation" Type="Edm.String"/>
-                <Property Name="businessUnit_name" Type="Edm.String"/>
-                <Property Name="visitedDate" Type="Edm.Int32"/>
-                <Property Name="lastVisit" Type="Edm.Date"/>
-                <Property Name="numberofcourses" Type="Edm.Int32"/>
-                <Property Name="numberofstartedcourses" Type="Edm.Int32"/>
-                <Property Name="numberofcompletedcourses" Type="Edm.Int32"/>
-                <Property Name="averagecompletionrate" Type="Edm.Double"/>
-            </EntityType>
-            <EntityType Name="Test2">
-                <Property Name="ID" Type="Edm.Guid"/>
-                <Property Name="courseID" Type="Edm.String"/>
-                <Property Name="businessUnitID" Type="Edm.String"/>
-                <Property Name="name" Type="Edm.String"/>
-                <Property Name="visitedDays" Type="Edm.Int32"/>
-            </EntityType>
             <EntityType Name="Bookings">
                 <Key>
                     <PropertyRef Name="ID"/>
@@ -77,6 +73,7 @@
                 <Property Name="isDeactivated" Type="Edm.Boolean"/>
                 <Property Name="password" Type="Edm.String"/>
                 <Property Name="role" Type="Edm.String"/>
+                <NavigationProperty Name="enrolledCourses" Type="Collection(UserService.EnrolledIn)"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -95,6 +92,7 @@
                 <NavigationProperty Name="completedCourses" Type="Collection(UserService.EnrolledIn)"/>
                 <Property Name="visitedDate" Type="Edm.Int32"/>
                 <Property Name="lastVisit" Type="Edm.Date"/>
+                <NavigationProperty Name="businessUnit" Type="UserService.businessUnit"/>
                 <Property Name="businessUnit_name" Type="Edm.String"/>
             </EntityType>
             <EntityType Name="EnrolledIn">
@@ -106,6 +104,48 @@
                 <Property Name="completionDate" Type="Edm.Date"/>
                 <Property Name="lastAccessedDate" Type="Edm.Date"/>
                 <Property Name="completedCourseItem" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="businessUnit">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="id" Type="Edm.String" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="UserAnalysis">
+                <Property Name="ID" Type="Edm.Guid"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="role" Type="Edm.String"/>
+                <Property Name="occupation" Type="Edm.String"/>
+                <NavigationProperty Name="enrolledCourses" Type="Collection(UserService.EnrolledIn)"/>
+                <NavigationProperty Name="startedCourses" Type="Collection(UserService.EnrolledIn)"/>
+                <NavigationProperty Name="completedCourses" Type="Collection(UserService.EnrolledIn)"/>
+                <Property Name="visitedDate" Type="Edm.Int32"/>
+                <Property Name="lastVisit" Type="Edm.Date"/>
+                <NavigationProperty Name="businessUnit" Type="UserService.businessUnit"/>
+                <Property Name="businessUnit_name" Type="Edm.String"/>
+                <Property Name="numberofcourses" Type="Edm.Int32"/>
+                <Property Name="numberofstartedcourses" Type="Edm.Int32"/>
+                <Property Name="numberofcompletedcourses" Type="Edm.Int32"/>
+                <Property Name="averagecompletionrate" Type="Edm.Double"/>
+            </EntityType>
+            <EntityType Name="UserAnalysisProjection">
+                <Property Name="ID" Type="Edm.Guid"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="role" Type="Edm.String"/>
+                <Property Name="occupation" Type="Edm.String"/>
+                <NavigationProperty Name="enrolledCourses" Type="Collection(UserService.EnrolledIn)"/>
+                <NavigationProperty Name="startedCourses" Type="Collection(UserService.EnrolledIn)"/>
+                <NavigationProperty Name="completedCourses" Type="Collection(UserService.EnrolledIn)"/>
+                <Property Name="visitedDate" Type="Edm.Int32"/>
+                <Property Name="lastVisit" Type="Edm.Date"/>
+                <NavigationProperty Name="businessUnit" Type="UserService.businessUnit"/>
+                <Property Name="businessUnit_name" Type="Edm.String"/>
+                <Property Name="numberofcourses" Type="Edm.Int32"/>
+                <Property Name="numberofstartedcourses" Type="Edm.Int32"/>
+                <Property Name="numberofcompletedcourses" Type="Edm.Int32"/>
+                <Property Name="averagecompletionrate" Type="Edm.Double"/>
             </EntityType>
             <EntityType Name="DraftAdministrativeData">
                 <Key>
@@ -134,41 +174,6 @@
                 <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
                 <ReturnType Type="UserService.Manager"/>
             </Action>
-            <Annotations Target="UserService.Test/ID">
-                <Annotation Term="Core.Computed" Bool="true"/>
-            </Annotations>
-            <Annotations Target="UserService.Test/numberofcourses">
-                <Annotation Term="Core.Computed" Bool="true"/>
-            </Annotations>
-            <Annotations Target="UserService.Test/numberofstartedcourses">
-                <Annotation Term="Core.Computed" Bool="true"/>
-            </Annotations>
-            <Annotations Target="UserService.Test/numberofcompletedcourses">
-                <Annotation Term="Core.Computed" Bool="true"/>
-            </Annotations>
-            <Annotations Target="UserService.Test/averagecompletionrate">
-                <Annotation Term="Core.Computed" Bool="true"/>
-            </Annotations>
-            <Annotations Target="UserService.EntityContainer/Test2">
-                <Annotation Term="Capabilities.DeleteRestrictions">
-                    <Record Type="Capabilities.DeleteRestrictionsType">
-                        <PropertyValue Property="Deletable" Bool="false"/>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.InsertRestrictions">
-                    <Record Type="Capabilities.InsertRestrictionsType">
-                        <PropertyValue Property="Insertable" Bool="false"/>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.UpdateRestrictions">
-                    <Record Type="Capabilities.UpdateRestrictionsType">
-                        <PropertyValue Property="Updatable" Bool="false"/>
-                    </Record>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="UserService.Test2/ID">
-                <Annotation Term="UI.Hidden" Bool="false"/>
-            </Annotations>
             <Annotations Target="UserService.EntityContainer/Bookings">
                 <Annotation Term="Capabilities.DeleteRestrictions">
                     <Record Type="Capabilities.DeleteRestrictionsType">
@@ -242,6 +247,116 @@
                         <Annotation Term="UI.Hidden" Bool="true"/>
                     </Annotations>
                     <Annotations Target="UserService.Learner/ID">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysis">
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="visitedDate" String="Edm.Int32"/>
+                    </Annotations>
+                    <Annotations Target="UserService.EntityContainer/UserAnalysis">
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="visitedDate" String="Edm.Int32"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysis/ID">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysis/numberofcourses">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysis/numberofstartedcourses">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysis/numberofcompletedcourses">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysis/averagecompletionrate">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysisProjection">
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="averagecompletionrate" String="Edm.Decimal"/>
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="numberofcompletedcourses" String="Edm.Int64"/>
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="numberofcourses" String="Edm.Int64"/>
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="numberofstartedcourses" String="Edm.Int64"/>
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="visitedDate" String="Edm.Int32"/>
+                        <Annotation Term="Aggregation.ApplySupported">
+                            <Record Type="Aggregation.ApplySupportedType">
+                                <PropertyValue Property="GroupableProperties">
+                                    <Collection>
+                                        <PropertyPath>role</PropertyPath>
+                                        <PropertyPath>occupation</PropertyPath>
+                                        <PropertyPath>businessUnit_id</PropertyPath>
+                                    </Collection>
+                                </PropertyValue>
+                                <PropertyValue Property="AggregatableProperties">
+                                    <Collection>
+                                        <Record Type="Aggregation.AggregatablePropertyType">
+                                            <PropertyValue Property="Property" PropertyPath="visitedDate"/>
+                                        </Record>
+                                        <Record Type="Aggregation.AggregatablePropertyType">
+                                            <PropertyValue Property="Property" PropertyPath="numberofcourses"/>
+                                        </Record>
+                                        <Record Type="Aggregation.AggregatablePropertyType">
+                                            <PropertyValue Property="Property" PropertyPath="numberofstartedcourses"/>
+                                        </Record>
+                                        <Record Type="Aggregation.AggregatablePropertyType">
+                                            <PropertyValue Property="Property" PropertyPath="numberofcompletedcourses"/>
+                                        </Record>
+                                        <Record Type="Aggregation.AggregatablePropertyType">
+                                            <PropertyValue Property="Property" PropertyPath="averagecompletionrate"/>
+                                        </Record>
+                                    </Collection>
+                                </PropertyValue>
+                            </Record>
+                        </Annotation>
+                    </Annotations>
+                    <Annotations Target="UserService.EntityContainer/UserAnalysisProjection">
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="averagecompletionrate" String="Edm.Decimal"/>
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="numberofcompletedcourses" String="Edm.Int64"/>
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="numberofcourses" String="Edm.Int64"/>
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="numberofstartedcourses" String="Edm.Int64"/>
+                        <Annotation Term="Aggregation.CustomAggregate" Qualifier="visitedDate" String="Edm.Int32"/>
+                        <Annotation Term="Aggregation.ApplySupported">
+                            <Record Type="Aggregation.ApplySupportedType">
+                                <PropertyValue Property="GroupableProperties">
+                                    <Collection>
+                                        <PropertyPath>role</PropertyPath>
+                                        <PropertyPath>occupation</PropertyPath>
+                                        <PropertyPath>businessUnit_id</PropertyPath>
+                                    </Collection>
+                                </PropertyValue>
+                                <PropertyValue Property="AggregatableProperties">
+                                    <Collection>
+                                        <Record Type="Aggregation.AggregatablePropertyType">
+                                            <PropertyValue Property="Property" PropertyPath="visitedDate"/>
+                                        </Record>
+                                        <Record Type="Aggregation.AggregatablePropertyType">
+                                            <PropertyValue Property="Property" PropertyPath="numberofcourses"/>
+                                        </Record>
+                                        <Record Type="Aggregation.AggregatablePropertyType">
+                                            <PropertyValue Property="Property" PropertyPath="numberofstartedcourses"/>
+                                        </Record>
+                                        <Record Type="Aggregation.AggregatablePropertyType">
+                                            <PropertyValue Property="Property" PropertyPath="numberofcompletedcourses"/>
+                                        </Record>
+                                        <Record Type="Aggregation.AggregatablePropertyType">
+                                            <PropertyValue Property="Property" PropertyPath="averagecompletionrate"/>
+                                        </Record>
+                                    </Collection>
+                                </PropertyValue>
+                            </Record>
+                        </Annotation>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysisProjection/ID">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysisProjection/numberofcourses">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysisProjection/numberofstartedcourses">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysisProjection/numberofcompletedcourses">
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="UserService.UserAnalysisProjection/averagecompletionrate">
                         <Annotation Term="Core.Computed" Bool="true"/>
                     </Annotations>
                     <Annotations Target="UserService.DraftAdministrativeData">

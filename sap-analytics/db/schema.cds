@@ -30,6 +30,20 @@ entity LearnersInfo : managed {
     learner_ID    : String;
   }
 
+  entity T_Learner: managed {
+    key ID      : UUID  @(Core.Computed : true);
+    name : String;
+    isDeactivated : String;
+    email : String;
+    password : String;
+  }
+
+  entity T_EnrolledIn: managed {
+    key courseID: UUID @(Core.Computed : true);
+    learnerID: String;
+    completionRate: String;
+  }
+
   entity Manager {
     key ID      : UUID  @(Core.Computed : true);
     key name        : String;
@@ -37,6 +51,7 @@ entity LearnersInfo : managed {
     isDeactivated: Boolean;
     password    : String;
     role: String;
+    enrolledCourses: Association  to many EnrolledIn on enrolledCourses.learnerID = $self.ID;
   }
 
   entity Learner  {
@@ -47,13 +62,14 @@ entity LearnersInfo : managed {
     //password: String;
     role: String;
     occupation: String;
-    enrolledCourses: Association [*]  to EnrolledIn on enrolledCourses.learnerID = $self.ID;
-    startedCourses: Association [*] to EnrolledIn on startedCourses.learnerID = $self.ID and startedCourses.startedDate != null ;
-    completedCourses: Association [*] to EnrolledIn on completedCourses.learnerID = $self.ID and completedCourses.startedDate != null;
+    enrolledCourses: Association  to many EnrolledIn on enrolledCourses.learnerID = $self.ID;
+    startedCourses: Association to many EnrolledIn on startedCourses.learnerID = $self.ID and startedCourses.startedDate != null ;
+    completedCourses: Association to many EnrolledIn on completedCourses.learnerID = $self.ID and completedCourses.startedDate != null;
     visitedDate: Integer;
     lastVisit: Date;
     businessUnit: Association to BusinessUnit {name};
   }
+
 
   entity EnrolledIn {
     courseID: String;
@@ -73,25 +89,7 @@ entity LearnersInfo : managed {
 
   }
 
-  entity TestLearner {
-    key learnerUUID: UUID;
-    name: String;
-    email: String;
-    role: String;
-    visitedDays: Integer;
-    lastVisit: Date;
-    businessUnit: Association to BusinessUnit;
-    enrolledCourses: Association [*] to  TestEnrolled on enrolledCourses.learnerID = $self.learnerUUID;
-  }
-
-  entity TestEnrolled {
-    key courseID: String;
-    learnerID : String;
-    learner: Association to one TestLearner;
-    name: String;
-  }
-
-  entity T_Travel {
+  /*entity T_Travel {
     key BookingUUID   : UUID;
     BookingID         : Integer @Core.Computed;
     BookingDate       : Date;
@@ -114,4 +112,4 @@ entity LearnersInfo : managed {
     Booked   = 'B';
     Canceled = 'X';
   };
-};
+};*/

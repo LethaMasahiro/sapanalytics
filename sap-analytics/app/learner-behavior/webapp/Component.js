@@ -3,7 +3,7 @@ sap.ui.define(
     function (Component) {
         "use strict";
 
-        return Component.extend("lb.learnerbehavior.Component", {
+        return Component.extend("learnerbehavior.Component", {
             metadata: {
                 manifest: "json"
             }

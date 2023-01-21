@@ -1,17 +1,44 @@
 using { sapanalytics.db as db } from '../db/schema';
+
 using { ManagerService } from './manager-service';
 
-extend service ManagerService {
-  @readonly
-  entity ManagerAnalysis as select from db.LearnersInfo {
-    *,
-    /*count(courses.ID) as numberofcourses:Integer,
-    cast (substring(createdAt,1,10) as Date) as createdAt
-  } where courses.learner_ID = ID group by ID;*/
-  }
-  
-  
+annotate LearnersInfo
+{
+    visiteddays
+        @Aggregation.default : #sum;
 }
 
-// Fix ambiguity in Mitigations.risk association ensuring it points to Risks
-extend ManagerService.LearnersInfo with @cds.redirection.target;
+annotate LearnersInfo with @Aggregation.ApplySupported : 
+{
+    $Type : 'Aggregation.ApplySupportedType',
+    GroupableProperties :
+    [
+        createdAt,
+        createdBy,
+        modifiedAt,
+        modifiedBy,
+        ID,
+        role,
+        name,
+        email,
+        isDeactivated,
+        password,
+        occupation,
+        lastvisit
+    ],
+    AggregatableProperties :
+    [
+        {
+            Property : visiteddays
+        }
+    ]
+};
+
+annotate ManagerService.LearnersInfo with @cds.redirection.target;
+
+@Aggregation.CustomAggregate#visiteddays : 'Edm.Int32'
+entity LearnersInfo as projection on ManagerService.LearnersInfo
+{
+    *,
+    visiteddays
+};

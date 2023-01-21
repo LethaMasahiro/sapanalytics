@@ -1,23 +1,25 @@
 sap.ui.require(
     [
         'sap/fe/test/JourneyRunner',
-        'lb/learnerbehavior/test/integration/FirstJourney',
-		'lb/learnerbehavior/test/integration/pages/TestList',
-		'lb/learnerbehavior/test/integration/pages/TestObjectPage'
+        'learnerbehavior/test/integration/FirstJourney',
+		'learnerbehavior/test/integration/pages/UserAnalysisList',
+		'learnerbehavior/test/integration/pages/UserAnalysisObjectPage',
+		'learnerbehavior/test/integration/pages/EnrolledInObjectPage'
     ],
-    function(JourneyRunner, opaJourney, TestList, TestObjectPage) {
+    function(JourneyRunner, opaJourney, UserAnalysisList, UserAnalysisObjectPage, EnrolledInObjectPage) {
         'use strict';
         var JourneyRunner = new JourneyRunner({
             // start index.html in web folder
-            launchUrl: sap.ui.require.toUrl('lb/learnerbehavior') + '/index.html'
+            launchUrl: sap.ui.require.toUrl('learnerbehavior') + '/index.html'
         });
 
        
         JourneyRunner.run(
             {
                 pages: { 
-					onTheTestList: TestList,
-					onTheTestObjectPage: TestObjectPage
+					onTheUserAnalysisList: UserAnalysisList,
+					onTheUserAnalysisObjectPage: UserAnalysisObjectPage,
+					onTheEnrolledInObjectPage: EnrolledInObjectPage
                 }
             },
             opaJourney.run

@@ -8,9 +8,9 @@ sap.ui.define(['sap/fe/test/ListReport'], function(ListReport) {
 
     return new ListReport(
         {
-            appId: 'lb.learnerbehavior',
-            componentId: 'TestList',
-            entitySet: 'Test'
+            appId: 'learnerbehavior',
+            componentId: 'UserAnalysisList',
+            entitySet: 'UserAnalysis'
         },
         CustomPageDefinitions
     );
