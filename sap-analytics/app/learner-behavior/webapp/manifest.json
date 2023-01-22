@@ -108,6 +108,11 @@
                     "pattern": "UserAnalysis({key})/enrolledCourses({key2}):?query:",
                     "name": "EnrolledInObjectPage",
                     "target": "EnrolledInObjectPage"
+                },
+                {
+                    "pattern": "UserAnalysis({key})/completedCourses({key2}):?query:",
+                    "name": "EnrolledInObjectPage_completedCourses",
+                    "target": "EnrolledInObjectPage_completedCourses"
                 }
             ],
             "targets": {
@@ -126,6 +131,7 @@
                                     }
                                 }
                             },
+                            "initialLoad": true,
                             "views": {
                                 "paths": [
                                     {
@@ -143,7 +149,15 @@
                                     }
                                 ]
                             },
-                            "hideFilterBar": false
+                            "hideFilterBar": false,
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "type": "ResponsiveTable",
+                                        "enableExport": true
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -155,13 +169,21 @@
                         "settings": {
                             "editableHeaderContent": false,
                             "entitySet": "UserAnalysis",
+                            "simpleHeaderFacets": true,
+                            "showRelatedApps": true,
                             "navigation": {
                                 "enrolledCourses": {
                                     "detail": {
                                         "route": "EnrolledInObjectPage"
                                     }
+                                },
+                                "completedCourses": {
+                                    "detail": {
+                                        "route": "EnrolledInObjectPage_completedCourses"
+                                    }
                                 }
-                            }
+                            },
+                            "sectionLayout": "Page"
                         }
                     }
                 },
@@ -175,17 +197,35 @@
                             "entitySet": "EnrolledIn"
                         }
                     }
+                },
+                "EnrolledInObjectPage_completedCourses": {
+                    "type": "Component",
+                    "id": "EnrolledInObjectPage_completedCourses",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "entitySet": "EnrolledIn",
+                            "navigation": {}
+                        }
+                    }
                 }
             }
         },
         "extends": {
             "extensions": {
-                "sap.ui.controllerExtensions": {}
+                "sap.ui.controllerExtensions": {
+                    "sap.fe.templates.ObjectPage.ObjectPageController": {
+                        "controllerName": "learnerbehavior.ext.controller.ObjectPageController"
+                    },
+                    "sap.fe.templates.ObjectPage.ObjectPageController#learnerbehavior::UserAnalysisObjectPage": {
+                        "controllerName": "learnerbehavior.ext.controller.UserAnalysisObjectPageController"
+                    }
+                }
             }
         }
     },
     "sap.fiori": {
         "registrationIds": [],
-        "archeType": "transactional"
+        "archeType": "analytical"
     }
 }

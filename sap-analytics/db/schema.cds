@@ -55,7 +55,7 @@ entity LearnersInfo : managed {
   }
 
   entity Learner  {
-    ID      : UUID  @(Core.Computed : true);
+    key ID      : UUID  @(Core.Computed : true);
     name        : String;
     email       : String;
     isDeactivated: String;

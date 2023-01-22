@@ -10,6 +10,13 @@
       "csrfProtection": false
     },
     {
+      "source": "^/UserAnalysis",
+      "target": "/user/$1",
+      "destination": "UserAnalysisObjectPage",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false
+    },
+    {
       "source": "^/resources/(.*)$",
       "target": "/resources/$1",
       "authenticationType": "none",
