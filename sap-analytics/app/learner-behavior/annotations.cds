@@ -76,8 +76,8 @@ annotate service.UserAnalysis with @(
 );
 annotate service.UserAnalysis with @(
     UI.HeaderInfo : {
-        TypeName : '{i18n>Hello}',
-        TypeNamePlural : '{i18n>Hellos}',
+        TypeName : '{i18n>Learner}',
+        TypeNamePlural : '{i18n>Learners}',
         Title : {
             $Type : 'UI.DataField',
             Value : name,
@@ -238,3 +238,191 @@ annotate service.EnrolledIn with @(
             Label : 'completedCourseItem',
         },]
 );
+annotate service.UserAnalysis with @(
+    UI.SelectionFields : [
+        role,
+        occupation
+    ]
+);
+annotate service.UserAnalysis with {
+    role @Common.Label : 'role'
+};
+
+annotate service.UserAnalysis with @(
+    UI.SelectionVariant #SVForStatus : {
+    
+    SelectOptions : [
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : numberofstartedcourses,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'D'
+                }
+            ]
+        },
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : numberofcompletedcourses,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'HT-1502'
+                }
+            ]
+        }
+    ]
+    }   
+);
+annotate service.UserAnalysis with @(
+    UI.Chart #visualFilter : {
+        $Type : 'UI.ChartDefinitionType',
+        ChartType : #Bar,
+        Dimensions : [
+            role,
+            occupation
+        ],
+        Measures : [
+            numberofstartedcourses,
+        ],
+    },
+    UI.PresentationVariant #visualFilter : {
+        $Type : 'UI.PresentationVariantType',
+        Visualizations : [
+            '@UI.Chart#visualFilter',
+        ],
+    }
+);
+annotate service.UserAnalysis with {
+  @Common.ValueList #VisualFilter : {
+    Label : 'numberofstartedcourses',
+    CollectionPath : 'UserAnalysis',
+    SearchSupported : false,
+    PresentationVariantQualifier : 'visualFilter',
+    SelectionVariantQualifier : 'SVForStatus',
+    Parameters : [
+        {
+            $Type : 'Common.ValueListParameterInOut',
+            LocalDataProperty : numberofstartedcourses,
+            ValueListProperty : 'role'
+        }
+    ]
+  }
+  numberofstartedcourses
+};
+
+annotate service.UserAnalysis with {
+    numberofstartedcourses @Common.ValueList #visualFilter : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'UserAnalysis',
+        Parameters : [
+            {
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : numberofstartedcourses,
+                ValueListProperty : 'role',
+            },
+        ],
+        PresentationVariantQualifier : 'visualFilter',
+    }
+};
+annotate service.UserAnalysis with @(
+    UI.Chart #visualFilter1 : {
+        $Type : 'UI.ChartDefinitionType',
+        ChartType : #Bar,
+        Dimensions : [
+            role,
+        ],
+        Measures : [
+            numberofcompletedcourses,
+        ],
+    },
+    UI.PresentationVariant #visualFilter1 : {
+        $Type : 'UI.PresentationVariantType',
+        Visualizations : [
+            '@UI.Chart#visualFilter1',
+        ],
+    }
+);
+annotate service.UserAnalysis with {
+    numberofcompletedcourses @Common.ValueList #visualFilter : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'UserAnalysis',
+        Parameters : [
+            {
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : numberofcompletedcourses,
+                ValueListProperty : 'role',
+            },
+        ],
+        PresentationVariantQualifier : 'visualFilter1',
+    }
+};
+annotate service.UserAnalysis with @(
+    UI.Chart #visualFilter2 : {
+        $Type : 'UI.ChartDefinitionType',
+        ChartType : #Bar,
+        Dimensions : [
+            role,
+        ],
+        Measures : [
+            averagecompletionrate,
+        ],
+    },
+    UI.PresentationVariant #visualFilter2 : {
+        $Type : 'UI.PresentationVariantType',
+        Visualizations : [
+            '@UI.Chart#visualFilter2',
+        ],
+    }
+);
+annotate service.UserAnalysis with {
+    averagecompletionrate @Common.ValueList #visualFilter : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'UserAnalysis',
+        Parameters : [
+            {
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : averagecompletionrate,
+                ValueListProperty : 'role',
+            },
+        ],
+        PresentationVariantQualifier : 'visualFilter2',
+    }
+};
+annotate service.UserAnalysis with @(
+    UI.Chart #visualFilter3 : {
+        $Type : 'UI.ChartDefinitionType',
+        ChartType : #Bar,
+        Dimensions : [
+            role,
+        ],
+        Measures : [
+            visitedDate,
+        ],
+    },
+    UI.PresentationVariant #visualFilter3 : {
+        $Type : 'UI.PresentationVariantType',
+        Visualizations : [
+            '@UI.Chart#visualFilter3',
+        ],
+    }
+);
+annotate service.UserAnalysis with {
+    visitedDate @Common.ValueList #visualFilter : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'UserAnalysis',
+        Parameters : [
+            {
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : visitedDate,
+                ValueListProperty : 'role',
+            },
+        ],
+        PresentationVariantQualifier : 'visualFilter3',
+    }
+};

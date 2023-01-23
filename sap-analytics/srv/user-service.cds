@@ -18,6 +18,8 @@ service UserService
             @Aggregation.default : #countdistinct;
         visitedDate
             @Aggregation.default : #sum;
+
+            
     }
 
     annotate UserAnalysis with @Aggregation.ApplySupported : 

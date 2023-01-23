@@ -156,6 +156,33 @@
                                         "type": "ResponsiveTable",
                                         "enableExport": true
                                     }
+                                },
+                                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                                    "layout": "CompactVisual",
+                                    "initialLayout": "Visual",
+                                    "filterFields": {
+                                        "numberofstartedcourses": {
+                                            "visualFilter": {
+                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#visualFilter"
+                                            },
+                                            "availability": "Default"
+                                        },
+                                        "numberofcompletedcourses": {
+                                            "visualFilter": {
+                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#visualFilter"
+                                            }
+                                        },
+                                        "averagecompletionrate": {
+                                            "visualFilter": {
+                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#visualFilter"
+                                            }
+                                        },
+                                        "visitedDate": {
+                                            "visualFilter": {
+                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#visualFilter"
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
