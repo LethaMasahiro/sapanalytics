@@ -55,7 +55,7 @@ entity LearnersInfo : managed {
   }
 
   entity Learner  {
-    key ID      : UUID  @(Core.Computed : true);
+    key ID      : String  @(Core.Computed : true);
     name        : String;
     email       : String;
     isDeactivated: String;
@@ -72,6 +72,7 @@ entity LearnersInfo : managed {
 
 
   entity EnrolledIn {
+    //key ID : String @(Core.Computed : true);
     courseID: String;
     learnerID: String;
     completionRate: Double;

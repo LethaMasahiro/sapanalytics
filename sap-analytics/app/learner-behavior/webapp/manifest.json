@@ -183,7 +183,16 @@
                                     }
                                 }
                             },
-                            "sectionLayout": "Page"
+                            "sectionLayout": "Page",
+                            "controlConfiguration": {
+                                "enrolledCourses/@com.sap.vocabularies.UI.v1.LineItem#EnrolledCourses": {
+                                    "tableSettings": {
+                                        "enableFullScreen": true,
+                                        "selectionMode": "Single",
+                                        "type": "ResponsiveTable"
+                                    }
+                                }
+                            }
                         }
                     }
                 },
