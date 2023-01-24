@@ -131,7 +131,7 @@
                                     }
                                 }
                             },
-                            "initialLoad": true,
+                            "initialLoad": "Enabled",
                             "views": {
                                 "paths": [
                                     {

@@ -5,55 +5,73 @@ annotate service.UserAnalysis with @(
         {
             $Type : 'UI.DataField',
             Value : ID,
-            Label : '{i18n>Id}',
+            Label : 'ID',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : firstName,
+            Label : 'First Name',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : lastName,
+            Label : 'Last Name',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : email,
+            Label : 'Email',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : businessUnit,
+            Label : 'Business Unit',
         },
         {
             $Type : 'UI.DataField',
             Value : lastVisit,
-            Label : '{i18n>Lastvisit}',
+            Label : 'Last Visit',
         },
         {
             $Type : 'UI.DataField',
-            Value : name,
-            Label : '{i18n>Name1}',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : numberofcompletedcourses,
-            Label : '{i18n>Numberofcompletedcourses}',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : numberofcourses,
-            Label : '{i18n>Numberofcourses}',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : numberofstartedcourses,
-            Label : '{i18n>Numberofstartedcourses}',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : occupation,
-            Label : '{i18n>Occupation}',
+            Value : country,
+            Label : 'Country',
         },
         {
             $Type : 'UI.DataField',
             Value : role,
-            Label : '{i18n>Role}',
+            Label : 'Role',
         },
         {
             $Type : 'UI.DataField',
             Value : visitedDate,
-            Label : '{i18n>Visiteddate}',
+            Label : 'Visited Date',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : numberofcourses,
+            Label : 'Number Of Courses',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : numberofcompletedcourses,
+            Label : 'Number Of Completed Courses',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : numberofstartedcourses,
+            Label : 'Number Of Started Courses',
         },
         {
             $Type : 'UI.DataField',
             Value : averagecompletionrate,
-            Label : '{i18n>Averagecompletionrate}',
+            Label : 'Average Completion Rate',
         },
     ]
 );
+
+
+
 annotate service.UserAnalysis with @(
     UI.DataPoint #averagecompletionrate : {
         Value : averagecompletionrate,
@@ -66,7 +84,7 @@ annotate service.UserAnalysis with @(
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Pie,
         Dimensions : [
-            role,
+            businessUnit,
         ],
         Measures : [
             numberofcourses,
@@ -80,16 +98,16 @@ annotate service.UserAnalysis with @(
         TypeNamePlural : '{i18n>Learners}',
         Title : {
             $Type : 'UI.DataField',
-            Value : name,
+            Value : ID,
         },
-        ImageUrl : businessUnit.id,
+        ImageUrl : businessUnit,
     }
 );
 annotate service.UserAnalysis with @(
-    UI.DataPoint #name : {
+    UI.DataPoint #firstName : {
         $Type : 'UI.DataPointType',
-        Value : name,
-        Title : '{i18n>Name2}',
+        Value : firstName,
+        Title : 'Email',
     },
     UI.HeaderFacets : [
         {
@@ -99,8 +117,13 @@ annotate service.UserAnalysis with @(
         },
         {
             $Type : 'UI.ReferenceFacet',
-            ID : 'name',
-            Target : '@UI.DataPoint#name',
+            ID : 'firstName',
+            Target : '@UI.DataPoint#firstName1',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'lastName',
+            Target : '@UI.DataPoint#lastName',
         },
         {
             $Type : 'UI.ReferenceFacet',
@@ -109,8 +132,13 @@ annotate service.UserAnalysis with @(
         },
         {
             $Type : 'UI.ReferenceFacet',
-            ID : 'occupation',
-            Target : '@UI.DataPoint#occupation',
+            ID : 'businessUnit',
+            Target : '@UI.DataPoint#businessUnit1',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'country',
+            Target : '@UI.DataPoint#country1',
         },
         {
             $Type : 'UI.ReferenceFacet',
@@ -121,6 +149,11 @@ annotate service.UserAnalysis with @(
             $Type : 'UI.ReferenceFacet',
             ID : 'lastVisit',
             Target : '@UI.DataPoint#lastVisit',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'email',
+            Target : '@UI.DataPoint#email',
         },
     ]
 );
@@ -142,7 +175,7 @@ annotate service.UserAnalysis with @(
     UI.DataPoint #progress : {
         $Type : 'UI.DataPointType',
         Value : averagecompletionrate,
-        Title : 'averagecompletionrate',
+        Title : 'Average Completion Rate',
         TargetValue : 100,
         Visualization : #Progress,
     }
@@ -170,25 +203,40 @@ annotate service.EnrolledIn with @(
     }
 );
 annotate service.UserAnalysis with @(
-    UI.DataPoint #occupation : {
+    UI.DataPoint #country : {
         $Type : 'UI.DataPointType',
-        Value : occupation,
-        Title : 'occupation',
+        Value : country,
+        Title : 'Country',
+    },
+    UI.DataPoint #businessUnit : {
+        $Type : 'UI.DataPointType',
+        Value : businessUnit,
+        Title : 'Business Unit',
     },
     UI.DataPoint #role : {
         $Type : 'UI.DataPointType',
         Value : role,
-        Title : 'role',
+        Title : 'Role',
     },
     UI.DataPoint #lastVisit : {
         $Type : 'UI.DataPointType',
         Value : lastVisit,
-        Title : 'lastVisit',
+        Title : 'Last Visit',
     },
     UI.DataPoint #ID : {
         $Type : 'UI.DataPointType',
         Value : ID,
         Title : 'ID',
+    },
+    UI.DataPoint #numberofcourses : {
+        $Type : 'UI.DataPointType',
+        Value : ID,
+        Title : 'Number of Courses',
+    },
+    UI.DataPoint #numberofstartedcourses : {
+        $Type : 'UI.DataPointType',
+        Value : ID,
+        Title : 'Number of Started Courses',
     }
 );
 annotate service.UserAnalysis with @(
@@ -202,7 +250,7 @@ annotate service.UserAnalysis with @(
             {
                 $Type : 'UI.DataField',
                 Value : averagecompletionrate,
-                Label : 'averagecompletionrate',
+                Label : 'Average Completion Rate',
             },],
     }
 );
@@ -211,41 +259,47 @@ annotate service.EnrolledIn with @(
         {
             $Type : 'UI.DataField',
             Value : courseID,
-            Label : 'courseID',
+            Label : 'Course ID',
         },{
             $Type : 'UI.DataField',
             Value : enrolledDate,
-            Label : 'enrolledDate',
+            Label : 'Enrolled Date',
         },{
             $Type : 'UI.DataField',
             Value : startedDate,
-            Label : 'startedDate',
+            Label : 'Started Date',
         },{
             $Type : 'UI.DataField',
             Value : completionDate,
-            Label : 'completionDate',
+            Label : 'Completion Date',
         },{
             $Type : 'UI.DataField',
             Value : lastAccessedDate,
-            Label : 'lastAccessedDate',
+            Label : 'Last Accessed Date',
         },{
             $Type : 'UI.DataField',
             Value : completionRate,
-            Label : 'completionRate',
+            Label : 'Completion Rate',
         },{
             $Type : 'UI.DataField',
             Value : completedCourseItem,
-            Label : 'completedCourseItem',
+            Label : 'Completed Course Items',
         },]
 );
 annotate service.UserAnalysis with @(
     UI.SelectionFields : [
-        role,
-        occupation
+        businessUnit
     ]
 );
 annotate service.UserAnalysis with {
-    role @Common.Label : 'role'
+    businessUnit @Common.Label : 'Business Unit';
+    numberofstartedcourses @Common.Label : 'Number of Started Courses';
+    numberofcompletedcourses @Common.Label : 'Number of Completed Courses';
+    numberofcourses @Common.Label : 'Number of Courses';
+    averagecompletionrate @Common.Label : 'Average Completion Rate';
+    visitedDate @Common.Label : 'Visited Days';
+    role @Common.Label : 'Role';
+    name @Common.Label : 'Name';
 };
 
 annotate service.UserAnalysis with @(
@@ -285,7 +339,8 @@ annotate service.UserAnalysis with @(
         ChartType : #Bar,
         Dimensions : [
             role,
-            occupation
+            country,
+            businessUnit
         ],
         Measures : [
             numberofstartedcourses,
@@ -300,16 +355,16 @@ annotate service.UserAnalysis with @(
 );
 annotate service.UserAnalysis with {
   @Common.ValueList #VisualFilter : {
-    Label : 'numberofstartedcourses',
+    Label : 'Number of Started Courses',
     CollectionPath : 'UserAnalysis',
     SearchSupported : false,
     PresentationVariantQualifier : 'visualFilter',
     SelectionVariantQualifier : 'SVForStatus',
     Parameters : [
         {
-            $Type : 'Common.ValueListParameterInOut',
+            $Type : 'Common.ValueListParameterOut',
             LocalDataProperty : numberofstartedcourses,
-            ValueListProperty : 'role'
+            ValueListProperty : 'businessUnit'
         }
     ]
   }
@@ -318,13 +373,14 @@ annotate service.UserAnalysis with {
 
 annotate service.UserAnalysis with {
     numberofstartedcourses @Common.ValueList #visualFilter : {
+        Label : 'Number of Started Courses',
         $Type : 'Common.ValueListType',
         CollectionPath : 'UserAnalysis',
         Parameters : [
             {
                 $Type : 'Common.ValueListParameterInOut',
                 LocalDataProperty : numberofstartedcourses,
-                ValueListProperty : 'role',
+                ValueListProperty : 'businessUnit',
             },
         ],
         PresentationVariantQualifier : 'visualFilter',
@@ -336,6 +392,8 @@ annotate service.UserAnalysis with @(
         ChartType : #Bar,
         Dimensions : [
             role,
+            businessUnit,
+            country
         ],
         Measures : [
             numberofcompletedcourses,
@@ -356,7 +414,7 @@ annotate service.UserAnalysis with {
             {
                 $Type : 'Common.ValueListParameterInOut',
                 LocalDataProperty : numberofcompletedcourses,
-                ValueListProperty : 'role',
+                ValueListProperty : 'businessUnit',
             },
         ],
         PresentationVariantQualifier : 'visualFilter1',
@@ -368,6 +426,8 @@ annotate service.UserAnalysis with @(
         ChartType : #Bar,
         Dimensions : [
             role,
+            businessUnit,
+            country
         ],
         Measures : [
             averagecompletionrate,
@@ -388,7 +448,7 @@ annotate service.UserAnalysis with {
             {
                 $Type : 'Common.ValueListParameterInOut',
                 LocalDataProperty : averagecompletionrate,
-                ValueListProperty : 'role',
+                ValueListProperty : 'businessUnit',
             },
         ],
         PresentationVariantQualifier : 'visualFilter2',
@@ -400,6 +460,8 @@ annotate service.UserAnalysis with @(
         ChartType : #Bar,
         Dimensions : [
             role,
+            businessUnit,
+            country
         ],
         Measures : [
             visitedDate,
@@ -420,9 +482,56 @@ annotate service.UserAnalysis with {
             {
                 $Type : 'Common.ValueListParameterInOut',
                 LocalDataProperty : visitedDate,
-                ValueListProperty : 'role',
+                ValueListProperty : 'businessUnit',
             },
         ],
         PresentationVariantQualifier : 'visualFilter3',
     }
 };
+annotate service.UserAnalysis with @(
+    UI.FieldGroup #LastName : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+        ],
+    }
+);
+annotate service.UserAnalysis with @(
+    UI.FieldGroup #Email : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+        ],
+    }
+);
+annotate service.UserAnalysis with @(
+    UI.DataPoint #country1 : {
+        $Type : 'UI.DataPointType',
+        Value : country,
+        Title : 'Country',
+    }
+);
+annotate service.UserAnalysis with @(
+    UI.DataPoint #lastName : {
+        $Type : 'UI.DataPointType',
+        Value : lastName,
+        Title : 'lastName',
+    }
+);
+annotate service.UserAnalysis with @(
+    UI.DataPoint #email : {
+        $Type : 'UI.DataPointType',
+        Value : email,
+        Title : 'Email',
+    },
+    UI.DataPoint #businessUnit1 : {
+        $Type : 'UI.DataPointType',
+        Value : businessUnit,
+        Title : 'Business Unit',
+    }
+);
+annotate service.UserAnalysis with @(
+    UI.DataPoint #firstName1 : {
+        $Type : 'UI.DataPointType',
+        Value : firstName,
+        Title : 'First Name',
+    }
+);

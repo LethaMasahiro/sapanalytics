@@ -77,6 +77,7 @@ service UserService
         lastName,
         role,
         country,
+        email,
         enrolledCourses,
         startedCourses,
         completedCourses,
@@ -89,7 +90,7 @@ service UserService
         avg(enrolledCourses.completionRate) as averagecompletionrate : Double,
     }
     where enrolledCourses.learnerID = ID
-    group by ID,  firstName, lastName, role, country, businessUnit, visitedDate, lastVisit;
+    group by ID,  firstName, lastName, role, country, email, businessUnit, visitedDate, lastVisit;
 
     @Aggregation.CustomAggregate#averagecompletionrate : 'Edm.Decimal'
     @Aggregation.CustomAggregate#numberofcompletedcourses : 'Edm.Int64'
