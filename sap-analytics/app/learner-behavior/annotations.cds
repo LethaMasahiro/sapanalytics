@@ -540,7 +540,7 @@ annotate service.UserAnalysis with {
 annotate service.UserAnalysis with {
     role @(Common.ValueList : {
             $Type : 'Common.ValueListType',
-            CollectionPath : 'Learner',
+            CollectionPath : 'learnerRoles',
             Parameters : [
                 {
                     $Type : 'Common.ValueListParameterInOut',
@@ -554,4 +554,7 @@ annotate service.UserAnalysis with {
 
 annotate service.UserAnalysis with {
     role @Common.Text : ID
+};
+annotate service.learnerRoles with {
+    ID @Common.Text : role
 };

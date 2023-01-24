@@ -106,4 +106,6 @@ service UserService
         numberofcompletedcourses,
         averagecompletionrate
     };
+
+    entity learnerRoles as select distinct role from db.Learner;
 }
