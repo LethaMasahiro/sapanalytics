@@ -1,3 +1,5 @@
 
 # auto generated wildcard
 sap-analytics/db/.env
+# auto generated wildcard
+sap-analytics/gen/db/.env
