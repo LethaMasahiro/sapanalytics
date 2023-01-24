@@ -55,10 +55,10 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
   }
 
   entity Learner  {
+    key email       : String @(Core.Computed: true);
     ID      : String  @(Core.Computed : true);
     firstName        : String;
     lastName: String;
-    key email       : String;
     isDeactivated: String;
     role: String;
     businessUnit: String;
