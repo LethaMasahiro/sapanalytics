@@ -288,7 +288,9 @@ annotate service.EnrolledIn with @(
 );
 annotate service.UserAnalysis with @(
     UI.SelectionFields : [
-        businessUnit
+        businessUnit,
+        country,
+        role
     ]
 );
 annotate service.UserAnalysis with {
@@ -329,7 +331,7 @@ annotate service.UserAnalysis with @(
                     Low : 'HT-1502'
                 }
             ]
-        }
+        },
     ]
     }   
 );
@@ -338,8 +340,6 @@ annotate service.UserAnalysis with @(
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
         Dimensions : [
-            role,
-            country,
             businessUnit
         ],
         Measures : [
@@ -362,9 +362,9 @@ annotate service.UserAnalysis with {
     SelectionVariantQualifier : 'SVForStatus',
     Parameters : [
         {
-            $Type : 'Common.ValueListParameterOut',
+            $Type : 'Common.ValueListParameterInOut',
             LocalDataProperty : numberofstartedcourses,
-            ValueListProperty : 'businessUnit'
+            ValueListProperty : 'numberofstartedcourses'
         }
     ]
   }
@@ -380,7 +380,7 @@ annotate service.UserAnalysis with {
             {
                 $Type : 'Common.ValueListParameterInOut',
                 LocalDataProperty : numberofstartedcourses,
-                ValueListProperty : 'businessUnit',
+                ValueListProperty : 'numberofstartedcourses',
             },
         ],
         PresentationVariantQualifier : 'visualFilter',
@@ -391,9 +391,7 @@ annotate service.UserAnalysis with @(
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
         Dimensions : [
-            role,
-            businessUnit,
-            country
+            businessUnit
         ],
         Measures : [
             numberofcompletedcourses,
@@ -412,9 +410,9 @@ annotate service.UserAnalysis with {
         CollectionPath : 'UserAnalysis',
         Parameters : [
             {
-                $Type : 'Common.ValueListParameterInOut',
+                $Type : 'Common.ValueListParameterOut',
                 LocalDataProperty : numberofcompletedcourses,
-                ValueListProperty : 'businessUnit',
+                ValueListProperty : 'numberofcompletedcourses',
             },
         ],
         PresentationVariantQualifier : 'visualFilter1',
@@ -425,9 +423,7 @@ annotate service.UserAnalysis with @(
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
         Dimensions : [
-            role,
-            businessUnit,
-            country
+            businessUnit
         ],
         Measures : [
             averagecompletionrate,
@@ -459,9 +455,7 @@ annotate service.UserAnalysis with @(
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
         Dimensions : [
-            role,
-            businessUnit,
-            country
+            businessUnit
         ],
         Measures : [
             visitedDate,
@@ -480,8 +474,13 @@ annotate service.UserAnalysis with {
         CollectionPath : 'UserAnalysis',
         Parameters : [
             {
-                $Type : 'Common.ValueListParameterInOut',
+                $Type : 'Common.ValueListParameterIn',
                 LocalDataProperty : visitedDate,
+                ValueListProperty : 'visitedDate',
+            },
+            {
+                $Type : 'Common.ValueListParameterOut',
+                LocalDataProperty : businessUnit,
                 ValueListProperty : 'businessUnit',
             },
         ],
@@ -513,7 +512,7 @@ annotate service.UserAnalysis with @(
     UI.DataPoint #lastName : {
         $Type : 'UI.DataPointType',
         Value : lastName,
-        Title : 'lastName',
+        Title : 'Last Name',
     }
 );
 annotate service.UserAnalysis with @(
@@ -535,3 +534,24 @@ annotate service.UserAnalysis with @(
         Title : 'First Name',
     }
 );
+annotate service.UserAnalysis with {
+    country @Common.Label : 'Country'
+};
+annotate service.UserAnalysis with {
+    role @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Learner',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : role,
+                    ValueListProperty : 'role',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+
+annotate service.UserAnalysis with {
+    role @Common.Text : ID
+};
