@@ -28,8 +28,8 @@ service UserService
         GroupableProperties :
         [
             role,
-            occupation,
-            businessUnit.id
+            country,
+            businessUnit
         ],
         AggregatableProperties :
         [
@@ -61,8 +61,8 @@ service UserService
     entity EnrolledIn as
         projection on db.EnrolledIn;
 
-    entity businessUnit as
-        projection on db.BusinessUnit;
+    // entity businessUnit as
+    //     projection on db.BusinessUnit;
 
     @Aggregation.CustomAggregate#averagecompletionrate : 'Edm.Decimal'
     @Aggregation.CustomAggregate#numberofcompletedcourses : 'Edm.Int64'
@@ -73,9 +73,10 @@ service UserService
     from db.Learner
     {
         ID,
-        name,
+        firstName,
+        lastName,
         role,
-        occupation,
+        country,
         enrolledCourses,
         startedCourses,
         completedCourses,
@@ -88,7 +89,7 @@ service UserService
         avg(enrolledCourses.completionRate) as averagecompletionrate : Double,
     }
     where enrolledCourses.learnerID = ID
-    group by ID, name, role, occupation, businessUnit, visitedDate, lastVisit;
+    group by ID,  firstName, lastName, role, country, businessUnit, visitedDate, lastVisit;
 
     @Aggregation.CustomAggregate#averagecompletionrate : 'Edm.Decimal'
     @Aggregation.CustomAggregate#numberofcompletedcourses : 'Edm.Int64'
