@@ -55,11 +55,12 @@ service UserService
     entity Manager as
         projection on db.Manager;
 
+    @cds.redirection.target
     entity Learner as
         projection on db.Learner;
 
     entity EnrolledIn as
-        projection on db.EnrolledIn;
+        select from db.EnrolledIn;
 
     entity Courses as
         projection on db.Courses;
@@ -67,6 +68,7 @@ service UserService
     // entity businessUnit as
     //     projection on db.BusinessUnit;
 
+    
     @Aggregation.CustomAggregate#averagecompletionrate : 'Edm.Decimal'
     @Aggregation.CustomAggregate#numberofcompletedcourses : 'Edm.Int64'
     @Aggregation.CustomAggregate#numberofcourses : 'Edm.Int64'
@@ -111,4 +113,18 @@ service UserService
     };
 
     entity learnerRoles as select distinct role from db.Learner;
+
+    entity learnerCountries as select distinct country from db.Learner;
+
+    entity learnerBusinessUnits as select distinct businessUnit from db.Learner;
+
+    entity mostImportantKPIs as select from EnrolledIn
+    {
+        count (courseID) as numberofcourses: Integer,
+        count (completionDate) as numberofcompletedcourses: Integer, //doesn't work as expected
+        count (startedDate) as numberofstartedcourses: Integer, //doesn't work as expected
+        avg(course.completionRate) as averagecompletionrate: Double,
+        count(learnerID) as numberoflearners: Integer,
+        avg(course.duration) as avgcourseduration: Double
+    };
 }

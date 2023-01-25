@@ -260,6 +260,11 @@ annotate service.EnrolledIn with @(
             $Type : 'UI.DataField',
             Value : courseID,
             Label : 'Course ID',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : courseTitle,
+            Label : 'courseTitle',
         },{
             $Type : 'UI.DataField',
             Value : enrolledDate,
@@ -280,11 +285,11 @@ annotate service.EnrolledIn with @(
             $Type : 'UI.DataField',
             Value : completionRate,
             Label : 'Completion Rate',
-        },{
+        },/*{
             $Type : 'UI.DataField',
             Value : completedCourseItem,
             Label : 'Completed Course Items',
-        },]
+        },*/]
 );
 annotate service.UserAnalysis with @(
     UI.SelectionFields : [
@@ -551,10 +556,145 @@ annotate service.UserAnalysis with {
         },
         Common.ValueListWithFixedValues : true
 )};
+annotate service.UserAnalysis with {
+    country @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'learnerCountries',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : country,
+                    ValueListProperty : 'country',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.UserAnalysis with {
+    businessUnit @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'learnerBusinessUnits',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : businessUnit,
+                    ValueListProperty : 'businessUnit',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
 
 annotate service.UserAnalysis with {
-    role @Common.Text : ID
+    role @Common.Text : {
+            $value : ID,
+            ![@UI.TextArrangement] : #TextSeparate,
+        }
 };
 annotate service.learnerRoles with {
     ID @Common.Text : role
 };
+annotate service.EnrolledIn with @(
+    UI.DataPoint #courseID : {
+        $Type : 'UI.DataPointType',
+        Value : courseID,
+        Title : 'Course ID',
+    },
+    UI.HeaderFacets : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'courseID',
+            Target : '@UI.DataPoint#courseID',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'title',
+            Target : 'course/@UI.DataPoint#title1',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'category',
+            Target : 'course/@UI.DataPoint#category1',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'duration',
+            Target : 'course/@UI.DataPoint#duration1',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'platform',
+            Target : 'course/@UI.DataPoint#platform1',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'completionRate',
+            Target : 'course/@UI.DataPoint#progress',
+        },
+    ]
+);
+annotate service.Courses with @(
+    UI.DataPoint #category : {
+        $Type : 'UI.DataPointType',
+        Value : category,
+        Title : 'category',
+    },
+    UI.DataPoint #completionRate : {
+        $Type : 'UI.DataPointType',
+        Value : completionRate,
+        Title : 'completionRate',
+    },
+    UI.DataPoint #duration : {
+        $Type : 'UI.DataPointType',
+        Value : duration,
+        Title : 'duration',
+    },
+    UI.DataPoint #platform : {
+        $Type : 'UI.DataPointType',
+        Value : platform,
+        Title : 'platform',
+    },
+    UI.DataPoint #title : {
+        $Type : 'UI.DataPointType',
+        Value : title,
+        Title : 'title',
+    }
+);
+annotate service.Courses with @(
+    UI.DataPoint #platform1 : {
+        $Type : 'UI.DataPointType',
+        Value : platform,
+        Title : 'Platform',
+    }
+);
+annotate service.Courses with @(
+    UI.DataPoint #category1 : {
+        $Type : 'UI.DataPointType',
+        Value : category,
+        Title : 'Category',
+    },
+    UI.DataPoint #duration1 : {
+        $Type : 'UI.DataPointType',
+        Value : duration,
+        Title : 'Duration',
+    },
+    UI.DataPoint #ID : {
+        $Type : 'UI.DataPointType',
+        Value : ID,
+        Title : 'ID',
+    },
+    UI.DataPoint #title1 : {
+        $Type : 'UI.DataPointType',
+        Value : title,
+        Title : 'Title',
+    }
+);
+annotate service.Courses with @(
+    UI.DataPoint #progress : {
+        $Type : 'UI.DataPointType',
+        Value : completionRate,
+        Title : 'Completion Rate',
+        TargetValue : 100,
+        Visualization : #Progress,
+    }
+);

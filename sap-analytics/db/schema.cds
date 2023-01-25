@@ -31,6 +31,7 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
     duration: Double;
     completionRate: Double;
     platform: String;
+    enrolledLearners: Association to many EnrolledIn on enrolledLearners.courseID = $self.ID;
   }
 
   // entity T_Learner: managed {
@@ -89,6 +90,8 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
     startedDate: Date;
     completionDate: Date;
     lastAccessedDate: Date;
+    course: Association to Courses on course.ID=courseID;
+    learner: Association to Learner on learner.ID = learnerID;
     //completedCourseItem: Integer;
   }
 
