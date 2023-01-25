@@ -1,84 +1,84 @@
 {
-    "name": "sap-analytics",
-    "version": "1.0.0",
-    "description": "A simple CAP project.",
-    "repository": "<Add your repository here>",
-    "license": "UNLICENSED",
-    "private": true,
-    "dependencies": {
-        "@sap/cds": "^6",
-        "@sap/cds-odata-v2-adapter-proxy": "^1.9.15",
-        "@sap/xssec": "^3",
-        "express": "^4",
-        "hdb": "^0.19.0",
-        "passport": "^0"
-    },
-    "devDependencies": {
-        "@sap/ux-specification": "^1.102.15",
-        "rimraf": "^3.0.2",
-        "sqlite3": "^5.0.4"
-    },
-    "scripts": {
-        "start": "cds run",
-        "undeploy": "cf undeploy sap-analytics --delete-services --delete-service-keys --delete-service-brokers",
-        "build": "rimraf resources mta_archives && mbt build --mtar archive",
-        "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
-        "watch-manager-analysis": "cds watch --open manager-analysis/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-manager-analytics": "cds watch --open manager-analytics/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-course_list": "cds watch --open course_list/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-learners-overview": "cds watch --open learners-overview/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-learner-object": "cds watch --open learner-object/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-learner-behavior": "cds watch --open learner-behavior/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-learnersinfo": "cds watch --open learnersinfo/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-hello": "cds watch --open hello/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-aaaaah": "cds watch --open aaaaah/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-aaah": "cds watch --open aaah/webapp/index.html?sap-ui-xx-viewCache=false"
-    },
-    "cds": {
-        "build": {
-            "tasks": [
-                {
-                    "for": "hana",
-                    "dest": "../db"
-                },
-                {
-                    "for": "node-cf"
-                }
-            ]
-        },
-        "requires": {
-            "db": {
-                "kind": "hana-cloud"
-            }
+  "name": "sap-analytics",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^6",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.15",
+    "@sap/xssec": "^3",
+    "express": "^4",
+    "hdb": "^0.19.0",
+    "passport": "^0"
+  },
+  "devDependencies": {
+    "@sap/ux-specification": "^1.102.15",
+    "rimraf": "^3.0.2",
+    "sqlite3": "^5.0.4"
+  },
+  "scripts": {
+    "start": "cds run",
+    "undeploy": "cf undeploy sap-analytics --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "watch-manager-analysis": "cds watch --open manager-analysis/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-manager-analytics": "cds watch --open manager-analytics/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-course_list": "cds watch --open course_list/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-learners-overview": "cds watch --open learners-overview/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-learner-object": "cds watch --open learner-object/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-learner-behavior": "cds watch --open learner-behavior/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-learnersinfo": "cds watch --open learnersinfo/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-hello": "cds watch --open hello/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-aaaaah": "cds watch --open aaaaah/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-aaah": "cds watch --open aaah/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "hana-cloud",
+        "credentials": {
+          "database": "db.sqlite"
         }
-    },
-    "sapux": [
-        "app/manager-analysis",
-        "app/manager-analytics",
-        "app/project1",
-        "app/course_list",
-        "app/learners-overview",
-        "app/learner-object",
-        "app/learner-behavior",
-        "app/project1",
-        "app/learnersinfo",
-        "app/project1",
-        "app/project1",
-        "app/project1",
-        "app/project1",
-        "app/hello",
-        "app/project1",
-        "app/aaaaah",
-        "app/aaah",
-        "app/project1",
-        "app/project1",
-        "app/learner-behavior",
-        "app/learner-behavior",
-        "app/learner-behavior",
-        "app/project1",
-        "app/project1",
-        "app/project1",
-        "app/project1"
-    ]
+      },
+      "[production]": {
+        "db": {
+          "kind": "hana-cloud"
+        },
+        "auth": {
+          "kind": "xsuaa"
+        }
+      }
+    }
+  },
+  "sapux": [
+    "app/manager-analysis",
+    "app/manager-analytics",
+    "app/project1",
+    "app/course_list",
+    "app/learners-overview",
+    "app/learner-object",
+    "app/learner-behavior",
+    "app/project1",
+    "app/learnersinfo",
+    "app/project1",
+    "app/project1",
+    "app/project1",
+    "app/project1",
+    "app/hello",
+    "app/project1",
+    "app/aaaaah",
+    "app/aaah",
+    "app/project1",
+    "app/project1",
+    "app/learner-behavior",
+    "app/learner-behavior",
+    "app/learner-behavior",
+    "app/project1",
+    "app/project1",
+    "app/project1",
+    "app/project1"
+  ]
 }
