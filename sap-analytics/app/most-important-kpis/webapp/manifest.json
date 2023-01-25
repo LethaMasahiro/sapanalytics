@@ -1,0 +1,147 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "mik.mostimportantkpis",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "Manager Dashboard",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:ovp",
+            "version": "1.8.5",
+            "toolsId": "35d2ac51-ad46-43a4-85c9-b4b58759a360"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/user/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotation"
+                    ],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.109.3",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {},
+                "sap.ovp": {},
+                "sap.ui.rta": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "mik.mostimportantkpis.i18n.i18n"
+                }
+            },
+            "mainModel": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {},
+            "routes": [],
+            "targets": {}
+        }
+    },
+    "sap.ovp": {
+        "globalFilterModel": "mainModel",
+        "globalFilterEntityType": "mostImportantKPIs",
+        "containerLayout": "resizable",
+        "enableLiveFilter": true,
+        "considerAnalyticalParameters": true,
+        "cards": {
+            "card01": {
+                "settings": {
+                    "entitySet": "mostImportantKPIs",
+                    "category": "numberofcourses",
+                    "title": "Number of Courses by Business Unit",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#bar",
+                    "sortBy": "BusinessUnit",
+                    "sortOrder": "descending",
+                    "listFlavor": "bar",
+                    "valueSelectionInfo": "BusinessUnit",
+                    
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberofcourseskpichart",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberofcourseskpiPV",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofcourses",
+                    "subTitle": "This is a subtitle"
+                },
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.list"
+            }
+        },
+        "globalFilterControlType": "MacroFilterBar",
+        "imageSupported": true,
+        "showBasicSearch": true,
+        "chartSettings": {
+            "showDataLabel": true
+        },
+        "refreshIntervalInMinutes": 0.1
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "analytical"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "cpapp.service"
+    }
+}

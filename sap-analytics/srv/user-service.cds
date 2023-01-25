@@ -18,9 +18,53 @@ service UserService
             @Aggregation.default : #countdistinct;
         visitedDate
             @Aggregation.default : #sum;
-
-            
     }
+
+    annotate mostImportantKPIs
+    {
+        kpiaveragecompletionrate
+            @Aggregation.default : #average;
+        kpiavgcourseduration
+            @Aggregation.default : #average;
+        kpinumberofcompletedcourses
+            @Aggregation.default : #countdistinct;
+        kpinumberofcourses
+            @Aggregation.default : #countdistinct;
+        kpinumberoflearners
+            @Aggregation.default : #countdistinct;
+        kpinumberofstartedcourses
+            @Aggregation.default : #countdistinct;
+    }
+
+    annotate mostImportantKPIs with @Aggregation.ApplySupported : 
+    {
+        $Type : 'Aggregation.ApplySupportedType',
+        GroupableProperties :
+        [
+            BusinessUnit
+        ],
+        AggregatableProperties :
+        [
+            {
+                Property : kpiaveragecompletionrate
+            },
+            {
+                Property : kpiavgcourseduration
+            },
+            {
+                Property : kpinumberofcompletedcourses
+            },
+            {
+                Property : kpinumberofcourses
+            },
+            {
+                Property : kpinumberoflearners
+            },
+            {
+                Property : kpinumberofstartedcourses
+            }
+        ]
+    };
 
     annotate UserAnalysis with @Aggregation.ApplySupported : 
     {
@@ -118,13 +162,21 @@ service UserService
 
     entity learnerBusinessUnits as select distinct businessUnit from db.Learner;
 
+     @Aggregation.CustomAggregate#kpiavgcourseduration : 'Edm.Decimal'
+    @Aggregation.CustomAggregate#kpiaveragecompletionrate : 'Edm.Decimal'
+    @Aggregation.CustomAggregate#kpinumberofcompletedcourses : 'Edm.Int64'
+    @Aggregation.CustomAggregate#kpinumberofcourses : 'Edm.Int64'
+    @Aggregation.CustomAggregate#kpinumberoflearners : 'Edm.Int32'
+    @Aggregation.CustomAggregate#kpinumberofstartedcourses : 'Edm.Int32'
     entity mostImportantKPIs as select from EnrolledIn
     {
-        count (courseID) as numberofcourses: Integer,
-        count (completionDate) as numberofcompletedcourses: Integer, //doesn't work as expected
-        count (startedDate) as numberofstartedcourses: Integer, //doesn't work as expected
-        avg(course.completionRate) as averagecompletionrate: Double,
-        count(learnerID) as numberoflearners: Integer,
-        avg(course.duration) as avgcourseduration: Double
-    };
+        learner.businessUnit as BusinessUnit,
+        count (courseID) as kpinumberofcourses: Integer,
+        count (completionDate) as kpinumberofcompletedcourses: Integer, //doesn't work as expected
+        count (startedDate) as kpinumberofstartedcourses: Integer, //doesn't work as expected
+        avg(course.completionRate) as kpiaveragecompletionrate: Double,
+        count(learnerID) as kpinumberoflearners: Integer,
+        avg(course.duration) as kpiavgcourseduration: Double
+    } where learner.ID = learnerID 
+    group by learner.businessUnit;
 }
