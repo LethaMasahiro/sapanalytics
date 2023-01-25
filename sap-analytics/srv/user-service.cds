@@ -61,6 +61,9 @@ service UserService
     entity EnrolledIn as
         projection on db.EnrolledIn;
 
+    entity Courses as
+        projection on db.Courses;
+
     // entity businessUnit as
     //     projection on db.BusinessUnit;
 

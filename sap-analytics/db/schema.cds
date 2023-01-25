@@ -24,10 +24,13 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
 //     lastvisit   : Date;
 //   }
 
-  entity Courses : managed {
+  entity Courses {
     key ID      : String  @(Core.Computed : true);
     title        : String;
-    learner_ID    : String;
+    category    : String;
+    duration: Double;
+    completionRate: Double;
+    platform: String;
   }
 
   // entity T_Learner: managed {
@@ -45,8 +48,8 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
 //}
 
   entity Manager {
-    key ID      : UUID  @(Core.Computed : true);
-    key name        : String;
+    ID      : UUID  @(Core.Computed : true);
+    name        : String;
     key email       : String;
     isDeactivated: Boolean;
     password    : String;
@@ -66,6 +69,9 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
     enrolledCourses: Association  to many EnrolledIn on enrolledCourses.learnerID = $self.ID;
     startedCourses: Association to many EnrolledIn on startedCourses.learnerID = $self.ID and startedCourses.startedDate != null ;
     completedCourses: Association to many EnrolledIn on completedCourses.learnerID = $self.ID and completedCourses.startedDate != null;
+    numberOfEnrolledCourses: Integer;
+    numberOfStartedCourses: Integer;
+    numberOfCompletedCourses: Integer;
     visitedDate: Integer;
     lastVisit: Date;
     //businessUnit: Association to BusinessUnit {name};
@@ -74,14 +80,16 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
 
   entity EnrolledIn {
     key ID : String @(Core.Computed : true);
-    courseID: String;
     learnerID: String;
+    courseTitle: String;
+    courseID: String;
+    platform: String;
     completionRate: Double;
     enrolledDate: Date;
     startedDate: Date;
     completionDate: Date;
     lastAccessedDate: Date;
-    completedCourseItem: Integer;
+    //completedCourseItem: Integer;
   }
 
   // entity BusinessUnit {
