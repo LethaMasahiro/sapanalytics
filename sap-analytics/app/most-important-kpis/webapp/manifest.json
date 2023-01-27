@@ -118,7 +118,6 @@
                     "sortOrder": "descending",
                     "listFlavor": "bar",
                     "valueSelectionInfo": "BusinessUnit",
-                    
                     "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberofcourseskpichart",
                     "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberofcourseskpiPV",
                     "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofcourses",
@@ -126,6 +125,17 @@
                 },
                 "model": "mainModel",
                 "template": "sap.ovp.cards.v4.list"
+            },
+            "card02": {
+                "settings": {},
+                "template": "sap.ovp.cards.list",
+                "model": "mainModel"
+            },
+            "testcard": {
+                "template": "mik.mostimportantkpis.ext.Test Card",
+                "settings": {
+                    "title": "CustomCard"
+                }
             }
         },
         "globalFilterControlType": "MacroFilterBar",
