@@ -7,6 +7,7 @@
         "applicationVersion": {
             "version": "0.0.1"
         },
+        
         "title": "Manager Dashboard",
         "description": "{{appDescription}}",
         "resources": "resources.json",
@@ -15,6 +16,7 @@
             "version": "1.8.5",
             "toolsId": "35d2ac51-ad46-43a4-85c9-b4b58759a360"
         },
+        
         "dataSources": {
             "mainService": {
                 "uri": "/user/",
@@ -109,32 +111,35 @@
         "considerAnalyticalParameters": true,
         "cards": {
             "card01": {
-                "settings": {
-                    "entitySet": "mostImportantKPIs",
-                    "category": "numberofcourses",
-                    "title": "Number of Courses by Business Unit",
-                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#bar",
-                    "sortBy": "BusinessUnit",
-                    "sortOrder": "descending",
-                    "listFlavor": "bar",
-                    "valueSelectionInfo": "BusinessUnit",
-                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberofcourseskpichart",
-                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberofcourseskpiPV",
-                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofcourses",
-                    "subTitle": "This is a subtitle"
-                },
                 "model": "mainModel",
-                "template": "sap.ovp.cards.v4.list"
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "Number of Courses",
+                    "entitySet": "mostImportantKPIs",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofcoursesDP",
+                    "kpiAnnotationPath": "com.sap.vocabularies.UI.v1.KPI#numberofcoursesKPI",
+                    "subTitle": "by Business Unit",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberofcoursesPV",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberofcourseskpichart",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#numberofcoursesId",
+                    "addODataSelect": true
+                }
             },
             "card02": {
-                "settings": {},
-                "template": "sap.ovp.cards.list",
-                "model": "mainModel"
-            },
-            "testcard": {
-                "template": "mik.mostimportantkpis.ext.Test Card",
+                "model": "mainModel",
+                "template": "sap.ovp.cards.table",
                 "settings": {
-                    "title": "CustomCard"
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberoflearners",
+                    "kpiAnnotationPath": "com.sap.vocabularies.UI.v1.KPI#numberoflearnersKPI",
+                    "addODataSelect": true,
+                    "title": "Learner Table",
+                    "entitySet": "mostImportantKPIs",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberoflearnersPV",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.KPI#numberoflearnersKPI",
+                    "defaultSpan": "auto",
+                    "listFlavor": "standard",
+                    "listType": "extended",
+                    "selectionPresentationAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVatiant#numberoflearnersSV"
                 }
             }
         },

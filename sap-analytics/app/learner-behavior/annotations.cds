@@ -107,7 +107,7 @@ annotate service.UserAnalysis with @(
     UI.DataPoint #firstName : {
         $Type : 'UI.DataPointType',
         Value : firstName,
-        Title : 'Email',
+        Title : 'First Name',
     },
     UI.HeaderFacets : [
         {
@@ -198,7 +198,7 @@ annotate service.EnrolledIn with @(
             },
         ],
         Dimensions : [
-            completionRate,
+            learner.businessUnit,
         ],
     }
 );

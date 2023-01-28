@@ -79,6 +79,10 @@ modules:
       - mikmostimportantkpis.zip
       name: mikmostimportantkpis
       target-path: resources/
+    - artifacts:
+      - project1.zip
+      name: project1
+      target-path: resources/
 - name: learnerbehavior
   type: html5
   path: app/learner-behavior
@@ -92,6 +96,16 @@ modules:
 - name: mikmostimportantkpis
   type: html5
   path: app/most-important-kpis
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: project1
+  type: html5
+  path: app/project1
   build-parameters:
     build-result: dist
     builder: custom
