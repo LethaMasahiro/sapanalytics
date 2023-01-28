@@ -92,6 +92,7 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
     lastAccessedDate: Date;
     course: Association to Courses on course.ID=courseID;
     learner: Association to Learner on learner.ID = learnerID;
+    minutesVideoConsumed: Double;
     //completedCourseItem: Integer;
   }
 
