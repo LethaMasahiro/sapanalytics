@@ -34,7 +34,8 @@
         "watch-hello": "cds watch --open hello/webapp/index.html?sap-ui-xx-viewCache=false",
         "watch-aaaaah": "cds watch --open aaaaah/webapp/index.html?sap-ui-xx-viewCache=false",
         "watch-aaah": "cds watch --open aaah/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-most-important-kpis": "cds watch --open most-important-kpis/webapp/index.html?sap-ui-xx-viewCache=false"
+        "watch-most-important-kpis": "cds watch --open most-important-kpis/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-learner-page": "cds watch --open learner-page/webapp/index.html?sap-ui-xx-viewCache=false"
     },
     "cds": {
         "requires": {
@@ -82,6 +83,7 @@
         "app/project1",
         "app/project1",
         "app/most-important-kpis",
-        "app/project1"
+        "app/project1",
+        "app/learner-page"
     ]
 }

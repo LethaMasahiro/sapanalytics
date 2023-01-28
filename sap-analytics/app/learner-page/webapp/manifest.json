@@ -1,0 +1,161 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "lp.learnerpage",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:feop",
+            "version": "1.8.5",
+            "toolsId": "654f131b-f12f-461e-b9d2-ab2fe6f09c6e"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/user/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotation"
+                    ],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.109.3",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "lp.learnerpage.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": "LearnerObject('Vuk.Verovic@msg-global.com'):?query:",
+                    "name": "LearnerObjectObjectPage",
+                    "target": "LearnerObjectObjectPage"
+                },
+                {
+                    "pattern": "LearnerObject({'Vuk.Verovic@msg-global.com'})/enrolledCourses({key2}):?query:",
+                    "name": "EnrolledInObjectPage",
+                    "target": "EnrolledInObjectPage"
+                }
+            ],
+            "targets": {
+                "LearnerObjectObjectPage": {
+                    "type": "Component",
+                    "id": "LearnerObjectObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "LearnerObject",
+                            "content": {
+                                "header": {
+                                    "visible": false,
+                                    "anchorBarVisible": false
+                                }
+                            },
+                            "navigation": {
+                                "enrolledCourses": {
+                                    "detail": {
+                                        "route": "EnrolledInObjectPage"
+                                    }
+                                }
+                            },
+                            "sectionLayout": "Tabs"
+                        }
+                    }
+                },
+                "EnrolledInObjectPage": {
+                    "type": "Component",
+                    "id": "EnrolledInObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "EnrolledIn"
+                        }
+                    }
+                }
+            }
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {}
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "cpapp.service"
+    }
+}

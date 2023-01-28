@@ -97,6 +97,21 @@ service UserService
     };
 
     @odata.draft.enabled
+    entity LearnerObject as
+        select from db.Learner {
+            ID,
+            firstName,
+            lastName,
+            role,
+            country,
+            email,
+            enrolledCourses,
+            lastVisit,
+            businessUnit,
+            avg(enrolledCourses.completionRate) as completionRate: Double
+        } group by ID, firstName, lastName, role, country, email, lastVisit, businessUnit;
+
+    @odata.draft.enabled
     entity Manager as
         projection on db.Manager;
 
