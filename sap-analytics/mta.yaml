@@ -87,6 +87,10 @@ modules:
       - lplearnerpage.zip
       name: lplearnerpage
       target-path: resources/
+    - artifacts:
+      - loplearnerobjectpage.zip
+      name: loplearnerobjectpage
+      target-path: resources/
 - name: learnerbehavior
   type: html5
   path: app/learner-behavior
@@ -120,6 +124,16 @@ modules:
 - name: lplearnerpage
   type: html5
   path: app/learner-page
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: loplearnerobjectpage
+  type: html5
+  path: app/learner-object-page
   build-parameters:
     build-result: dist
     builder: custom

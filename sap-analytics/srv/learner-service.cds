@@ -27,6 +27,6 @@ service LearnerService {
         count(enrolledCourses.startedDate) as numberofstartedcourses : Integer,
         count(enrolledCourses.completionDate) as numberofcompletedcourses : Integer,
         avg(enrolledCourses.completionRate) as averagecompletionrate : Double,
-    } where Learner.ID = ID and email = 'ga83qum@mytum.de'
+    } where enrolledCourses.learner.email = email
     group by ID, firstName, lastName, role, country, email, visitedDate, lastVisit, businessUnit;
 }
