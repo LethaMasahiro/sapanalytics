@@ -9,7 +9,24 @@ service LearnerService {
     entity Courses as projection on db.Courses{ID,  title, platform};
     annotate Courses with @odata.draft.enabled;
 
+    annotate LearnerInfo with @odata.draft.enabled;
     entity LearnerInfo as select from db.Learner {
-        email
-    } where email = 'ga83qum@mytum.de';
+        ID, 
+        firstName,
+        lastName,
+        role,
+        country,
+        email,
+        visitedDate,
+        lastVisit,
+        businessUnit,
+        enrolledCourses,
+        startedCourses,
+        completedCourses,
+        count(enrolledCourses.courseID) as numberofcourses : Integer,
+        count(enrolledCourses.startedDate) as numberofstartedcourses : Integer,
+        count(enrolledCourses.completionDate) as numberofcompletedcourses : Integer,
+        avg(enrolledCourses.completionRate) as averagecompletionrate : Double,
+    } where Learner.ID = ID and email = 'ga83qum@mytum.de'
+    group by ID, firstName, lastName, role, country, email, visitedDate, lastVisit, businessUnit;
 }
