@@ -91,6 +91,10 @@ modules:
       - courselist.zip
       name: courselist
       target-path: resources/
+    - artifacts:
+      - managerdashboard.zip
+      name: managerdashboard
+      target-path: resources/
 - name: learnerbehavior
   type: html5
   path: app/learner-behavior
@@ -134,6 +138,16 @@ modules:
 - name: courselist
   type: html5
   path: app/course_list
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: managerdashboard
+  type: html5
+  path: app/manager-dashboard
   build-parameters:
     build-result: dist
     builder: custom

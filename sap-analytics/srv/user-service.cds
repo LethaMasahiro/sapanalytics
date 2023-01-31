@@ -50,51 +50,54 @@ service UserService
     annotate mostImportantKPIs
     {
         kpinumberofcourses
-            @Aggregation.default : #count;
+            @Aggregation.default : #countdistinct;
         kpinumberofcompletedcourses
-            @Aggregation.default : #count;
+            @Aggregation.default : #countdistinct;
         kpinumberofstartedcourses
-            @Aggregation.default : #count;
+            @Aggregation.default : #countdistinct;
         kpiaveragecompletionrate
             @Aggregation.default : #average;
-        /*kpiavgcourseduration
-            @Aggregation.default : #average;*/
     }
 
-    annotate mostImportantKPIs with @Aggregation.ApplySupported : 
+    annotate mostImportantKPIs1
+    {
+        kpiaveragecompletionrate
+            @Aggregation.default : #average;
+        kpinumberofcompletedcourses
+            @Aggregation.default : #countdistinct;
+        kpinumberofcourses
+            @Aggregation.default : #countdistinct;
+        kpinumberoflearners
+            @Aggregation.default : #countdistinct;
+        kpinumberofstartedcourses
+            @Aggregation.default : #countdistinct;
+    }
+
+    annotate mostImportantKPIs1 with @Aggregation.ApplySupported : 
     {
         $Type : 'Aggregation.ApplySupportedType',
-        Rollup : #MultipleHierarchies,
-        PropertyRestrictions : false,
         GroupableProperties :
         [
-            BusinessUnit
+            BusinessUnit,
+            Role,
+            Country
         ],
         AggregatableProperties :
         [
             {
-                Property : kpiaveragecompletionrate,
-                RecommendedAggregationMethod : 'average'
-            },
-            /*{
-                Property : kpiavgcourseduration,
-                RecommendedAggregationMethod : 'average'
-            },*/
-            {
-                Property : kpinumberofcompletedcourses,
-                RecommendedAggregationMethod : 'sum'
+                Property : kpinumberofcourses
             },
             {
-                Property : kpinumberofcourses,
-                RecommendedAggregationMethod : 'sum'
+                Property : kpinumberofcompletedcourses
             },
             {
-                Property : kpinumberoflearners,
-                RecommendedAggregationMethod : 'sum'
+                Property : kpinumberofstartedcourses
             },
             {
-                Property : kpinumberofstartedcourses,
-                RecommendedAggregationMethod : 'sum'
+                Property : kpiaveragecompletionrate
+            },
+            {
+                Property : kpinumberoflearners
             }
         ]
     };
@@ -131,7 +134,6 @@ service UserService
     entity Courses as
         projection on db.Courses;
 
-    @Aggregation.CustomAggregate#averagecompletionrate : 'Edm.Int64'
     @Aggregation.CustomAggregate#numberofcompletedcourses : 'Edm.Int64'
     @Aggregation.CustomAggregate#numberofcourses : 'Edm.Int64'
     @Aggregation.CustomAggregate#numberofstartedcourses : 'Edm.Int64'
@@ -181,8 +183,9 @@ service UserService
         select distinct businessUnit
         from db.Learner;
 
-    entity learnerNumber as 
-    select distinct email from db.Learner;
+    entity learnerNumber as
+        select distinct email
+        from db.Learner;
 
     @Aggregation.CustomAggregate#kpiaveragecompletionrate : 'Edm.Decimal'
     @Aggregation.CustomAggregate#kpiavgcourseduration : 'Edm.Decimal'
@@ -190,15 +193,32 @@ service UserService
     @Aggregation.CustomAggregate#kpinumberofcourses : 'Edm.Int32'
     @Aggregation.CustomAggregate#kpinumberoflearners : 'Edm.Int32'
     @Aggregation.CustomAggregate#kpinumberofstartedcourses : 'Edm.Int32'
-    entity mostImportantKPIs as select from EnrolledIn
+    entity mostImportantKPIs as select
+    from EnrolledIn
     {
+        learner.role as Role,
+        learner.country as Country,
         learner.businessUnit as BusinessUnit,
         count(courseID) as kpinumberofcourses : Integer,
         count(completionDate) as kpinumberofcompletedcourses : Integer,
         count(startedDate) as kpinumberofstartedcourses : Integer,
         avg(completionRate) as kpiaveragecompletionrate : Double,
         count(distinct learner.email) as kpinumberoflearners : Integer,
-        //avg(course.duration) as kpiavgcourseduration : Double
-    } 
-    group by learner.businessUnit;
+    }
+    group by learner.businessUnit, learner.role, learner.country;
+
+    @Aggregation.CustomAggregate#kpiaveragecompletionrate : 'Edm.Decimal'
+    @Aggregation.CustomAggregate#kpinumberofcompletedcourses : 'Edm.Int64'
+    @Aggregation.CustomAggregate#kpinumberofcourses : 'Edm.Int64'
+    @Aggregation.CustomAggregate#kpinumberoflearners : 'Edm.Int64'
+    @Aggregation.CustomAggregate#kpinumberofstartedcourses : 'Edm.Int64'
+    entity mostImportantKPIs1 as projection on mostImportantKPIs
+    {
+        *,
+        kpinumberofcourses,
+        kpinumberofcompletedcourses,
+        kpinumberofstartedcourses,
+        kpiaveragecompletionrate,
+        kpinumberoflearners
+    };
 }

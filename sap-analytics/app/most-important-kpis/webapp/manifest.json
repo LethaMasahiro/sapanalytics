@@ -98,7 +98,11 @@
         "routing": {
             "config": {},
             "routes": [],
-            "targets": {}
+            "targets": {
+                "OverviewPage" : {
+                    
+                }
+            }
         }
     },
     "sap.ovp": {
@@ -184,7 +188,12 @@
         "chartSettings": {
             "showDataLabel": true
         },
-        "refreshIntervalInMinutes": 0.1
+        "refreshIntervalInMinutes": 0.1,
+        "filterSettings": {
+            "dateSettings": {
+                "selectedValues": "DATE"
+            }
+        }
     },
     "sap.fiori": {
         "registrationIds": [],

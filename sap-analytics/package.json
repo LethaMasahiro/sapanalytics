@@ -36,7 +36,8 @@
         "watch-aaah": "cds watch --open aaah/webapp/index.html?sap-ui-xx-viewCache=false",
         "watch-most-important-kpis": "cds watch --open most-important-kpis/webapp/index.html?sap-ui-xx-viewCache=false",
         "watch-learner-page": "cds watch --open learner-page/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-learner-object-page": "cds watch --open learner-object-page/webapp/index.html?sap-ui-xx-viewCache=false"
+        "watch-learner-object-page": "cds watch --open learner-object-page/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-manager-dashboard": "cds watch --open manager-dashboard/webapp/index.html?sap-ui-xx-viewCache=false"
     },
     "cds": {
         "requires": {
@@ -87,6 +88,7 @@
         "app/project1",
         "app/learner-page",
         "app/learner-object-page",
-        "app/course_list"
+        "app/course_list",
+        "app/manager-dashboard"
     ]
 }

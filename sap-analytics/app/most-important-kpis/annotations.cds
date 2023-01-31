@@ -15,6 +15,36 @@ annotate service.mostImportantKPIs with {
         Common.ValueListWithFixedValues : true
 )};
 
+annotate service.mostImportantKPIs with {
+    Role @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'learnerRoles',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : Role,
+                    ValueListProperty : 'role',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+
+annotate service.mostImportantKPIs with {
+    Country @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'learnerCountries',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : Country,
+                    ValueListProperty : 'country',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+
 annotate service.mostImportantKPIs with @(
     /*UI.DataPoint #ID : {
         $Type : 'UI.DataPointType',
@@ -84,7 +114,9 @@ annotate service.mostImportantKPIs with @(
     ]
     },
     UI.SelectionFields : [
-        BusinessUnit
+        BusinessUnit,
+        Role,
+        Country
     ],
     
     UI.SelectionVariant #numberofcoursesSV : {
@@ -105,70 +137,6 @@ annotate service.mostImportantKPIs with @(
         ]
     },
 );
-
-
-/*annotate service.mostImportantKPIs with @(
-    UI.DataPoint #numberoflearners : {
-        $Type : 'UI.DataPointType',
-        Title : 'Learner Number',
-        Value : kpinumberoflearners,
-    },
-    UI.LineItem : [
-        {
-            $Type : 'UI.DataField',
-            Label : 'Business Unit',
-            Value : BusinessUnit
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'Number of Learners',
-            Value : kpinumberoflearners
-        },
-    ],
-    UI.KPI #numberoflearnersKPI : {
-        $Type : 'UI.KPIType',
-        Detail : {
-            $Type : 'UI.KPIDetailType',
-            DefaultPresentationVariant : ![@UI.PresentationVariant#numberoflearnersPV],
-            SemanticObject : 'Action',
-            Action : 'toappnavsample'
-        },
-        SelectionVariant : ![@UI.SelectionVariant#numberoflearnersSV],
-        DataPoint : ![@UI.DataPoint#numberoflearners],
-        ID : 'String for KPI Annotation'
-    },
-    UI.PresentationVariant #numberoflearnersPV : {
-        MaxItems : 5,
-        GroupBy : [
-            BusinessUnit
-        ],
-        SortOrder : [
-            {
-                Property : kpinumberoflearners,
-                Descending : true
-            },
-        ],
-        Visualizations : [
-            '@UI.Table'
-        ],
-    },
-    UI.SelectionVariant #numberoflearnersSV : {
-    
-        SelectOptions : [
-            {
-                PropertyName : BusinessUnit,
-                Ranges : [
-                    {
-                        Sign : #I,
-                        Option : #EQ,
-                        Low : 'NA'
-                    }
-                ]
-            }
-    
-        ]
-    }
-);*/
 
 annotate service.mostImportantKPIs with @(
     UI.DataPoint #numberofstartedcourses : {
