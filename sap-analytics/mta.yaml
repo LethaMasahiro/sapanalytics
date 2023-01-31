@@ -80,16 +80,16 @@ modules:
       name: mikmostimportantkpis
       target-path: resources/
     - artifacts:
-      - project1.zip
-      name: project1
-      target-path: resources/
-    - artifacts:
       - lplearnerpage.zip
       name: lplearnerpage
       target-path: resources/
     - artifacts:
       - loplearnerobjectpage.zip
       name: loplearnerobjectpage
+      target-path: resources/
+    - artifacts:
+      - courselist.zip
+      name: courselist
       target-path: resources/
 - name: learnerbehavior
   type: html5
@@ -111,16 +111,6 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: project1
-  type: html5
-  path: app/project1
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
 - name: lplearnerpage
   type: html5
   path: app/learner-page
@@ -134,6 +124,16 @@ modules:
 - name: loplearnerobjectpage
   type: html5
   path: app/learner-object-page
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: courselist
+  type: html5
+  path: app/course_list
   build-parameters:
     build-result: dist
     builder: custom

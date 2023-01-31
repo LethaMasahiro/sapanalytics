@@ -1,0 +1,1 @@
+sap.ui.define(["sap/fe/core/AppComponent"],function(e){"use strict";return e.extend("lp.learnerpage.Component",{metadata:{manifest:"json"},getStartupParameters:function(){return Promise.resolve({preferredMode:["create"]})}})});
