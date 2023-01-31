@@ -107,5 +107,27 @@ annotate service.LearnerInfo with @(
             Label : 'General Information',
             Target : '@UI.FieldGroup#GeneratedGroup1',
         },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'enrolled-courses',
+            ID : 'enrolledcourses',
+            Target : 'enrolledCourses/@UI.LineItem#enrolledcourses',
+        },
     ]
+);
+annotate service.EnrolledIn with @(
+    UI.LineItem #enrolledcourses : [
+        {
+            $Type : 'UI.DataField',
+            Value : courseID,
+            Label : 'courseID',
+        },{
+            $Type : 'UI.DataField',
+            Value : courseTitle,
+            Label : 'courseTitle',
+        },{
+            $Type : 'UI.DataField',
+            Value : platform,
+            Label : 'platform',
+        },]
 );

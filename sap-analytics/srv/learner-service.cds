@@ -1,53 +1,27 @@
 using { sapanalytics.db as db } from '../db/schema';
-@OData.publish: true
 
-
-
-annotate LearnerService with @Aggregation.ApplySupported : 
-    {
-        $Type : 'Aggregation.ApplySupportedType',
-        GroupableProperties :
-        [
-            role,
-            country,
-            businessUnit
-        ],
-        AggregatableProperties :
-        [
-            {
-                Property : visitedDate
-            },
-            {
-                Property : numberofcourses
-            },
-            {
-                Property : numberofstartedcourses
-            },
-            {
-                Property : numberofcompletedcourses
-            },
-            {
-                Property : averagecompletionrate
-            }
-        ]
-    };
-
-@path: 'learner'
-// @(requires : ['User'])
+@OData.publish
+@path : 'learner'
 @Aggregation.CustomAggregate#averagecompletionrate : 'Edm.Decimal'
 @Aggregation.CustomAggregate#numberofcompletedcourses : 'Edm.Int64'
 @Aggregation.CustomAggregate#numberofcourses : 'Edm.Int64'
 @Aggregation.CustomAggregate#numberofstartedcourses : 'Edm.Int64'
 @Aggregation.CustomAggregate#visitedDate : 'Edm.Int32'
-service LearnerService {
-  
-    // entity LearnersInfo as projection on db.LearnersInfo;
-    entity Courses as projection on db.Courses{ID,  title, platform};
-    annotate Courses with @odata.draft.enabled;
+service LearnerService
+{
+    @odata.draft.enabled
+    entity Courses as projection on db.Courses
+    {
+        ID,
+        title,
+        platform
+    };
 
-    annotate LearnerInfo with @odata.draft.enabled;
-    entity LearnerInfo as select from db.Learner {
-        ID, 
+    @odata.draft.enabled
+    entity LearnerInfo as select
+    from db.Learner
+    {
+        ID,
         firstName,
         lastName,
         role,
@@ -63,6 +37,39 @@ service LearnerService {
         count(enrolledCourses.startedDate) as numberofstartedcourses : Integer,
         count(enrolledCourses.completionDate) as numberofcompletedcourses : Integer,
         avg(enrolledCourses.completionRate) as averagecompletionrate : Double,
-    } where email = 'ga83qum@mytum.de'
+    }
+    where email = 'ga83qum@mytum.de'
     group by ID, firstName, lastName, role, country, email, visitedDate, lastVisit, businessUnit;
+
+    entity EnrolledIn as
+        projection on db.EnrolledIn;
 }
+
+annotate LearnerService with @Aggregation.ApplySupported : 
+{
+    $Type : 'Aggregation.ApplySupportedType',
+    GroupableProperties :
+    [
+        role,
+        country,
+        businessUnit
+    ],
+    AggregatableProperties :
+    [
+        {
+            Property : visitedDate
+        },
+        {
+            Property : numberofcourses
+        },
+        {
+            Property : numberofstartedcourses
+        },
+        {
+            Property : numberofcompletedcourses
+        },
+        {
+            Property : averagecompletionrate
+        }
+    ]
+};
