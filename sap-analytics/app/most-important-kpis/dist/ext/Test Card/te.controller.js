@@ -1,0 +1,1 @@
+(function(){"use strict";sap.ui.define([],function(){return{onInit:function(){},onAfterRendering:function(){},onExit:function(){}}})})();

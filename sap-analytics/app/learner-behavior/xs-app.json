@@ -5,14 +5,7 @@
     {
       "source": "^/user/(.*)$",
       "target": "/user/$1",
-      "destination": "sap-analytics-srv-api",
-      "authenticationType": "xsuaa",
-      "csrfProtection": false
-    },
-    {
-      "source": "^/UserAnalysis",
-      "target": "/user/$1",
-      "destination": "UserAnalysisObjectPage",
+      "destination": "sap-analytics-app-srv",
       "authenticationType": "xsuaa",
       "csrfProtection": false
     },

@@ -86,6 +86,7 @@
         "app/most-important-kpis",
         "app/project1",
         "app/learner-page",
-        "app/learner-object-page"
+        "app/learner-object-page",
+        "app/course_list"
     ]
 }
