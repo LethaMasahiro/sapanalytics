@@ -45,6 +45,23 @@ annotate service.mostImportantKPIs with {
         Common.ValueListWithFixedValues : true
 )};
 
+annotate service.mostImportantKPIs with {
+    Platform @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'coursePlatform',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : Platform,
+                    ValueListProperty : 'platform',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+
+
+
 annotate service.mostImportantKPIs with @(
     /*UI.DataPoint #ID : {
         $Type : 'UI.DataPointType',
@@ -116,7 +133,8 @@ annotate service.mostImportantKPIs with @(
     UI.SelectionFields : [
         BusinessUnit,
         Role,
-        Country
+        Country,
+        Platform
     ],
     
     UI.SelectionVariant #numberofcoursesSV : {

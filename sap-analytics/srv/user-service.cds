@@ -25,7 +25,8 @@ service UserService
         [
             role,
             country,
-            businessUnit
+            businessUnit,
+            platform
         ],
         AggregatableProperties :
         [
@@ -59,28 +60,15 @@ service UserService
             @Aggregation.default : #average;
     }
 
-    annotate mostImportantKPIs1
-    {
-        kpiaveragecompletionrate
-            @Aggregation.default : #average;
-        kpinumberofcompletedcourses
-            @Aggregation.default : #countdistinct;
-        kpinumberofcourses
-            @Aggregation.default : #countdistinct;
-        kpinumberoflearners
-            @Aggregation.default : #countdistinct;
-        kpinumberofstartedcourses
-            @Aggregation.default : #countdistinct;
-    }
-
-    annotate mostImportantKPIs1 with @Aggregation.ApplySupported : 
+    annotate mostImportantKPIs with @Aggregation.ApplySupported : 
     {
         $Type : 'Aggregation.ApplySupportedType',
         GroupableProperties :
         [
             BusinessUnit,
             Role,
-            Country
+            Country,
+            Platform
         ],
         AggregatableProperties :
         [
@@ -131,6 +119,7 @@ service UserService
         select
         from db.EnrolledIn;
 
+    @cds.redirection.target
     entity Courses as
         projection on db.Courses;
 
@@ -153,13 +142,14 @@ service UserService
         visitedDate,
         lastVisit,
         businessUnit,
+        enrolledCourses.course.platform as platform: String,
         count(distinct enrolledCourses.courseID) as numberofcourses : Integer,
         count(enrolledCourses.startedDate) as numberofstartedcourses : Integer,
         count(enrolledCourses.completionDate) as numberofcompletedcourses : Integer,
         avg(enrolledCourses.completionRate) as averagecompletionrate : Double,
     }
     where enrolledCourses.learnerID = ID
-    group by ID, firstName, lastName, role, country, email, businessUnit, visitedDate, lastVisit;
+    group by ID, firstName, lastName, role, country, email, businessUnit, visitedDate, lastVisit, enrolledCourses.course.platform;
 
     entity UserAnalysisProjection as projection on UserAnalysis
     {
@@ -187,6 +177,8 @@ service UserService
         select distinct email
         from db.Learner;
 
+    entity coursePlatform as select distinct platform from db.Courses;
+
     @Aggregation.CustomAggregate#kpiaveragecompletionrate : 'Edm.Decimal'
     @Aggregation.CustomAggregate#kpiavgcourseduration : 'Edm.Decimal'
     @Aggregation.CustomAggregate#kpinumberofcompletedcourses : 'Edm.Int32'
@@ -199,26 +191,13 @@ service UserService
         learner.role as Role,
         learner.country as Country,
         learner.businessUnit as BusinessUnit,
+        course.platform as Platform,
         count(courseID) as kpinumberofcourses : Integer,
         count(completionDate) as kpinumberofcompletedcourses : Integer,
         count(startedDate) as kpinumberofstartedcourses : Integer,
         avg(completionRate) as kpiaveragecompletionrate : Double,
         count(distinct learner.email) as kpinumberoflearners : Integer,
     }
-    group by learner.businessUnit, learner.role, learner.country;
+    group by learner.businessUnit, learner.role, learner.country, course.platform;
 
-    @Aggregation.CustomAggregate#kpiaveragecompletionrate : 'Edm.Decimal'
-    @Aggregation.CustomAggregate#kpinumberofcompletedcourses : 'Edm.Int64'
-    @Aggregation.CustomAggregate#kpinumberofcourses : 'Edm.Int64'
-    @Aggregation.CustomAggregate#kpinumberoflearners : 'Edm.Int64'
-    @Aggregation.CustomAggregate#kpinumberofstartedcourses : 'Edm.Int64'
-    entity mostImportantKPIs1 as projection on mostImportantKPIs
-    {
-        *,
-        kpinumberofcourses,
-        kpinumberofcompletedcourses,
-        kpinumberofstartedcourses,
-        kpiaveragecompletionrate,
-        kpinumberoflearners
-    };
 }

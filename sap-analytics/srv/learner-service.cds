@@ -38,7 +38,7 @@ service LearnerService
         count(enrolledCourses.completionDate) as numberofcompletedcourses : Integer,
         avg(enrolledCourses.completionRate) as averagecompletionrate : Double,
     }
-    where email = 'ga83qum@mytum.de'
+    where email = $user
     group by ID, firstName, lastName, role, country, email, visitedDate, lastVisit, businessUnit;
 
     entity EnrolledIn as

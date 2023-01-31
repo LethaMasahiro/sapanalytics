@@ -1,5 +1,7 @@
 using UserService as service from '../../srv/user-service';
 
+
+//List Columns
 annotate service.UserAnalysis with @(
     UI.LineItem : [
         {
@@ -72,13 +74,8 @@ annotate service.UserAnalysis with @(
 
 
 
-annotate service.UserAnalysis with @(
-    UI.DataPoint #averagecompletionrate : {
-        Value : averagecompletionrate,
-        Visualization : #Progress,
-        TargetValue : 100,
-    }
-);
+
+//Big Pie Chart on the list page
 annotate service.UserAnalysis with @(
     UI.Chart #alpChart : {
         $Type : 'UI.ChartDefinitionType',
@@ -92,6 +89,8 @@ annotate service.UserAnalysis with @(
         Title : '{i18n>NumberOfCourses}',
     }
 );
+
+//Header Info
 annotate service.UserAnalysis with @(
     UI.HeaderInfo : {
         TypeName : '{i18n>Learner}',
@@ -103,12 +102,9 @@ annotate service.UserAnalysis with @(
         ImageUrl : businessUnit,
     }
 );
+
+//Header Facets
 annotate service.UserAnalysis with @(
-    UI.DataPoint #firstName : {
-        $Type : 'UI.DataPointType',
-        Value : firstName,
-        Title : 'First Name',
-    },
     UI.HeaderFacets : [
         {
             $Type : 'UI.ReferenceFacet',
@@ -118,7 +114,7 @@ annotate service.UserAnalysis with @(
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'firstName',
-            Target : '@UI.DataPoint#firstName1',
+            Target : '@UI.DataPoint#firstName',
         },
         {
             $Type : 'UI.ReferenceFacet',
@@ -133,12 +129,12 @@ annotate service.UserAnalysis with @(
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'businessUnit',
-            Target : '@UI.DataPoint#businessUnit1',
+            Target : '@UI.DataPoint#businessUnit',
         },
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'country',
-            Target : '@UI.DataPoint#country1',
+            Target : '@UI.DataPoint#country',
         },
         {
             $Type : 'UI.ReferenceFacet',
@@ -165,12 +161,9 @@ annotate service.UserAnalysis with @(
             ID : 'EnrolledCourses',
             Target : 'enrolledCourses/@UI.LineItem#EnrolledCourses',
         },],
-    UI.FieldGroup #Helloooo : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-        ],
-    }
 );
+
+//Progress Bar on the learner obect page
 annotate service.UserAnalysis with @(
     UI.DataPoint #progress : {
         $Type : 'UI.DataPointType',
@@ -178,9 +171,11 @@ annotate service.UserAnalysis with @(
         Title : 'Average Completion Rate',
         TargetValue : 100,
         Visualization : #Progress,
-    }
+    },
 );
-annotate service.EnrolledIn with @(
+
+
+/*annotate service.EnrolledIn with @(
     UI.DataPoint #completionRate : {
         Value : completionRate,
     },
@@ -201,8 +196,20 @@ annotate service.EnrolledIn with @(
             learner.businessUnit,
         ],
     }
-);
+);*/
+
+//data points
 annotate service.UserAnalysis with @(
+    UI.DataPoint #firstName : {
+        $Type : 'UI.DataPointType',
+        Value : firstName,
+        Title : 'First Name',
+    },
+    UI.DataPoint #lastName : {
+        $Type : 'UI.DataPointType',
+        Value : lastName,
+        Title : 'Last Name',
+    },
     UI.DataPoint #country : {
         $Type : 'UI.DataPointType',
         Value : country,
@@ -228,21 +235,34 @@ annotate service.UserAnalysis with @(
         Value : ID,
         Title : 'ID',
     },
+    UI.DataPoint #email : {
+        $Type : 'UI.DataPointType',
+        Value : email,
+        Title : 'Email',
+    },
     UI.DataPoint #numberofcourses : {
         $Type : 'UI.DataPointType',
-        Value : ID,
+        Value : numberofcourses,
         Title : 'Number of Courses',
     },
     UI.DataPoint #numberofstartedcourses : {
         $Type : 'UI.DataPointType',
-        Value : ID,
+        Value : numberofstartedcourses,
         Title : 'Number of Started Courses',
+    },
+    UI.DataPoint #numberofcompletedcourses : {
+        $Type : 'UI.DataPointType',
+        Value : numberofcompletedcourses,
+        Title : 'Number of Completed Courses',
+    },
+    UI.DataPoint #avgcompletionrate : {
+        $Type : 'UI.DataPointType',
+        Value : averagecompletionrate,
+        Title : 'Average Completion Rate',
     }
 );
-annotate service.UserAnalysis with @(
-    UI.Identification : [
-    ]
-);
+
+/*
 annotate service.UserAnalysis with @(
     UI.FieldGroup #Progressbar : {
         $Type : 'UI.FieldGroupType',
@@ -253,7 +273,9 @@ annotate service.UserAnalysis with @(
                 Label : 'Average Completion Rate',
             },],
     }
-);
+);*/
+
+//learner object page list column names
 annotate service.EnrolledIn with @(
     UI.LineItem #EnrolledCourses : [
         {
@@ -285,17 +307,20 @@ annotate service.EnrolledIn with @(
             $Type : 'UI.DataField',
             Value : completionRate,
             Label : 'Completion Rate',
-        },/*{
+        },{
             $Type : 'UI.DataField',
-            Value : completedCourseItem,
-            Label : 'Completed Course Items',
-        },*/]
+            Value : minutesVideoConsumed,
+            Label : 'Minutes Video Consumed',
+        },]
 );
+
+//available filters
 annotate service.UserAnalysis with @(
     UI.SelectionFields : [
         businessUnit,
         country,
-        role
+        role,
+        platform
     ]
 );
 annotate service.UserAnalysis with {
@@ -306,42 +331,16 @@ annotate service.UserAnalysis with {
     averagecompletionrate @Common.Label : 'Average Completion Rate';
     visitedDate @Common.Label : 'Visited Days';
     role @Common.Label : 'Role';
-    name @Common.Label : 'Name';
+    firstName @Common.Label : 'First Name';
+    lastName @Common.Label : 'Last Name';
+    country @Common.Label : 'Country';
+    platform @Common.Label: 'Platform';
 };
 
+
+//visual filter started courses
 annotate service.UserAnalysis with @(
-    UI.SelectionVariant #SVForStatus : {
-    
-    SelectOptions : [
-        {
-            $Type : 'UI.SelectOptionType',
-            PropertyName : numberofstartedcourses,
-            Ranges : [
-                {
-                    $Type : 'UI.SelectionRangeType',
-                    Sign : #E,
-                    Option : #EQ,
-                    Low : 'D'
-                }
-            ]
-        },
-        {
-            $Type : 'UI.SelectOptionType',
-            PropertyName : numberofcompletedcourses,
-            Ranges : [
-                {
-                    $Type : 'UI.SelectionRangeType',
-                    Sign : #E,
-                    Option : #EQ,
-                    Low : 'HT-1502'
-                }
-            ]
-        },
-    ]
-    }   
-);
-annotate service.UserAnalysis with @(
-    UI.Chart #visualFilter : {
+    UI.Chart #numberofstartedcoursesChart : {
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
         Dimensions : [
@@ -351,33 +350,57 @@ annotate service.UserAnalysis with @(
             numberofstartedcourses,
         ],
     },
-    UI.PresentationVariant #visualFilter : {
+    UI.PresentationVariant #numberofstartedcoursesPV : {
         $Type : 'UI.PresentationVariantType',
         Visualizations : [
-            '@UI.Chart#visualFilter',
+            '@UI.Chart#numberofstartedcoursesChart',
         ],
+    },
+    UI.SelectionVariant #numberofstartedcoursesSV : {
+        Parameters : [],
+        SelectOptions : [
+            {
+                $Type : 'UI.SelectOptionType',
+                PropertyName : businessUnit,
+                Ranges : [
+                    {
+                        $Type : 'UI.SelectionRangeType',
+                        Sign : #E,
+                        Option : #EQ,
+                        Low : 'mgs.O.BU.CoreInsurance.INT'
+                    }
+                ]
+            },
+            {
+                $Type : 'UI.SelectOptionType',
+                PropertyName : businessUnit,
+                Ranges : [
+                    {
+                        $Type : 'UI.SelectionRangeType',
+                        Sign : #E,
+                        Option : #EQ,
+                        Low : 'mgs.O.BU.Finance.INT'
+                    }
+                ]
+            },
+            {
+                $Type : 'UI.SelectOptionType',
+                PropertyName : businessUnit,
+                Ranges : [
+                    {
+                        $Type : 'UI.SelectionRangeType',
+                        Sign : #E,
+                        Option : #EQ,
+                        Low : 'mgs.O.BU.Analytics.INT'
+                    }
+                ]
+            }
+        ]
     }
 );
-annotate service.UserAnalysis with {
-  @Common.ValueList #VisualFilter : {
-    Label : 'Number of Started Courses',
-    CollectionPath : 'UserAnalysis',
-    SearchSupported : false,
-    PresentationVariantQualifier : 'visualFilter',
-    SelectionVariantQualifier : 'SVForStatus',
-    Parameters : [
-        {
-            $Type : 'Common.ValueListParameterInOut',
-            LocalDataProperty : numberofstartedcourses,
-            ValueListProperty : 'numberofstartedcourses'
-        }
-    ]
-  }
-  numberofstartedcourses
-};
 
 annotate service.UserAnalysis with {
-    numberofstartedcourses @Common.ValueList #visualFilter : {
+    numberofstartedcourses @Common.ValueList #numberofstartedcoursesFilter : {
         Label : 'Number of Started Courses',
         $Type : 'Common.ValueListType',
         CollectionPath : 'UserAnalysis',
@@ -388,11 +411,15 @@ annotate service.UserAnalysis with {
                 ValueListProperty : 'numberofstartedcourses',
             },
         ],
-        PresentationVariantQualifier : 'visualFilter',
+        PresentationVariantQualifier : 'numberofstartedcoursesPV',
+        SelectionVariantQualifier : 'numberofstartedcoursesSV'
     }
 };
+
+
+//completed courses visual filter
 annotate service.UserAnalysis with @(
-    UI.Chart #visualFilter1 : {
+    UI.Chart #numberofcompletedcoursesChart : {
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
         Dimensions : [
@@ -402,29 +429,75 @@ annotate service.UserAnalysis with @(
             numberofcompletedcourses,
         ],
     },
-    UI.PresentationVariant #visualFilter1 : {
+    UI.PresentationVariant #numberofcompletedcoursesPV : {
         $Type : 'UI.PresentationVariantType',
         Visualizations : [
-            '@UI.Chart#visualFilter1',
+            '@UI.Chart#numberofcompletedcoursesChart',
         ],
-    }
+    },
+    UI.SelectionVariant #numberofcompletedcoursesSV : {
+    Parameters : [],
+    SelectOptions : [
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : businessUnit,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'mgs.O.BU.CoreInsurance.INT'
+                }
+            ]
+        },
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : businessUnit,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'mgs.O.BU.Finance.INT'
+                }
+            ]
+        },
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : businessUnit,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'mgs.O.BU.Analytics.INT'
+                }
+            ]
+        }
+    ]
+}
 );
+
 annotate service.UserAnalysis with {
-    numberofcompletedcourses @Common.ValueList #visualFilter : {
+    numberofcompletedcourses @Common.ValueList #numberofcompletedcoursesFilter : {
         $Type : 'Common.ValueListType',
         CollectionPath : 'UserAnalysis',
+        SearchSupported : false,
         Parameters : [
             {
-                $Type : 'Common.ValueListParameterOut',
+                $Type : 'Common.ValueListParameterInOut',
                 LocalDataProperty : numberofcompletedcourses,
                 ValueListProperty : 'numberofcompletedcourses',
             },
         ],
-        PresentationVariantQualifier : 'visualFilter1',
+        PresentationVariantQualifier : 'numberofcompletedcoursesPV',
+        SelectionVariantQualifier : 'numberofcompletedcoursesSV'
     }
 };
+
+//average completion rate visual filter
 annotate service.UserAnalysis with @(
-    UI.Chart #visualFilter2 : {
+    UI.Chart #avgcompletionrateChart : {
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
         Dimensions : [
@@ -434,29 +507,73 @@ annotate service.UserAnalysis with @(
             averagecompletionrate,
         ],
     },
-    UI.PresentationVariant #visualFilter2 : {
+    UI.PresentationVariant #avgcompletionratePV : {
         $Type : 'UI.PresentationVariantType',
         Visualizations : [
-            '@UI.Chart#visualFilter2',
+            '@UI.Chart#avgcompletionrateChart',
         ],
-    }
+    },
+    UI.SelectionVariant #avgcompletionrateSV : {
+    Parameters : [],
+    SelectOptions : [
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : businessUnit,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'NA'
+                }
+            ]
+        },
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : businessUnit,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'mgs.O.BU.Finance.INT'
+                }
+            ]
+        },
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : businessUnit,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'mgs.O.BU.Analytics.INT'
+                }
+            ]
+        }
+    ]
+}
 );
 annotate service.UserAnalysis with {
-    averagecompletionrate @Common.ValueList #visualFilter : {
+    averagecompletionrate @Common.ValueList #avgcompletionrateFilter : {
         $Type : 'Common.ValueListType',
         CollectionPath : 'UserAnalysis',
         Parameters : [
             {
                 $Type : 'Common.ValueListParameterInOut',
-                LocalDataProperty : averagecompletionrate,
+                LocalDataProperty : businessUnit,
                 ValueListProperty : 'businessUnit',
             },
         ],
-        PresentationVariantQualifier : 'visualFilter2',
+        PresentationVariantQualifier : 'avgcompletionratePV',
+        SelectionVariantQualifier : 'avgcompletionrateSV'
     }
 };
+
+//visited date visual filter
 annotate service.UserAnalysis with @(
-    UI.Chart #visualFilter3 : {
+    UI.Chart #visiteddaysChart : {
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
         Dimensions : [
@@ -466,82 +583,71 @@ annotate service.UserAnalysis with @(
             visitedDate,
         ],
     },
-    UI.PresentationVariant #visualFilter3 : {
+    UI.PresentationVariant #visiteddaysPV : {
         $Type : 'UI.PresentationVariantType',
         Visualizations : [
-            '@UI.Chart#visualFilter3',
+            '@UI.Chart#visiteddaysChart',
         ],
-    }
+    },
+    UI.SelectionVariant #visiteddaysSV : {
+    Parameters : [],
+    SelectOptions : [
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : businessUnit,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'mgs.O.BU.CoreInsurance.INT'
+                }
+            ]
+        },
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : businessUnit,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'mgs.O.BU.Finance.INT'
+                }
+            ]
+        },
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : businessUnit,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #E,
+                    Option : #EQ,
+                    Low : 'mgs.O.BU.Analytics.INT'
+                }
+            ]
+        }
+    ]
+}
 );
 annotate service.UserAnalysis with {
-    visitedDate @Common.ValueList #visualFilter : {
+    visitedDate @Common.ValueList #visiteddaysFilter : {
         $Type : 'Common.ValueListType',
         CollectionPath : 'UserAnalysis',
         Parameters : [
             {
-                $Type : 'Common.ValueListParameterIn',
-                LocalDataProperty : visitedDate,
-                ValueListProperty : 'visitedDate',
-            },
-            {
-                $Type : 'Common.ValueListParameterOut',
+                $Type : 'Common.ValueListParameterInOut',
                 LocalDataProperty : businessUnit,
                 ValueListProperty : 'businessUnit',
             },
         ],
-        PresentationVariantQualifier : 'visualFilter3',
+        PresentationVariantQualifier : 'visiteddaysPV',
+        SelectionVariantQualifier : 'visiteddaysSV'
     }
 };
-annotate service.UserAnalysis with @(
-    UI.FieldGroup #LastName : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-        ],
-    }
-);
-annotate service.UserAnalysis with @(
-    UI.FieldGroup #Email : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-        ],
-    }
-);
-annotate service.UserAnalysis with @(
-    UI.DataPoint #country1 : {
-        $Type : 'UI.DataPointType',
-        Value : country,
-        Title : 'Country',
-    }
-);
-annotate service.UserAnalysis with @(
-    UI.DataPoint #lastName : {
-        $Type : 'UI.DataPointType',
-        Value : lastName,
-        Title : 'Last Name',
-    }
-);
-annotate service.UserAnalysis with @(
-    UI.DataPoint #email : {
-        $Type : 'UI.DataPointType',
-        Value : email,
-        Title : 'Email',
-    },
-    UI.DataPoint #businessUnit1 : {
-        $Type : 'UI.DataPointType',
-        Value : businessUnit,
-        Title : 'Business Unit',
-    }
-);
-annotate service.UserAnalysis with @(
-    UI.DataPoint #firstName1 : {
-        $Type : 'UI.DataPointType',
-        Value : firstName,
-        Title : 'First Name',
-    }
-);
-annotate service.UserAnalysis with {
-    country @Common.Label : 'Country'
-};
+
+//filter drop down
 annotate service.UserAnalysis with {
     role @(Common.ValueList : {
             $Type : 'Common.ValueListType',
@@ -584,16 +690,23 @@ annotate service.UserAnalysis with {
         },
         Common.ValueListWithFixedValues : true
 )};
-
 annotate service.UserAnalysis with {
-    role @Common.Text : {
-            $value : ID,
-            ![@UI.TextArrangement] : #TextSeparate,
-        }
-};
-annotate service.learnerRoles with {
-    ID @Common.Text : role
-};
+    platform @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'coursePlatform',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : platform,
+                    ValueListProperty : 'platform',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+
+
+//Datapoints for Course detail view
 annotate service.EnrolledIn with @(
     UI.DataPoint #courseID : {
         $Type : 'UI.DataPointType',
@@ -609,22 +722,22 @@ annotate service.EnrolledIn with @(
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'title',
-            Target : 'course/@UI.DataPoint#title1',
+            Target : 'course/@UI.DataPoint#title',
         },
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'category',
-            Target : 'course/@UI.DataPoint#category1',
+            Target : 'course/@UI.DataPoint#category',
         },
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'duration',
-            Target : 'course/@UI.DataPoint#duration1',
+            Target : 'course/@UI.DataPoint#duration',
         },
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'platform',
-            Target : 'course/@UI.DataPoint#platform1',
+            Target : 'course/@UI.DataPoint#platform',
         },
         {
             $Type : 'UI.ReferenceFacet',
@@ -637,53 +750,24 @@ annotate service.Courses with @(
     UI.DataPoint #category : {
         $Type : 'UI.DataPointType',
         Value : category,
-        Title : 'category',
+        Title : 'Category',
     },
     UI.DataPoint #completionRate : {
         $Type : 'UI.DataPointType',
         Value : completionRate,
-        Title : 'completionRate',
+        Title : 'Completion Rate',
     },
     UI.DataPoint #duration : {
         $Type : 'UI.DataPointType',
         Value : duration,
-        Title : 'duration',
+        Title : 'Duration in minutes',
     },
     UI.DataPoint #platform : {
         $Type : 'UI.DataPointType',
         Value : platform,
-        Title : 'platform',
+        Title : 'Platform',
     },
     UI.DataPoint #title : {
-        $Type : 'UI.DataPointType',
-        Value : title,
-        Title : 'title',
-    }
-);
-annotate service.Courses with @(
-    UI.DataPoint #platform1 : {
-        $Type : 'UI.DataPointType',
-        Value : platform,
-        Title : 'Platform',
-    }
-);
-annotate service.Courses with @(
-    UI.DataPoint #category1 : {
-        $Type : 'UI.DataPointType',
-        Value : category,
-        Title : 'Category',
-    },
-    UI.DataPoint #duration1 : {
-        $Type : 'UI.DataPointType',
-        Value : duration,
-        Title : 'Duration',
-    },
-    UI.DataPoint #ID : {
-        $Type : 'UI.DataPointType',
-        Value : ID,
-        Title : 'ID',
-    },
-    UI.DataPoint #title1 : {
         $Type : 'UI.DataPointType',
         Value : title,
         Title : 'Title',
