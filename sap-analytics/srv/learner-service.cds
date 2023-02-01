@@ -7,6 +7,7 @@ using { sapanalytics.db as db } from '../db/schema';
 @Aggregation.CustomAggregate#numberofcourses : 'Edm.Int64'
 @Aggregation.CustomAggregate#numberofstartedcourses : 'Edm.Int64'
 @Aggregation.CustomAggregate#visitedDate : 'Edm.Int32'
+@(requires : ['User'])
 service LearnerService
 {
     @odata.draft.enabled

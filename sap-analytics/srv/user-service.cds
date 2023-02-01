@@ -4,7 +4,6 @@ using { sapanalytics.db as db } from '../db/schema';
 @path : 'user'
 service UserService
 {
-    //aggregates for analytics page
     annotate UserAnalysis
     {
         visitedDate
@@ -49,9 +48,6 @@ service UserService
         ]
     };
 
-
-
-    //aggregates for manager dashboard
     annotate mostImportantKPIs
     {
         kpinumberofcourses
@@ -61,7 +57,7 @@ service UserService
         kpinumberofstartedcourses
             @Aggregation.default : #countdistinct;
         kpiaveragecompletionrate
-            @Aggregation.default : #sum;
+            @Aggregation.default : #average;
     }
 
     annotate mostImportantKPIs with @Aggregation.ApplySupported : 
@@ -127,14 +123,10 @@ service UserService
     entity Courses as
         projection on db.Courses;
 
-
-    //for the analytics page
-    @Aggregation.CustomAggregate#averagecompletionrate : 'Edm.Int64'
     @Aggregation.CustomAggregate#numberofcompletedcourses : 'Edm.Int64'
     @Aggregation.CustomAggregate#numberofcourses : 'Edm.Int64'
     @Aggregation.CustomAggregate#numberofstartedcourses : 'Edm.Int64'
     @Aggregation.CustomAggregate#visitedDate : 'Edm.Int32'
-    @Aggregation.CustomAggregate#minutesvideoconsumed : 'Edm.Int64'
     entity UserAnalysis as select
     from db.Learner
     {
@@ -155,7 +147,6 @@ service UserService
         count(enrolledCourses.startedDate) as numberofstartedcourses : Integer,
         count(enrolledCourses.completionDate) as numberofcompletedcourses : Integer,
         avg(enrolledCourses.completionRate) as averagecompletionrate : Double,
-        sum(enrolledCourses.minutesVideoConsumed) as minutesvideoconsumed : Double
     }
     where enrolledCourses.learnerID = ID
     group by ID, firstName, lastName, role, country, email, businessUnit, visitedDate, lastVisit, enrolledCourses.course.platform;
@@ -170,8 +161,6 @@ service UserService
         averagecompletionrate
     };
 
-
-    //selection for predefined filters
     entity learnerRoles as
         select distinct role
         from db.Learner;
@@ -190,15 +179,12 @@ service UserService
 
     entity coursePlatform as select distinct platform from db.Courses;
 
-
-
-    //for the manager dashboard
     @Aggregation.CustomAggregate#kpiaveragecompletionrate : 'Edm.Decimal'
     @Aggregation.CustomAggregate#kpiavgcourseduration : 'Edm.Decimal'
-    @Aggregation.CustomAggregate#kpinumberofcompletedcourses : 'Edm.Int64'
-    @Aggregation.CustomAggregate#kpinumberofcourses : 'Edm.Int64'
-    @Aggregation.CustomAggregate#kpinumberoflearners : 'Edm.Int64'
-    @Aggregation.CustomAggregate#kpinumberofstartedcourses : 'Edm.Int64'
+    @Aggregation.CustomAggregate#kpinumberofcompletedcourses : 'Edm.Int32'
+    @Aggregation.CustomAggregate#kpinumberofcourses : 'Edm.Int32'
+    @Aggregation.CustomAggregate#kpinumberoflearners : 'Edm.Int32'
+    @Aggregation.CustomAggregate#kpinumberofstartedcourses : 'Edm.Int32'
     entity mostImportantKPIs as select
     from EnrolledIn
     {
@@ -211,7 +197,6 @@ service UserService
         count(startedDate) as kpinumberofstartedcourses : Integer,
         avg(completionRate) as kpiaveragecompletionrate : Double,
         count(distinct learner.email) as kpinumberoflearners : Integer,
-        sum(minutesVideoConsumed) as minutesvideoconsumed: Integer
     }
     group by learner.businessUnit, learner.role, learner.country, course.platform;
 
