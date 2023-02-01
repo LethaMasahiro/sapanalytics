@@ -16,6 +16,8 @@ service UserService
             @Aggregation.default : #countdistinct;
         averagecompletionrate
             @Aggregation.default : #average;
+        minutesvideoconsumed
+            @Aggregation.default : #sum;
     }
 
     annotate UserAnalysis with @Aggregation.ApplySupported : 
@@ -44,6 +46,9 @@ service UserService
             },
             {
                 Property : averagecompletionrate
+            },
+            {
+                Property : minutesvideoconsumed
             }
         ]
     };
@@ -58,6 +63,8 @@ service UserService
             @Aggregation.default : #countdistinct;
         kpiaveragecompletionrate
             @Aggregation.default : #average;
+        minutesvideoconsumed
+            @Aggregation.default : #sum;
     }
 
     annotate mostImportantKPIs with @Aggregation.ApplySupported : 
@@ -86,6 +93,9 @@ service UserService
             },
             {
                 Property : kpinumberoflearners
+            },
+            {
+                Property : minutesvideoconsumed
             }
         ]
     };
@@ -124,6 +134,8 @@ service UserService
         projection on db.Courses;
 
     @Aggregation.CustomAggregate#numberofcompletedcourses : 'Edm.Int64'
+    @Aggregation.CustomAggregate#averagecompletionrate : 'Edm.Int64'
+    @Aggregation.CustomAggregate#minutesvideoconsumed : 'Edm.Int64'
     @Aggregation.CustomAggregate#numberofcourses : 'Edm.Int64'
     @Aggregation.CustomAggregate#numberofstartedcourses : 'Edm.Int64'
     @Aggregation.CustomAggregate#visitedDate : 'Edm.Int32'
@@ -147,6 +159,7 @@ service UserService
         count(enrolledCourses.startedDate) as numberofstartedcourses : Integer,
         count(enrolledCourses.completionDate) as numberofcompletedcourses : Integer,
         avg(enrolledCourses.completionRate) as averagecompletionrate : Double,
+        sum(enrolledCourses.minutesVideoConsumed) as minutesvideoconsumed : Integer
     }
     where enrolledCourses.learnerID = ID
     group by ID, firstName, lastName, role, country, email, businessUnit, visitedDate, lastVisit, enrolledCourses.course.platform;
@@ -182,6 +195,7 @@ service UserService
     @Aggregation.CustomAggregate#kpiaveragecompletionrate : 'Edm.Decimal'
     @Aggregation.CustomAggregate#kpiavgcourseduration : 'Edm.Decimal'
     @Aggregation.CustomAggregate#kpinumberofcompletedcourses : 'Edm.Int32'
+    @Aggregation.CustomAggregate#minutesvideoconsumed : 'Edm.Int32'
     @Aggregation.CustomAggregate#kpinumberofcourses : 'Edm.Int32'
     @Aggregation.CustomAggregate#kpinumberoflearners : 'Edm.Int32'
     @Aggregation.CustomAggregate#kpinumberofstartedcourses : 'Edm.Int32'
@@ -197,6 +211,7 @@ service UserService
         count(startedDate) as kpinumberofstartedcourses : Integer,
         avg(completionRate) as kpiaveragecompletionrate : Double,
         count(distinct learner.email) as kpinumberoflearners : Integer,
+        sum(minutesVideoConsumed) as minutesvideoconsumed : Integer
     }
     group by learner.businessUnit, learner.role, learner.country, course.platform;
 
