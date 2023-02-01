@@ -125,6 +125,7 @@
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
+                            "initialLoad": "Enabled",
                             "entitySet": "LearnerInfo",
                             "variantManagement": "Page",
                             "navigation": {

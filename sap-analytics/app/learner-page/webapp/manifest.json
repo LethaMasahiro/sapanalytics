@@ -15,6 +15,18 @@
             "version": "1.8.5",
             "toolsId": "654f131b-f12f-461e-b9d2-ab2fe6f09c6e"
         },
+        "crossNavigation": {
+            "inbounds": {
+                "learnerbehavior-display": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "learnerpage",
+                    "action": "display"
+                }
+            }
+        },
         "dataSources": {
             "mainService": {
                 "uri": "/user/",
