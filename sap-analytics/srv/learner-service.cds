@@ -18,6 +18,8 @@ service LearnerService
         platform
     };
 
+
+    //personal information from the learner that is logged in
     @odata.draft.enabled
     entity LearnerInfo as select
     from db.Learner
@@ -33,19 +35,22 @@ service LearnerService
         businessUnit,
         enrolledCourses,
         startedCourses,
-        completedCourses,
+        completedCourses, 
+        enrolledCourses.lastAccessedDate as lastAccessedDate : String,
         count(enrolledCourses.courseID) as numberofcourses : Integer,
         count(enrolledCourses.startedDate) as numberofstartedcourses : Integer,
         count(enrolledCourses.completionDate) as numberofcompletedcourses : Integer,
         avg(enrolledCourses.completionRate) as averagecompletionrate : Double,
+        count(enrolledCourses.minutesVideoConsumed) as numberofvideosconsumed : Double
     }
     where email = $user
-    group by ID, firstName, lastName, role, country, email, visitedDate, lastVisit, businessUnit;
+    group by ID, firstName, lastName, role, country, email, visitedDate, lastVisit, businessUnit, enrolledCourses.lastAccessedDate;
 
     entity EnrolledIn as
         projection on db.EnrolledIn;
 }
 
+//aggregations for the object page
 annotate LearnerService with @Aggregation.ApplySupported : 
 {
     $Type : 'Aggregation.ApplySupportedType',
@@ -71,6 +76,9 @@ annotate LearnerService with @Aggregation.ApplySupported :
         },
         {
             Property : averagecompletionrate
+        },
+        {
+            Property : numberofvideosconsumed
         }
     ]
 };

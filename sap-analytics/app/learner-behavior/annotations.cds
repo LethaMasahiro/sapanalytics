@@ -1,7 +1,7 @@
 using UserService as service from '../../srv/user-service';
 
 
-//List Columns
+//List Columns for the Analytical List
 annotate service.UserAnalysis with @(
     UI.LineItem : [
         {
@@ -151,6 +151,11 @@ annotate service.UserAnalysis with @(
             ID : 'email',
             Target : '@UI.DataPoint#email',
         },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'minutesvideoconsumed',
+            Target : '@UI.DataPoint#numberofminutesconsumed',
+        },
     ]
 );
 annotate service.UserAnalysis with @(
@@ -174,31 +179,7 @@ annotate service.UserAnalysis with @(
     },
 );
 
-
-/*annotate service.EnrolledIn with @(
-    UI.DataPoint #completionRate : {
-        Value : completionRate,
-    },
-    UI.Chart #completionRate : {
-        ChartType : #Line,
-        Title : 'completionRate',
-        Measures : [
-            completionRate,
-        ],
-        MeasureAttributes : [
-            {
-                DataPoint : '@UI.DataPoint#completionRate',
-                Role : #Axis1,
-                Measure : completionRate,
-            },
-        ],
-        Dimensions : [
-            learner.businessUnit,
-        ],
-    }
-);*/
-
-//data points
+//data points for the learner detail page
 annotate service.UserAnalysis with @(
     UI.DataPoint #firstName : {
         $Type : 'UI.DataPointType',
@@ -259,21 +240,14 @@ annotate service.UserAnalysis with @(
         $Type : 'UI.DataPointType',
         Value : averagecompletionrate,
         Title : 'Average Completion Rate',
+    },
+    UI.DataPoint #numberofminutesconsumed : {
+        $Type : 'UI.DataPointType',
+        Value : minutesvideoconsumed,
+        Title : 'Consumed Video Minutes',
     }
 );
 
-/*
-annotate service.UserAnalysis with @(
-    UI.FieldGroup #Progressbar : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type : 'UI.DataField',
-                Value : averagecompletionrate,
-                Label : 'Average Completion Rate',
-            },],
-    }
-);*/
 
 //learner object page list column names
 annotate service.EnrolledIn with @(
@@ -323,6 +297,8 @@ annotate service.UserAnalysis with @(
         platform
     ]
 );
+
+//renaming of the data fields
 annotate service.UserAnalysis with {
     businessUnit @Common.Label : 'Business Unit';
     numberofstartedcourses @Common.Label : 'Number of Started Courses';
@@ -524,7 +500,7 @@ annotate service.UserAnalysis with @(
                     $Type : 'UI.SelectionRangeType',
                     Sign : #E,
                     Option : #EQ,
-                    Low : 'NA'
+                    Low : 'mgs.O.BU.CoreInsurance.INT'
                 }
             ]
         },
@@ -559,11 +535,12 @@ annotate service.UserAnalysis with {
     averagecompletionrate @Common.ValueList #avgcompletionrateFilter : {
         $Type : 'Common.ValueListType',
         CollectionPath : 'UserAnalysis',
+        SearchSupported : false,
         Parameters : [
             {
                 $Type : 'Common.ValueListParameterInOut',
-                LocalDataProperty : businessUnit,
-                ValueListProperty : 'businessUnit',
+                LocalDataProperty : averagecompletionrate,
+                ValueListProperty : 'averagecompletionrate',
             },
         ],
         PresentationVariantQualifier : 'avgcompletionratePV',
@@ -755,12 +732,12 @@ annotate service.Courses with @(
     UI.DataPoint #completionRate : {
         $Type : 'UI.DataPointType',
         Value : completionRate,
-        Title : 'Completion Rate',
+        Title : 'Whole Course Completion Rate',
     },
     UI.DataPoint #duration : {
         $Type : 'UI.DataPointType',
         Value : duration,
-        Title : 'Duration in minutes',
+        Title : 'Course Duration in minutes',
     },
     UI.DataPoint #platform : {
         $Type : 'UI.DataPointType',

@@ -111,7 +111,6 @@
             "config": {},
             "routes": [],
             "targets": {
-                "OverviewPage": {}
             }
         }
     },
@@ -128,7 +127,6 @@
                 "settings": {
                     "title": "Number of Courses",
                     "entitySet": "mostImportantKPIs",
-                    "subTitle": "by Business Unit",
                     "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofcoursesDP",
                     "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberofcoursesPV",
                     "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberofcourseskpichart",
@@ -141,11 +139,10 @@
                 "settings": {
                     "addODataSelect": false,
                     "title": "Number of Started Courses",
-                    "subTitle": "by Business Unit",
                     "entitySet": "mostImportantKPIs",
                     "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofstartedcourses",
                     "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberofstartedcourseskpichart",
-                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberofstartedcoursesPV"
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberofstartedcoursesPV"              
                 }
             },
             "card03": {
@@ -154,7 +151,6 @@
                 "settings": {
                     "addODataSelect": false,
                     "title": "Number of Completed Courses",
-                    "subTitle": "by Business Unit",
                     "entitySet": "mostImportantKPIs",
                     "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofcompletedcourses",
                     "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberofcompletedcourseschart",
@@ -167,7 +163,6 @@
                 "settings": {
                     "addODataSelect": false,
                     "title": "Number of Learners",
-                    "subTitle": "by Business Unit",
                     "entitySet": "mostImportantKPIs",
                     "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberoflearners",
                     "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberoflearnerschart",
@@ -179,16 +174,12 @@
                 "template": "sap.ovp.cards.v4.charts.analytical",
                 "settings": {
                     "addODataSelect": false,
-                    "title": "Average Course Completion Rate",
-                    "subTitle": "by Business Unit in Percent",
+                    "title": "Minutes of Consumed Videos",
                     "entitySet": "mostImportantKPIs",
-                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#averagecompletionrateDP",
-                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#averagecompletionratechart",
-                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#averagecompletionratePV",
-                    "defaultSpan": "auto",
-                    "measureAggregate": {
-                        "Axis1": "average"
-                    }
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#minutesvideoconsumedDP",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#minutesvideoconsumedChart",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#minutesvideoconsumedPV",
+                    "defaultSpan": "auto"
                 }
             }
         },
