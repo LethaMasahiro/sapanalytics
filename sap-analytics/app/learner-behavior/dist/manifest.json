@@ -170,23 +170,22 @@
                                     "filterFields": {
                                         "numberofstartedcourses": {
                                             "visualFilter": {
-                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#visualFilter"
-                                            },
-                                            "availability": "Default"
+                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#numberofstartedcoursesFilter"
+                                            }
                                         },
                                         "numberofcompletedcourses": {
                                             "visualFilter": {
-                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#visualFilter"
+                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#numberofcompletedcoursesFilter"
                                             }
                                         },
                                         "averagecompletionrate": {
                                             "visualFilter": {
-                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#visualFilter"
+                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#averagecompletionrateFilter"
                                             }
                                         },
                                         "visitedDate": {
                                             "visualFilter": {
-                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#visualFilter"
+                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#visiteddaysFilter"
                                             }
                                         }
                                     }

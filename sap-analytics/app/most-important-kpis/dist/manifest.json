@@ -110,7 +110,9 @@
         "routing": {
             "config": {},
             "routes": [],
-            "targets": {}
+            "targets": {
+                "OverviewPage": {}
+            }
         }
     },
     "sap.ovp": {
@@ -126,30 +128,67 @@
                 "settings": {
                     "title": "Number of Courses",
                     "entitySet": "mostImportantKPIs",
-                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofcoursesDP",
-                    "kpiAnnotationPath": "com.sap.vocabularies.UI.v1.KPI#numberofcoursesKPI",
                     "subTitle": "by Business Unit",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofcoursesDP",
                     "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberofcoursesPV",
                     "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberofcourseskpichart",
-                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#numberofcoursesId",
                     "addODataSelect": true
                 }
             },
             "card02": {
                 "model": "mainModel",
-                "template": "sap.ovp.cards.table",
+                "template": "sap.ovp.cards.v4.charts.analytical",
                 "settings": {
-                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberoflearners",
-                    "kpiAnnotationPath": "com.sap.vocabularies.UI.v1.KPI#numberoflearnersKPI",
-                    "addODataSelect": true,
-                    "title": "Learner Table",
+                    "addODataSelect": false,
+                    "title": "Number of Started Courses",
+                    "subTitle": "by Business Unit",
                     "entitySet": "mostImportantKPIs",
-                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberoflearnersPV",
-                    "annotationPath": "com.sap.vocabularies.UI.v1.KPI#numberoflearnersKPI",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofstartedcourses",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberofstartedcourseskpichart",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberofstartedcoursesPV"
+                }
+            },
+            "card03": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "addODataSelect": false,
+                    "title": "Number of Completed Courses",
+                    "subTitle": "by Business Unit",
+                    "entitySet": "mostImportantKPIs",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberofcompletedcourses",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberofcompletedcourseschart",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberofcompletedcoursesPV"
+                }
+            },
+            "card04": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "addODataSelect": false,
+                    "title": "Number of Learners",
+                    "subTitle": "by Business Unit",
+                    "entitySet": "mostImportantKPIs",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numberoflearners",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#numberoflearnerschart",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#numberoflearnersPV"
+                }
+            },
+            "card05": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "addODataSelect": false,
+                    "title": "Average Course Completion Rate",
+                    "subTitle": "by Business Unit in Percent",
+                    "entitySet": "mostImportantKPIs",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#averagecompletionrateDP",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#averagecompletionratechart",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#averagecompletionratePV",
                     "defaultSpan": "auto",
-                    "listFlavor": "standard",
-                    "listType": "extended",
-                    "selectionPresentationAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVatiant#numberoflearnersSV"
+                    "measureAggregate": {
+                        "Axis1": "average"
+                    }
                 }
             }
         },
@@ -159,7 +198,12 @@
         "chartSettings": {
             "showDataLabel": true
         },
-        "refreshIntervalInMinutes": 0.1
+        "refreshIntervalInMinutes": 0.1,
+        "filterSettings": {
+            "dateSettings": {
+                "selectedValues": "DATE"
+            }
+        }
     },
     "sap.fiori": {
         "registrationIds": [],
