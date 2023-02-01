@@ -151,11 +151,6 @@ annotate service.UserAnalysis with @(
             ID : 'email',
             Target : '@UI.DataPoint#email',
         },
-        {
-            $Type : 'UI.ReferenceFacet',
-            ID : 'minutesvideoconsumed',
-            Target : '@UI.DataPoint#numberofminutesconsumed',
-        },
     ]
 );
 annotate service.UserAnalysis with @(
