@@ -1,5 +1,7 @@
 using UserService as service from '../../srv/user-service';
 
+
+//Drop down of the filters
 annotate service.mostImportantKPIs with {
     BusinessUnit @(Common.ValueList : {
             $Type : 'Common.ValueListType',
@@ -61,13 +63,8 @@ annotate service.mostImportantKPIs with {
 )};
 
 
-
+//KPI for number of courses
 annotate service.mostImportantKPIs with @(
-    /*UI.DataPoint #ID : {
-        $Type : 'UI.DataPointType',
-        Title : 'ID',
-        Value : ID,
-    },*/
     UI.DataPoint #businessUnit : {
         $Type : 'UI.DataPointType',
         Title : 'Business Unit',
@@ -156,6 +153,8 @@ annotate service.mostImportantKPIs with @(
     },
 );
 
+
+//KPI for number of started courses
 annotate service.mostImportantKPIs with @(
     UI.DataPoint #numberofstartedcourses : {
         $Type : 'UI.DataPointType',
@@ -201,6 +200,8 @@ annotate service.mostImportantKPIs with @(
     },
 );
 
+
+//KPI for number of completed courses
 annotate service.mostImportantKPIs with @(
     UI.DataPoint #numberofcompletedcourses : {
         $Type : 'UI.DataPointType',
@@ -233,7 +234,7 @@ annotate service.mostImportantKPIs with @(
         ]
     },
     UI.PresentationVariant #numberofcompletedcoursesPV : {
-    MaxItems : 2,
+    MaxItems : 3,
     SortOrder : [
         {
             Property : kpinumberofcompletedcourses,
@@ -246,6 +247,9 @@ annotate service.mostImportantKPIs with @(
     },
 );
 
+
+
+//KPI for number of learners
 annotate service.mostImportantKPIs with @(
     UI.DataPoint #numberoflearners : {
         $Type : 'UI.DataPointType',
@@ -278,7 +282,7 @@ annotate service.mostImportantKPIs with @(
         ]
     },
     UI.PresentationVariant #numberoflearnersPV : {
-    MaxItems : 2,
+    MaxItems : 3,
     SortOrder : [
         {
             Property : kpinumberoflearners,
@@ -291,27 +295,29 @@ annotate service.mostImportantKPIs with @(
     },
 );
 
+
+//KPI minutes video consumed
 annotate service.mostImportantKPIs with @(
-    UI.DataPoint #averagecompletionrateDP : {
+    UI.DataPoint #minutesvideoconsumedDP : {
         $Type : 'UI.DataPointType',
-        Title : 'Average Course Completion Rate',
-        Value : kpiaveragecompletionrate,
+        Title : 'Minutes of consumed videos',
+        Value : minutesvideoconsumed,
     },
-    UI.Chart #averagecompletionratechart : {
+    UI.Chart #minutesvideoconsumedChart : {
         Title : 'Chart Info',
 
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Column,
-        Description : 'per Business Unit',
+        Description : 'in minutes',
         Measures: [
-            kpiaveragecompletionrate
+            minutesvideoconsumed
         ],
         Dimensions: [
             BusinessUnit
         ],
         MeasureAttributes : [
             {
-                Measure : kpiaveragecompletionrate,
+                Measure : minutesvideoconsumed,
                 Role : #Axis1
             }
         ],
@@ -322,16 +328,16 @@ annotate service.mostImportantKPIs with @(
             }
         ]
     },
-    UI.PresentationVariant #averagecompletionratePV : {
-    MaxItems : 2,
+    UI.PresentationVariant #minutesvideoconsumedPV : {
+    MaxItems : 3,
     SortOrder : [
         {
-            Property : kpiaveragecompletionrate,
+            Property : minutesvideoconsumed,
             Descending : true
         },
     ],
     Visualizations : [
-        '@UI.Chart#averagecompletionratechart'
+        '@UI.Chart#minutesvideoconsumedChart'
     ]
     },
 );

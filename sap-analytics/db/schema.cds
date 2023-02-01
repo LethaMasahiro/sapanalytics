@@ -5,25 +5,6 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
 
 
 
-// entity Learners: cuid, managed{
-//     key name: String not null;
-//     industry: String;
-//     country: String;
-// }
-
-// entity LearnersInfo : managed {
-//     key ID      : UUID  @(Core.Computed : true);
-//     role        : String;
-//     key name        : String;
-//     key email       : String;
-//     isDeactivated: Boolean;
-//     password    : String;
-//     occupation  : String;
-//     courses: Association to many Courses on courses.learner_ID = $self.ID;
-//     visiteddays : Integer;
-//     lastvisit   : Date;
-//   }
-
   entity Courses {
     key ID      : String  @(Core.Computed : true);
     title        : String;
@@ -33,20 +14,6 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
     platform: String;
     enrolledLearners: Association to many EnrolledIn on enrolledLearners.courseID = $self.ID;
   }
-
-  // entity T_Learner: managed {
-  //   key ID      : UUID  @(Core.Computed : true);
-  //   name : String;
-  //   isDeactivated : String;
-  //   email : String;
-  //   password : String;
-  // }
-
-  // entity T_EnrolledIn: managed {
-  //   key courseID: UUID @(Core.Computed : true);
-  //   learnerID: String;
-  //   completionRate: String;
-//}
 
   entity Manager {
     ID      : UUID  @(Core.Computed : true);
@@ -75,7 +42,6 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
     numberOfCompletedCourses: Integer;
     visitedDate: Integer;
     lastVisit: Date;
-    //businessUnit: Association to BusinessUnit {name};
   }
 
 
@@ -93,13 +59,4 @@ using {cuid, managed, sap.common.CodeList} from '@sap/cds/common';
     course: Association to Courses on course.ID=courseID;
     learner: Association to Learner on learner.ID = learnerID;
     minutesVideoConsumed: Double;
-    //completedCourseItem: Integer;
   }
-
-  // entity BusinessUnit {
-  //   description: String;
-  //   name: String;
-  //   key id: String;
-
-  // }
-

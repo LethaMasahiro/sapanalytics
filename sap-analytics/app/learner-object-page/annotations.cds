@@ -1,10 +1,12 @@
 using LearnerService as service from '../../srv/learner-service';
 
+
+//columns for the first list page
 annotate service.LearnerInfo with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Label : 'email',
+            Label : 'Email',
             Value : email,
         },
         {
@@ -14,21 +16,28 @@ annotate service.LearnerInfo with @(
         },
         {
             $Type : 'UI.DataField',
-            Label : 'firstName',
+            Label : 'First Name',
             Value : firstName,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'lastName',
+            Label : 'Last Name',
             Value : lastName,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'role',
+            Label : 'Business Unit',
+            Value : businessUnit,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Role',
             Value : role,
         },
     ]
 );
+
+//Field groups to display the personal data
 annotate service.LearnerInfo with @(
     UI.FieldGroup #GeneratedGroup1 : {
         $Type : 'UI.FieldGroupType',
@@ -40,63 +49,68 @@ annotate service.LearnerInfo with @(
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'firstName',
+                Label : 'First Name',
                 Value : firstName,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'lastName',
+                Label : 'Last Name',
                 Value : lastName,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'role',
+                Label : 'Role',
                 Value : role,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'country',
+                Label : 'Country',
                 Value : country,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'email',
+                Label : 'Email',
                 Value : email,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'visitedDate',
+                Label : 'Number of Visited Days',
                 Value : visitedDate,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'lastVisit',
+                Label : 'Last Visit',
                 Value : lastVisit,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'businessUnit',
+                Label : 'Business Unit',
                 Value : businessUnit,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'numberofcourses',
+                Label : 'Number of Courses',
                 Value : numberofcourses,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'numberofstartedcourses',
+                Label : 'Number of Started Courses',
                 Value : numberofstartedcourses,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'numberofcompletedcourses',
+                Label : 'Number of Completed Courses',
                 Value : numberofcompletedcourses,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'averagecompletionrate',
+                Label : 'Average Completion Rate in Percent',
                 Value : averagecompletionrate,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'Minutes of Videos Consumed',
+                Value : numberofvideosconsumed,
             },
         ],
     },
@@ -115,19 +129,27 @@ annotate service.LearnerInfo with @(
         },
     ]
 );
+
+//table columns for the learner's course list
 annotate service.EnrolledIn with @(
     UI.LineItem #enrolledcourses : [
         {
             $Type : 'UI.DataField',
             Value : courseID,
-            Label : 'courseID',
+            Label : 'Course ID',
         },{
             $Type : 'UI.DataField',
             Value : courseTitle,
-            Label : 'courseTitle',
+            Label : 'Course Title',
         },{
             $Type : 'UI.DataField',
             Value : platform,
-            Label : 'platform',
-        },]
+            Label : 'Platform',
+        },
+                {
+            $Type : 'UI.DataField',
+            Value : lastAccessedDate,
+            Label : 'Last Accessed Date',
+        },
+        ]
 );

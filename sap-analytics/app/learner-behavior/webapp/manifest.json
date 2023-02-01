@@ -180,7 +180,7 @@
                                         },
                                         "averagecompletionrate": {
                                             "visualFilter": {
-                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#averagecompletionrateFilter"
+                                                "valueList": "com.sap.vocabularies.Common.v1.ValueList#avgcompletionrateFilter"
                                             }
                                         },
                                         "visitedDate": {
