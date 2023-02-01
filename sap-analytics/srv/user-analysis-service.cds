@@ -1,6 +1,7 @@
 using { sapanalytics.db as db } from '../db/schema';
 using { UserService } from './user-service';
 
+@(requires : ['RiskManager'])
 extend service UserService {
     /*entity UserAnalysis as select from db.Learner
     {
